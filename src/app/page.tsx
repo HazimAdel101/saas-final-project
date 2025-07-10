@@ -6,7 +6,9 @@ import { services, Service } from '@/lib/servicesData';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Star, Grid3X3, List } from 'lucide-react';
+import { Grid3X3, List } from 'lucide-react';
+import Footer from '@/components/footer';
+import Navbar from '@/components/navbar';
 
 const filterCategories = [
   { id: 'most-popular', label: 'Most popular' },
@@ -31,46 +33,7 @@ export default function Home() {
 
   return (
     <div className='min-h-screen bg-gray-50'>
-      {/* Navigation */}
-      <nav className='sticky top-0 z-50 bg-white/80 shadow-sm backdrop-blur-md'>
-        <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
-          <div className='flex h-16 items-center justify-between'>
-            <div className='flex items-center'>
-              <div className='flex items-center space-x-2'>
-                <div className='flex h-8 w-8 items-center justify-center rounded-lg bg-blue-600'>
-                  <Star className='h-5 w-5 text-white' />
-                </div>
-                <span className='text-xl font-bold text-gray-900'>
-                  ExclusiveServices
-                </span>
-              </div>
-            </div>
-            <div className='hidden items-center space-x-8 md:flex'>
-              <a
-                href='#services'
-                className='text-gray-700 transition-colors hover:text-blue-600'
-              >
-                Services
-              </a>
-              <a
-                href='#about'
-                className='text-gray-700 transition-colors hover:text-blue-600'
-              >
-                About
-              </a>
-              <a
-                href='#contact'
-                className='text-gray-700 transition-colors hover:text-blue-600'
-              >
-                Contact
-              </a>
-              <Button className='bg-blue-600 hover:bg-blue-700'>
-                Get Started
-              </Button>
-            </div>
-          </div>
-        </div>
-      </nav>
+      <Navbar />
 
       {/* Header */}
       <div className='sticky top-16 z-40 border-b border-gray-200 bg-white'>
@@ -82,11 +45,10 @@ export default function Home() {
                 <Button
                   key={category.id}
                   variant={selectedFilter === category.id ? 'default' : 'ghost'}
-                  className={`rounded-full px-4 py-2 text-sm font-medium ${
-                    selectedFilter === category.id
-                      ? 'bg-gray-900 text-white hover:bg-gray-800'
-                      : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
-                  }`}
+                  className={`rounded-full px-4 py-2 text-sm font-medium ${selectedFilter === category.id
+                    ? 'bg-gray-900 text-white hover:bg-gray-800'
+                    : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
+                    }`}
                   onClick={() => setSelectedFilter(category.id)}
                 >
                   {category.label}
@@ -125,11 +87,10 @@ export default function Home() {
       <div className='flex-1 overflow-y-auto'>
         <div className='mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8'>
           <div
-            className={`grid gap-6 ${
-              viewMode === 'grid'
-                ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
-                : 'grid-cols-1'
-            }`}
+            className={`grid gap-6 ${viewMode === 'grid'
+              ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
+              : 'grid-cols-1'
+              }`}
           >
             {filteredServices.map((service) => (
               <Card
@@ -185,46 +146,7 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Footer */}
-      <footer className='mt-16 border-t border-gray-200 bg-white'>
-        <div className='mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8'>
-          <div className='flex flex-col items-center justify-between space-y-4 md:flex-row md:space-y-0'>
-            <div className='flex items-center space-x-2'>
-              <div className='flex h-6 w-6 items-center justify-center rounded-md bg-blue-600'>
-                <Star className='h-4 w-4 text-white' />
-              </div>
-              <span className='text-lg font-semibold text-gray-900'>
-                ExclusiveServices
-              </span>
-            </div>
-
-            <div className='flex items-center space-x-6 text-sm text-gray-600'>
-              <a
-                href='#privacy'
-                className='transition-colors hover:text-gray-900'
-              >
-                Privacy Policy
-              </a>
-              <a
-                href='#terms'
-                className='transition-colors hover:text-gray-900'
-              >
-                Terms of Service
-              </a>
-              <a
-                href='#support'
-                className='transition-colors hover:text-gray-900'
-              >
-                Support
-              </a>
-            </div>
-
-            <div className='text-sm text-gray-500'>
-              © 2024 ExclusiveServices. All rights reserved.
-            </div>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }
