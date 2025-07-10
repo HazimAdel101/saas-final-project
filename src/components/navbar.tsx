@@ -3,7 +3,7 @@ import { Button } from "./ui/button";
 
 export default function Navbar() {
     return (
-        <nav className='sticky top-0 z-50 bg-white/80 shadow-sm backdrop-blur-md'>
+        <nav className='sticky top-0 z-50 bg-white'>
             <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
                 <div className='flex h-16 items-center justify-between'>
                     <div className='flex items-center'>

@@ -1,13 +1,11 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 import {
   Star,
   Check,
-  ArrowLeft,
   ShoppingCart,
   CreditCard,
   Shield,
@@ -44,65 +42,13 @@ interface ProductDetailsClientProps {
 export default function ProductDetailsClient({
   service
 }: ProductDetailsClientProps) {
-  const router = useRouter();
-  // const [selectedPlan, setSelectedPlan] = useState<'basic' | 'premium'>('premium');
 
   const handlePurchase = () => {
-    // In a real app, this would redirect to a payment processor
     alert(`Redirecting to secure checkout for ${service.name}...`);
   };
 
   return (
     <div className='min-h-screen bg-gray-50'>
-      {/* Navigation */}
-      <nav className='sticky top-0 z-50 bg-white/80 shadow-sm backdrop-blur-md'>
-        <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
-          <div className='flex h-16 items-center justify-between'>
-            <div className='flex items-center'>
-              <Button
-                variant='ghost'
-                onClick={() => router.push('/')}
-                className='mr-4'
-              >
-                <ArrowLeft className='mr-2 h-4 w-4' />
-                Back
-              </Button>
-              <div className='flex items-center space-x-2'>
-                <div className='flex h-8 w-8 items-center justify-center rounded-lg bg-blue-600'>
-                  <Star className='h-5 w-5 text-white' />
-                </div>
-                <span className='text-xl font-bold text-gray-900'>
-                  ExclusiveServices
-                </span>
-              </div>
-            </div>
-            <div className='hidden items-center space-x-8 md:flex'>
-              <a
-                href='#services'
-                className='text-gray-700 transition-colors hover:text-blue-600'
-              >
-                Services
-              </a>
-              <a
-                href='#about'
-                className='text-gray-700 transition-colors hover:text-blue-600'
-              >
-                About
-              </a>
-              <a
-                href='#contact'
-                className='text-gray-700 transition-colors hover:text-blue-600'
-              >
-                Contact
-              </a>
-              <Button className='bg-blue-600 hover:bg-blue-700'>
-                Get Started
-              </Button>
-            </div>
-          </div>
-        </div>
-      </nav>
-
       <div className='mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8'>
         <div className='grid gap-8 lg:grid-cols-3'>
           {/* Main Content */}

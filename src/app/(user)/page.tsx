@@ -7,8 +7,6 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Grid3X3, List } from 'lucide-react';
-import Footer from '@/components/footer';
-import Navbar from '@/components/navbar';
 
 const filterCategories = [
   { id: 'most-popular', label: 'Most popular' },
@@ -33,13 +31,11 @@ export default function Home() {
 
   return (
     <div className='min-h-screen bg-gray-50'>
-      <Navbar />
 
-      {/* Header */}
       <div className='sticky top-16 z-40 border-b border-gray-200 bg-white'>
-        <div className='mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8'>
+        <div className='mx-auto max-w-7xl px-4 py-2 sm:px-6 lg:px-8'>
           {/* Filter Tabs */}
-          <div className='mb-6 flex items-center justify-between'>
+          <div className='flex items-center justify-between'>
             <div className='flex space-x-1'>
               {filterCategories.map((category) => (
                 <Button
@@ -85,7 +81,7 @@ export default function Home() {
 
       {/* Services Grid */}
       <div className='flex-1 overflow-y-auto'>
-        <div className='mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8'>
+        <div className='mx-auto max-w-7xl px-4 py-2 sm:px-6 lg:px-8'>
           <div
             className={`grid gap-6 ${viewMode === 'grid'
               ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
@@ -145,8 +141,6 @@ export default function Home() {
           </div>
         </div>
       </div>
-
-      <Footer />
     </div>
   );
 }
