@@ -1,37 +1,31 @@
-'use client';
+'use client'
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { services, Service } from '@/lib/servicesData';
-import { Card, CardContent } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Grid3X3, List } from 'lucide-react';
+import { useState } from 'react'
+
+import { services } from '@/lib/servicesData'
+import { Button } from '@/components/ui/button'
+import { Grid3X3, List } from 'lucide-react'
+import ProductCard from '@/components/product-card'
+import Link from 'next/link'
 
 const filterCategories = [
   { id: 'most-popular', label: 'Most popular' },
   { id: 'premium', label: 'Premium' },
   { id: 'free', label: 'Free' },
   { id: 'recently-added', label: 'Recently added' }
-];
+]
 
 export default function Home() {
-  const router = useRouter();
-  const [selectedFilter, setSelectedFilter] = useState('most-popular');
-  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+  const [selectedFilter, setSelectedFilter] = useState('most-popular')
+  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid')
 
   const filteredServices = services.filter(
     (service) => service.category === selectedFilter
-  );
-  const totalResults = filteredServices.length;
-
-  const handleServiceClick = (service: Service) => {
-    router.push(`/product/${service.id}`);
-  };
+  )
+  const totalResults = filteredServices.length
 
   return (
     <div className='min-h-screen bg-gray-50'>
-
       <div className='sticky top-16 z-40 border-b border-gray-200 bg-white'>
         <div className='mx-auto max-w-7xl px-4 py-2 sm:px-6 lg:px-8'>
           {/* Filter Tabs */}
@@ -41,10 +35,11 @@ export default function Home() {
                 <Button
                   key={category.id}
                   variant={selectedFilter === category.id ? 'default' : 'ghost'}
-                  className={`rounded-full px-4 py-2 text-sm font-medium ${selectedFilter === category.id
-                    ? 'bg-gray-900 text-white hover:bg-gray-800'
-                    : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
-                    }`}
+                  className={`rounded-full px-4 py-2 text-sm font-medium ${
+                    selectedFilter === category.id
+                      ? 'bg-gray-900 text-white hover:bg-gray-800'
+                      : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
+                  }`}
                   onClick={() => setSelectedFilter(category.id)}
                 >
                   {category.label}
@@ -83,64 +78,28 @@ export default function Home() {
       <div className='flex-1 overflow-y-auto'>
         <div className='mx-auto max-w-7xl px-4 py-2 sm:px-6 lg:px-8'>
           <div
-            className={`grid gap-6 ${viewMode === 'grid'
-              ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
-              : 'grid-cols-1'
-              }`}
+            className={`grid gap-6 ${
+              viewMode === 'grid'
+                ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
+                : 'grid-cols-1'
+            }`}
           >
             {filteredServices.map((service) => (
-              <Card
-                key={service.id}
-                className='group cursor-pointer border border-gray-200 bg-white transition-all duration-200 hover:border-gray-300 hover:shadow-lg'
-                onClick={() => handleServiceClick(service)}
-              >
-                <CardContent className='p-6'>
-                  <div className='flex items-start space-x-4'>
-                    <div className='flex-shrink-0'>
-                      <div className='flex h-12 w-12 items-center justify-center rounded-lg bg-gray-50 transition-colors group-hover:bg-gray-100'>
-                        {service.icon}
-                      </div>
-                    </div>
-
-                    <div className='min-w-0 flex-1'>
-                      <div className='mb-1 flex items-center space-x-2'>
-                        <h3 className='text-lg font-semibold text-gray-900 transition-colors group-hover:text-blue-600'>
-                          {service.name}
-                        </h3>
-                        {service.isPremium && (
-                          <Badge
-                            variant='secondary'
-                            className='bg-blue-100 text-xs text-blue-800'
-                          >
-                            Premium
-                          </Badge>
-                        )}
-                      </div>
-
-                      <p className='mb-2 text-sm text-gray-500'>
-                        {service.usedBy}
-                      </p>
-
-                      <p className='mb-4 line-clamp-2 text-sm text-gray-600'>
-                        {service.description}
-                      </p>
-
-                      <div className='space-y-1'>
-                        <div className='text-lg font-bold text-green-600'>
-                          {service.discountedPrice} in credits for 1 year
-                        </div>
-                        <div className='text-sm text-gray-500'>
-                          {service.savings}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
+              <Link key={service.id} href={`/products/${service.id}`}>
+                  <ProductCard
+                    name={service.name}
+                    image={'/products/canva.jpeg'}
+                    isPremium={service.isPremium}
+                    originalPrice={service.originalPrice}
+                    discountedPrice={service.discountedPrice}
+                    savings={service.savings}
+                    description={service.description}
+                  />
+              </Link>
             ))}
           </div>
         </div>
       </div>
     </div>
-  );
+  )
 }
