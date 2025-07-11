@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-
+import { useTranslations } from 'next-intl'
 import { services } from '@/lib/servicesData'
 import { Button } from '@/components/ui/button'
 import { Grid3X3, List } from 'lucide-react'
@@ -18,6 +18,7 @@ const filterCategories = [
 export default function Home() {
   const [selectedFilter, setSelectedFilter] = useState('most-popular')
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid')
+  const t = useTranslations('HomePage');
 
   const filteredServices = services.filter(
     (service) => service.category === selectedFilter
@@ -29,6 +30,7 @@ export default function Home() {
       <div className='sticky top-16 z-40 border-b border-gray-200 bg-white'>
         <div className='mx-auto max-w-7xl px-4 py-2 sm:px-6 lg:px-8'>
           {/* Filter Tabs */}
+          <h1 className='text-5xl'>{t('title')}</h1>
           <div className='flex items-center justify-between'>
             <div className='flex space-x-1'>
               {filterCategories.map((category) => (
@@ -86,15 +88,15 @@ export default function Home() {
           >
             {filteredServices.map((service) => (
               <Link key={service.id} href={`/products/${service.id}`}>
-                  <ProductCard
-                    name={service.name}
-                    image={'/products/canva.jpeg'}
-                    isPremium={service.isPremium}
-                    originalPrice={service.originalPrice}
-                    discountedPrice={service.discountedPrice}
-                    savings={service.savings}
-                    description={service.description}
-                  />
+                <ProductCard
+                  name={service.name}
+                  image={'/products/canva.jpeg'}
+                  isPremium={service.isPremium}
+                  originalPrice={service.originalPrice}
+                  discountedPrice={service.discountedPrice}
+                  savings={service.savings}
+                  description={service.description}
+                />
               </Link>
             ))}
           </div>

@@ -1,5 +1,6 @@
-import type { NextConfig } from 'next';
-import { withSentryConfig } from '@sentry/nextjs';
+import type { NextConfig } from 'next'
+import { withSentryConfig } from '@sentry/nextjs'
+import createNextIntlPlugin from 'next-intl/plugin'
 
 // Define the base Next.js configuration
 const baseConfig: NextConfig = {
@@ -13,9 +14,9 @@ const baseConfig: NextConfig = {
     ]
   },
   transpilePackages: ['geist']
-};
+}
 
-let configWithPlugins = baseConfig;
+let configWithPlugins = baseConfig
 
 // Conditionally enable Sentry configuration
 if (!process.env.NEXT_PUBLIC_SENTRY_DISABLED) {
@@ -50,8 +51,11 @@ if (!process.env.NEXT_PUBLIC_SENTRY_DISABLED) {
 
     // Disable Sentry telemetry
     telemetry: false
-  });
+  })
 }
+const withNextIntl = createNextIntlPlugin()
 
-const nextConfig = configWithPlugins;
-export default nextConfig;
+// Compose plugins: wrap Sentry config with next-intl
+const nextConfig = withNextIntl(configWithPlugins)
+
+export default nextConfig
