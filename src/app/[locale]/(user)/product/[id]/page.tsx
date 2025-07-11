@@ -258,11 +258,8 @@ export async function generateStaticParams() {
   }))
 }
 
-interface ProductPageProps {
-  params: {
-    id: string
-  }
-}
+
+type ProductPageProps = { params: Promise<{ id: string }> }
 
 export default async function ProductPage({ params }: ProductPageProps) {
   const resolvedParams = await params

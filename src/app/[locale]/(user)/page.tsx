@@ -87,7 +87,7 @@ export default function Home() {
             }`}
           >
             {filteredServices.map((service) => (
-              <Link key={service.id} href={`/products/${service.id}`}>
+              <Link key={service.id} href={`/product/${service.id}`}>
                 <ProductCard
                   name={service.name}
                   image={'/products/canva.jpeg'}
