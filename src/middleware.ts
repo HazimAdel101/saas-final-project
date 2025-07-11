@@ -1,31 +1,24 @@
-import createMiddleware from 'next-intl/middleware';
-import { routing } from './i18n/routing';
-import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server';
-import { NextRequest } from 'next/server';
+import clerk from './clerk-middleware';
+import intl from './intl-middleware';
+import { NextFetchEvent, NextRequest } from 'next/server';
 
-const intlMiddleware = createMiddleware(routing);
-const isProtectedRoute = createRouteMatcher(['/dashboard(.*)']);
+export default function middleware(req: NextRequest, event: NextFetchEvent) {
+  // First run next-intl middleware for locale detection
+  const intlResponse = intl(req);
+  // Then run Clerk middleware for authentication
+  const clerkResponse = clerk(req, event);
 
-function composeMiddleware(...middlewares: any[]) {
-  return async (req: NextRequest) => {
-    let res;
-    for (const middleware of middlewares) {
-      res = await middleware(req, res);
-      if (res) return res;
-    }
-    return res;
-  };
+  // If either middleware returns a response, return it
+  return intlResponse || clerkResponse;
 }
 
-const protectedClerkMiddleware = clerkMiddleware(async (auth, req: NextRequest) => {
-  if (isProtectedRoute(req)) await auth.protect();
-});
-
-export default composeMiddleware(intlMiddleware, protectedClerkMiddleware);
-
 export const config = {
-  // Match all pathnames except for
-  // - … if they start with `/api`, `/trpc`, `/_next` or `/_vercel`
-  // - … the ones containing a dot (e.g. `favicon.ico`)
-  matcher: '/((?!api|trpc|_next|_vercel|.*\\..*).*)'
+  matcher: [
+    // next-intl: match locale-prefixed routes
+    '/(en|ar)/:path*',
+    // Skip Next.js internals and all static files, unless found in search params
+    '/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)',
+    // Always run for API routes
+    '/(api|trpc)(.*)'
+  ]
 };
