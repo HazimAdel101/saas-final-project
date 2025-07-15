@@ -34,9 +34,10 @@ export default async function Home({ params }: { params: { locale: string } }) {
 
   // Example: filter by category (add your own logic)
   const selectedFilter = 'most-popular' // You can make this dynamic with client-side state if needed
-  const viewMode = 'grid' // You can make this dynamic with client-side state if needed
+  const viewMode = 'grid' as 'grid' | 'list' // You can make this dynamic with client-side state if needed
 
   // Map products to card props
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const filteredProducts = products.filter((product) => {
     // You can add your own filter logic here based on productDetails or other fields
     return true // Example: show all
