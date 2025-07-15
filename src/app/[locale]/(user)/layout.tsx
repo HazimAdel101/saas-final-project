@@ -1,5 +1,6 @@
 import Navbar from '@/components/layout/user-navbar'
 import Footer from '@/components/footer'
+import WhatsAppButton from '@/components/whatsapp-button'
 
 export default async function RootLayout({
   children
@@ -11,6 +12,7 @@ export default async function RootLayout({
       <Navbar />
       {children}
       <Footer />
+      <WhatsAppButton />
     </>
   )
 }

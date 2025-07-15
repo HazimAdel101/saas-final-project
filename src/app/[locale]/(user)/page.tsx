@@ -1,12 +1,11 @@
-'use client'
-
-import { useState } from 'react'
-import { useTranslations } from 'next-intl'
-import { services } from '@/lib/servicesData'
 import { Button } from '@/components/ui/button'
 import { Grid3X3, List } from 'lucide-react'
 import ProductCard from '@/components/product-card'
 import Link from 'next/link'
+import { prisma } from '@/lib/db'
+// If you get a type error here, make sure you have run: npx prisma generate
+// and that @prisma/client is installed and up-to-date
+import { getTranslations } from 'next-intl/server'
 
 const filterCategories = [
   { id: 'most-popular', label: 'Most popular' },
@@ -15,15 +14,35 @@ const filterCategories = [
   { id: 'recently-added', label: 'Recently added' }
 ]
 
-export default function Home() {
-  const [selectedFilter, setSelectedFilter] = useState('most-popular')
-  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid')
-  const t = useTranslations('HomePage');
+export default async function Home({ params }: { params: { locale: string } }) {
+  const { locale } = params
+  // Fetch translations
+  const t = await getTranslations({ locale, namespace: 'HomePage' })
 
-  const filteredServices = services.filter(
-    (service) => service.category === selectedFilter
-  )
-  const totalResults = filteredServices.length
+  // Fetch products and details for the current language
+  const products = await prisma.product.findMany({
+    include: {
+      productDetails: {
+        where: {
+          language: {
+            code: locale
+          }
+        }
+      }
+    }
+  })
+
+  // Example: filter by category (add your own logic)
+  const selectedFilter = 'most-popular' // You can make this dynamic with client-side state if needed
+  const viewMode = 'grid' // You can make this dynamic with client-side state if needed
+
+  // Map products to card props
+  const filteredProducts = products.filter((product) => {
+    // You can add your own filter logic here based on productDetails or other fields
+    return true // Example: show all
+  })
+
+  const totalResults = filteredProducts.length
 
   return (
     <div className='min-h-screen bg-gray-50'>
@@ -42,7 +61,7 @@ export default function Home() {
                       ? 'bg-gray-900 text-white hover:bg-gray-800'
                       : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
                   }`}
-                  onClick={() => setSelectedFilter(category.id)}
+                  // onClick={() => setSelectedFilter(category.id)} // For SSR, you need client-side state
                 >
                   {category.label}
                 </Button>
@@ -51,14 +70,14 @@ export default function Home() {
 
             <div className='flex items-center space-x-4'>
               <span className='text-sm text-gray-500'>
-                1 to {totalResults} of {services.length} results
+                1 to {totalResults} of {products.length} results
               </span>
               <div className='flex items-center space-x-1'>
                 <Button
                   variant={viewMode === 'list' ? 'default' : 'ghost'}
                   size='sm'
                   className='p-2'
-                  onClick={() => setViewMode('list')}
+                  // onClick={() => setViewMode('list')}
                 >
                   <List className='h-4 w-4' />
                 </Button>
@@ -66,7 +85,7 @@ export default function Home() {
                   variant={viewMode === 'grid' ? 'default' : 'ghost'}
                   size='sm'
                   className='p-2'
-                  onClick={() => setViewMode('grid')}
+                  // onClick={() => setViewMode('grid')}
                 >
                   <Grid3X3 className='h-4 w-4' />
                 </Button>
@@ -76,7 +95,7 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Services Grid */}
+      {/* Products Grid */}
       <div className='flex-1 overflow-y-auto'>
         <div className='mx-auto max-w-7xl px-4 py-2 sm:px-6 lg:px-8'>
           <div
@@ -86,19 +105,26 @@ export default function Home() {
                 : 'grid-cols-1'
             }`}
           >
-            {filteredServices.map((service) => (
-              <Link key={service.id} href={`/product/${service.id}`}>
-                <ProductCard
-                  name={service.name}
-                  image={'/products/canva.jpeg'}
-                  isPremium={service.isPremium}
-                  originalPrice={service.originalPrice}
-                  discountedPrice={service.discountedPrice}
-                  savings={service.savings}
-                  description={service.description}
-                />
-              </Link>
-            ))}
+            {filteredProducts.map((product) => {
+              const details = product.productDetails[0]
+              // Convert Decimal values to string for client components
+              const originalPrice = product.price_usd?.toString() || ''
+              const discountedPrice = product.discount_usd?.toString() || ''
+              const savings = product.discount_usd?.toString() || ''
+              return (
+                <Link key={product.id} href={`/product/${product.id}`}>
+                  <ProductCard
+                    name={details?.name || ''}
+                    image={product.image_url}
+                    isPremium={false} // Add your own logic
+                    originalPrice={originalPrice}
+                    discountedPrice={discountedPrice}
+                    savings={savings}
+                    description={details?.description || ''}
+                  />
+                </Link>
+              )
+            })}
           </div>
         </div>
       </div>
