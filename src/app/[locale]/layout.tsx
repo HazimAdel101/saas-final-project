@@ -41,8 +41,9 @@ export default async function RootLayout({
   if (!hasLocale(routing.locales, locale)) {
     notFound()
   }
+  const direction = locale === 'ar' ? 'rtl' : 'ltr'
   return (
-    <html lang={locale} suppressHydrationWarning>
+    <html lang={locale} dir={direction} suppressHydrationWarning>
       <head>
         <script
           dangerouslySetInnerHTML={{

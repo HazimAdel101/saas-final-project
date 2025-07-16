@@ -1,3 +1,5 @@
+'use client'
+
 import InfoMenu from '@/components/info-menu'
 import NotificationMenu from '@/components/notification-menu'
 import UserMenu from '@/components/user-menu'
@@ -8,11 +10,39 @@ import {
   PopoverTrigger
 } from '@/components/ui/popover'
 import ThemeTogglePopover from '@/components/layout/ThemeTogglePopover'
+import { useLanguage } from '@/context/LanguageContext'
 
 export default function Navbar() {
+  const { language, setLanguage } = useLanguage()
+  // Change language and update URL
+  const handleLanguageChange = (lang: string) => {
+    setLanguage(lang as any)
+    // Change the locale in the URL (assumes /[locale]/... structure)
+    if (typeof window !== 'undefined') {
+      const pathParts = window.location.pathname.split('/').filter(Boolean)
+      if (
+        pathParts.length > 0 &&
+        (pathParts[0] === 'en' || pathParts[0] === 'ar')
+      ) {
+        pathParts[0] = lang
+      } else {
+        pathParts.unshift(lang)
+      }
+      const newPath =
+        '/' +
+        pathParts.join('/') +
+        window.location.search +
+        window.location.hash
+      window.location.assign(newPath)
+    }
+  }
+  const languages = [
+    { code: 'en', label: 'English' },
+    { code: 'ar', label: 'العربية' }
+  ]
   return (
-    <header className='fixed top-0 right-0 border-b px-4 md:px-6'>
-      <div className='flex h-16 items-center justify-between gap-4'>
+    <header className='fixed top-0 right-0 z-[999] w-full border-b px-4 md:px-6'>
+      <div className='flex h-16 items-center justify-between gap-4 bg-amber-700'>
         {/* Left side: Mobile menu and logo */}
         <div className='flex items-center gap-2'>
           {/* Mobile menu trigger */}
@@ -116,15 +146,19 @@ export default function Navbar() {
               </Button>
             </PopoverTrigger>
             <PopoverContent align='end' className='w-32 p-2'>
-              <button className='hover:bg-muted w-full rounded px-2 py-1 text-left'>
-                English
-              </button>
-              <button className='hover:bg-muted w-full rounded px-2 py-1 text-left'>
-                Español
-              </button>
-              <button className='hover:bg-muted w-full rounded px-2 py-1 text-left'>
-                Français
-              </button>
+              {languages.map((lang) => (
+                <button
+                  key={lang.code}
+                  className={`hover:bg-muted flex w-full items-center gap-2 rounded px-2 py-1 text-left ${language === lang.code ? 'bg-muted font-bold' : ''}`}
+                  onClick={() => handleLanguageChange(lang.code)}
+                  aria-current={language === lang.code ? 'true' : undefined}
+                >
+                  {lang.label}
+                  {language === lang.code && (
+                    <span className='text-primary ml-auto text-xs'>✓</span>
+                  )}
+                </button>
+              ))}
             </PopoverContent>
           </Popover>
           {/* Change Theme Button */}
