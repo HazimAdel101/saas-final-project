@@ -14,8 +14,12 @@ const filterCategories = [
   { id: 'recently-added', label: 'Recently added' }
 ]
 
-export default async function Home({ params }: { params: { locale: string } }) {
-  const { locale } = params
+export default async function Home({
+  params
+}: {
+  params: Promise<{ locale: string }>
+}) {
+  const { locale } = await params
   // Fetch translations
   const t = await getTranslations({ locale, namespace: 'HomePage' })
 

@@ -2,12 +2,6 @@ import InfoMenu from '@/components/info-menu'
 import NotificationMenu from '@/components/notification-menu'
 import UserMenu from '@/components/user-menu'
 import { Button } from '@/components/ui/button'
-// import {
-//   NavigationMenu,
-//   NavigationMenuItem,
-//   NavigationMenuLink,
-//   NavigationMenuList
-// } from '@/components/ui/navigation-menu'
 import {
   Popover,
   PopoverContent,
@@ -15,12 +9,9 @@ import {
 } from '@/components/ui/popover'
 import ThemeTogglePopover from '@/components/layout/ThemeTogglePopover'
 
-// Navigation links array to be used in both desktop and mobile menus
-// ...existing code...
-
 export default function Navbar() {
   return (
-    <header className='border-b px-4 md:px-6'>
+    <header className='fixed top-0 right-0 border-b px-4 md:px-6'>
       <div className='flex h-16 items-center justify-between gap-4'>
         {/* Left side: Mobile menu and logo */}
         <div className='flex items-center gap-2'>

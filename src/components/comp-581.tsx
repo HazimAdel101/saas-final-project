@@ -1,5 +1,4 @@
 import InfoMenu from '@/components/info-menu'
-import Logo from '@/components/logo'
 import NotificationMenu from '@/components/notification-menu'
 import UserMenu from '@/components/user-menu'
 import { Button } from '@/components/ui/button'
@@ -81,7 +80,7 @@ export default function Component() {
           {/* Main nav */}
           <div className='flex items-center gap-6'>
             <a href='#' className='text-primary hover:text-primary/90'>
-              <Logo />
+              logo
             </a>
             {/* Navigation menu */}
             <NavigationMenu className='max-md:hidden'>

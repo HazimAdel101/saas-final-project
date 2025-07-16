@@ -258,12 +258,13 @@ export async function generateStaticParams() {
   }))
 }
 
-
-type ProductPageProps = { params: Promise<{ id: string }> }
-
-export default async function ProductPage({ params }: ProductPageProps) {
-  const resolvedParams = await params
-  const service = services.find((s) => s.id === resolvedParams.id)
+export default async function ProductPage({
+  params
+}: {
+  params: Promise<{ id: string }>
+}) {
+  const { id } = await params
+  const service = services.find((s) => s.id === id)
 
   if (!service) {
     notFound()
