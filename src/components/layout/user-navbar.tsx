@@ -9,7 +9,7 @@ import {
   PopoverContent,
   PopoverTrigger
 } from '@/components/ui/popover'
-import ThemeTogglePopover from '@/components/layout/ThemeTogglePopover'
+import { ThemeTogglePopover } from '@/components/layout/ThemeTogglePopover'
 import { useLanguage } from '@/context/LanguageContext'
 
 export default function Navbar() {

@@ -1,5 +1,44 @@
 {
   "HomePage": {
-    "title": "Hello world!"
+    "title": "Products",
+    "filter": {
+      "mostPopular": "Most popular",
+      "premium": "Premium",
+      "free": "Free",
+      "recentlyAdded": "Recently added"
+    },
+    "resultsRange": "{start} to {end} of {total} results"
+  },
+  "ProductCard": {
+    "premium": "Premium",
+    "addToCart": "Add to Cart"
+  },
+  "ThemeSelector": {
+    "label": "Theme",
+    "selectTheme": "Select a theme:",
+    "placeholder": "Select a theme",
+    "default": "Default",
+    "blue": "Blue",
+    "green": "Green",
+    "amber": "Amber",
+    "scaled": "Scaled",
+    "monospaced": "Monospaced",
+    "mono": "Mono"
+  },
+  "CategoryOptions": {
+    "electronics": "Electronics",
+    "furniture": "Furniture",
+    "clothing": "Clothing",
+    "toys": "Toys",
+    "groceries": "Groceries",
+    "books": "Books",
+    "jewelry": "Jewelry",
+    "beautyProducts": "Beauty Products"
+  },
+  "ThemeTogglePopover": {
+    "changeTheme": "Change theme",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
   }
 }

@@ -8,10 +8,10 @@ import { prisma } from '@/lib/db'
 import { getTranslations } from 'next-intl/server'
 
 const filterCategories = [
-  { id: 'most-popular', label: 'Most popular' },
-  { id: 'premium', label: 'Premium' },
-  { id: 'free', label: 'Free' },
-  { id: 'recently-added', label: 'Recently added' }
+  { id: 'most-popular', labelKey: 'filter.mostPopular' },
+  { id: 'premium', labelKey: 'filter.premium' },
+  { id: 'free', labelKey: 'filter.free' },
+  { id: 'recently-added', labelKey: 'filter.recentlyAdded' }
 ]
 
 export default async function Home({
@@ -66,16 +66,19 @@ export default async function Home({
                       ? 'bg-gray-900 text-white hover:bg-gray-800'
                       : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
                   }`}
-                  // onClick={() => setSelectedFilter(category.id)} // For SSR, you need client-side state
                 >
-                  {category.label}
+                  {t(category.labelKey)}
                 </Button>
               ))}
             </div>
 
             <div className='flex items-center space-x-4'>
               <span className='text-sm text-gray-500'>
-                1 to {totalResults} of {products.length} results
+                {t('resultsRange', {
+                  start: 1,
+                  end: totalResults,
+                  total: products.length
+                })}
               </span>
               <div className='flex items-center space-x-1'>
                 <Button

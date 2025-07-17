@@ -7,15 +7,18 @@ import {
   PopoverContent,
   PopoverTrigger
 } from '@/components/ui/popover'
+import { useTranslations } from 'next-intl'
 
-export default function ThemeTogglePopover() {
+export function ThemeTogglePopover() {
+  // Use the next-themes hook to manage theme state
   const { setTheme } = useTheme()
   const [open, setOpen] = useState(false)
+  const t = useTranslations('ThemeTogglePopover')
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
-        <Button variant='ghost' size='icon' aria-label='Change theme'>
+        <Button variant='ghost' size='icon' aria-label={t('changeTheme')}>
           <svg
             width='20'
             height='20'
@@ -37,7 +40,7 @@ export default function ThemeTogglePopover() {
             setOpen(false)
           }}
         >
-          Light
+          {t('light')}
         </button>
         <button
           className='hover:bg-muted w-full rounded px-2 py-1 text-left'
@@ -46,7 +49,7 @@ export default function ThemeTogglePopover() {
             setOpen(false)
           }}
         >
-          Dark
+          {t('dark')}
         </button>
         <button
           className='hover:bg-muted w-full rounded px-2 py-1 text-left'
@@ -55,7 +58,7 @@ export default function ThemeTogglePopover() {
             setOpen(false)
           }}
         >
-          System
+          {t('system')}
         </button>
       </PopoverContent>
     </Popover>

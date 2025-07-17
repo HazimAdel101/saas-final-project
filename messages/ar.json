@@ -1,5 +1,44 @@
 {
   "HomePage": {
-    "title": "مرحبًا بكم في خدمتنا"
+    "title": "المنتجات",
+    "filter": {
+      "mostPopular": "الأكثر شعبية",
+      "premium": "مميز",
+      "free": "مجاني",
+      "recentlyAdded": "أضيفت مؤخراً"
+    },
+    "resultsRange": "{start} إلى {end} من أصل {total} نتيجة"
+  },
+  "ProductCard": {
+    "premium": "مميز",
+    "addToCart": "أضف إلى السلة"
+  },
+  "ThemeSelector": {
+    "label": "السمة",
+    "selectTheme": "اختر سمة:",
+    "placeholder": "اختر سمة",
+    "default": "افتراضي",
+    "blue": "أزرق",
+    "green": "أخضر",
+    "amber": "كهرماني",
+    "scaled": "مقياس",
+    "monospaced": "أحادية المسافة",
+    "mono": "أحادية"
+  },
+  "CategoryOptions": {
+    "electronics": "إلكترونيات",
+    "furniture": "أثاث",
+    "clothing": "ملابس",
+    "toys": "ألعاب",
+    "groceries": "بقالة",
+    "books": "كتب",
+    "jewelry": "مجوهرات",
+    "beautyProducts": "منتجات تجميل"
+  },
+  "ThemeTogglePopover": {
+    "changeTheme": "تغيير السمة",
+    "light": "فاتح",
+    "dark": "داكن",
+    "system": "النظام"
   }
 }
