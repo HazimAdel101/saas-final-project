@@ -63,7 +63,7 @@ const services: Service[] = [
       'Limited time offer. Valid for new projects only. 50% deposit required to start.'
   },
   {
-    id: 'digital-marketing',
+    id: '2',
     name: 'Digital Marketing Suite',
     icon: <Megaphone className='h-8 w-8 text-orange-600' />,
     company: 'MarketBoost',

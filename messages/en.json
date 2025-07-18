@@ -44,6 +44,8 @@
     "placeholder": "Search..."
   },
   "Navbar": {
-    "placeholder": "Search..."
+    "placeholder": "Search...",
+    "login": "Login",
+    "register": "Register"
   }
 }

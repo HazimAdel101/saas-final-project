@@ -1,5 +1,3 @@
-import InfoMenu from '@/components/info-menu'
-import NotificationMenu from '@/components/notification-menu'
 import UserMenu from '@/components/user-menu'
 import { Button } from '@/components/ui/button'
 import {
@@ -13,6 +11,7 @@ import {
   PopoverContent,
   PopoverTrigger
 } from '@/components/ui/popover'
+import Link from 'next/link'
 
 // Navigation links array to be used in both desktop and mobile menus
 const navigationLinks = [
@@ -79,9 +78,9 @@ export default function Component() {
           </Popover>
           {/* Main nav */}
           <div className='flex items-center gap-6'>
-            <a href='#' className='text-primary hover:text-primary/90'>
+            <Link href='/' className='text-primary hover:text-primary/90'>
               logo
-            </a>
+            </Link>
             {/* Navigation menu */}
             <NavigationMenu className='max-md:hidden'>
               <NavigationMenuList className='gap-2'>
@@ -101,13 +100,7 @@ export default function Component() {
         </div>
         {/* Right side */}
         <div className='flex items-center gap-4'>
-          <div className='flex items-center gap-2'>
-            {/* Info menu */}
-            <InfoMenu />
-            {/* Notification */}
-            <NotificationMenu />
-          </div>
-          {/* User menu */}
+          <div className='flex items-center gap-2'></div>
           <UserMenu />
         </div>
       </div>

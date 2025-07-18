@@ -7,12 +7,12 @@ import { prisma } from '@/lib/db'
 // and that @prisma/client is installed and up-to-date
 import { getTranslations } from 'next-intl/server'
 
-const filterCategories = [
-  { id: 'most-popular', labelKey: 'filter.mostPopular' },
-  { id: 'premium', labelKey: 'filter.premium' },
-  { id: 'free', labelKey: 'filter.free' },
-  { id: 'recently-added', labelKey: 'filter.recentlyAdded' }
-]
+// const filterCategories = [
+//   { id: 'most-popular', labelKey: 'filter.mostPopular' },
+//   { id: 'premium', labelKey: 'filter.premium' },
+//   { id: 'free', labelKey: 'filter.free' },
+//   { id: 'recently-added', labelKey: 'filter.recentlyAdded' }
+// ]
 
 export default async function Home({
   params
@@ -55,7 +55,7 @@ export default async function Home({
         <div className='mx-auto max-w-7xl bg-slate-50 px-4 py-2 sm:px-6 lg:px-8 dark:bg-slate-700'>
           {/* Filter Tabs */}
           <div className='flex items-center justify-between'>
-            <div className='flex space-x-1'>
+            {/* <div className='flex space-x-1'>
               {filterCategories.map((category) => (
                 <Button
                   key={category.id}
@@ -69,7 +69,7 @@ export default async function Home({
                   {t(category.labelKey)}
                 </Button>
               ))}
-            </div>
+            </div> */}
 
             <div className='flex items-center space-x-4'>
               <span className='text-sm'>

@@ -50,6 +50,8 @@
     "placeholder": "البحث..."
   },
   "Navbar": {
-    "placeholder": "البحث..."
+    "placeholder": "البحث...",
+    "login": "تسجيل الدخول",
+    "register": "إنشاء حساب"
   }
 }

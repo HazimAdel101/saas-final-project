@@ -1,8 +1,7 @@
 'use client'
 
-import InfoMenu from '@/components/info-menu'
-import NotificationMenu from '@/components/notification-menu'
-import UserMenu from '@/components/user-menu'
+import { useUser, UserButton, SignInButton, SignUpButton } from '@clerk/nextjs'
+// import UserMenu from '@/components/user-menu'
 import { Button } from '@/components/ui/button'
 import {
   Popover,
@@ -12,8 +11,10 @@ import {
 import { ThemeTogglePopover } from '@/components/layout/ThemeTogglePopover'
 import { useLanguage } from '@/context/LanguageContext'
 import { useTranslations } from 'next-intl'
+import Link from 'next/link'
 
 export default function Navbar() {
+  const { isSignedIn } = useUser()
   const { language, setLanguage } = useLanguage()
   const t = useTranslations('Navbar')
   // Change language and update URL
@@ -79,24 +80,15 @@ export default function Navbar() {
                 </svg>
               </Button>
             </PopoverTrigger>
-            <PopoverContent align='start' className='w-36 p-1 md:hidden'>
-              {/* <NavigationMenu className='max-w-none *:w-full'>
-                <NavigationMenuList className='flex-col items-start gap-0 md:gap-2'>
-                  {navigationLinks.map((link, index) => (
-                    <NavigationMenuItem key={index} className='w-full'>
-                      <NavigationMenuLink href={link.href} className='py-1.5'>
-                        {link.label}
-                      </NavigationMenuLink>
-                    </NavigationMenuItem>
-                  ))}
-                </NavigationMenuList>
-              </NavigationMenu> */}
-            </PopoverContent>
+            <PopoverContent
+              align='start'
+              className='w-36 p-1 md:hidden'
+            ></PopoverContent>
           </Popover>
           {/* Logo */}
-          <a href='#' className='text-primary hover:text-primary/90 ml-2'>
+          <Link href='/' className='text-primary hover:text-primary/90 ml-2'>
             logo
-          </a>
+          </Link>
         </div>
 
         {/* Center: Search bar */}
@@ -110,24 +102,7 @@ export default function Navbar() {
           </div>
         </div>
 
-        {/* Right side: Desktop nav and user actions */}
         <div className='flex items-center gap-4'>
-          {/* Desktop navigation menu */}
-          {/* <NavigationMenu className='max-md:hidden'>
-            <NavigationMenuList className='gap-2'>
-              {navigationLinks.map((link, index) => (
-          <NavigationMenuItem key={index}>
-            <NavigationMenuLink
-              href={link.href}
-              className='text-muted-foreground hover:text-primary py-1.5 font-medium'
-            >
-              {link.label}
-            </NavigationMenuLink>
-          </NavigationMenuItem>
-              ))}
-            </NavigationMenuList>
-          </NavigationMenu> */}
-          {/* Change Language Button */}
           <Popover>
             <PopoverTrigger asChild>
               <Button variant='ghost' size='icon' aria-label='Change language'>
@@ -160,12 +135,26 @@ export default function Navbar() {
               ))}
             </PopoverContent>
           </Popover>
-          {/* Change Theme Button */}
           <ThemeTogglePopover />
-          {/* Info menu */}
-          <InfoMenu />
-          <NotificationMenu />
-          <UserMenu />
+          {/* <UserMenu /> */}
+          {isSignedIn ? (
+            <div className='flex items-center gap-2'>
+              <UserButton />
+            </div>
+          ) : (
+            <div className='flex items-center gap-4'>
+              <SignInButton>
+                <Button className='rounded px-4 py-2 text-white'>
+                  {t('login')}
+                </Button>
+              </SignInButton>
+              <SignUpButton>
+                <Button className='rounded px-4 py-2 text-white'>
+                  {t('register')}
+                </Button>
+              </SignUpButton>
+            </div>
+          )}
         </div>
       </div>
     </header>
