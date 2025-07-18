@@ -1,6 +1,5 @@
 {
   "HomePage": {
-    "title": "Products",
     "filter": {
       "mostPopular": "Most popular",
       "premium": "Premium",
@@ -40,5 +39,11 @@
     "light": "Light",
     "dark": "Dark",
     "system": "System"
+  },
+  "Search": {
+    "placeholder": "Search..."
+  },
+  "Navbar": {
+    "placeholder": "Search..."
   }
 }

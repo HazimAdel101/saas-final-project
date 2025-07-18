@@ -1,29 +1,26 @@
 'use client'
 
+import { useTranslations } from 'next-intl'
+
 export default function Footer() {
+  const t = useTranslations('Footer')
   return (
-    <footer className='border-t border-gray-200 bg-white'>
+    <footer className='border-t border-gray-200'>
       <div className='mx-auto w-full px-4 py-6 sm:px-6 lg:px-8'>
         <div className='flex flex-col items-center justify-between gap-4 md:flex-row'>
-          <div className='flex items-center space-x-6 text-sm text-gray-600'>
-            <a
-              href='#privacy'
-              className='transition-colors hover:text-gray-900'
-            >
-              Privacy Policy
+          <div className='flex items-center space-x-6 text-sm'>
+            <a href='#privacy' className='transition-colors'>
+              {t('privacy')}
             </a>
-            <a href='#terms' className='transition-colors hover:text-gray-900'>
-              Terms of Service
+            <a href='#terms' className='transition-colors'>
+              {t('terms')}
             </a>
-            <a
-              href='#support'
-              className='transition-colors hover:text-gray-900'
-            >
-              Support
+            <a href='#support' className='transition-colors'>
+              {t('support')}
             </a>
           </div>
-          <div className='text-sm text-gray-500'>
-            {new Date().getFullYear()} ExclusiveServices. All rights reserved.
+          <div className='text-sm'>
+            {new Date().getFullYear()} {t('copyright')}
           </div>
         </div>
       </div>

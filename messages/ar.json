@@ -1,6 +1,5 @@
 {
   "HomePage": {
-    "title": "المنتجات",
     "filter": {
       "mostPopular": "الأكثر شعبية",
       "premium": "مميز",
@@ -12,6 +11,12 @@
   "ProductCard": {
     "premium": "مميز",
     "addToCart": "أضف إلى السلة"
+  },
+  "Footer": {
+    "privacy": "الخصوصية",
+    "terms": "الشروط",
+    "support": "الدعم",
+    "copyright": "جميع الحقوق محفوظة."
   },
   "ThemeSelector": {
     "label": "السمة",
@@ -36,9 +41,15 @@
     "beautyProducts": "منتجات تجميل"
   },
   "ThemeTogglePopover": {
-    "changeTheme": "تغيير السمة",
-    "light": "فاتح",
-    "dark": "داكن",
+    "changeTheme": "تغيير الثيم",
+    "light": "الفاتح",
+    "dark": "الليلي",
     "system": "النظام"
+  },
+  "Search": {
+    "placeholder": "البحث..."
+  },
+  "Navbar": {
+    "placeholder": "البحث..."
   }
 }

@@ -11,9 +11,11 @@ import {
 } from '@/components/ui/popover'
 import { ThemeTogglePopover } from '@/components/layout/ThemeTogglePopover'
 import { useLanguage } from '@/context/LanguageContext'
+import { useTranslations } from 'next-intl'
 
 export default function Navbar() {
   const { language, setLanguage } = useLanguage()
+  const t = useTranslations('Navbar')
   // Change language and update URL
   const handleLanguageChange = (lang: string) => {
     setLanguage(lang as any)
@@ -28,11 +30,8 @@ export default function Navbar() {
       } else {
         pathParts.unshift(lang)
       }
-      const newPath =
-        '/' +
-        pathParts.join('/') +
-        window.location.search +
-        window.location.hash
+      const newPath = '/' + pathParts.join('/')
+      window.location.search + window.location.hash
       window.location.assign(newPath)
     }
   }
@@ -41,8 +40,8 @@ export default function Navbar() {
     { code: 'ar', label: 'العربية' }
   ]
   return (
-    <header className='fixed top-0 right-0 z-[999] w-full border-b px-4 md:px-6'>
-      <div className='flex h-16 items-center justify-between gap-4 bg-amber-700'>
+    <header className='fixed top-0 right-0 z-[999] w-full border-b bg-slate-50 px-4 md:px-6 dark:bg-slate-800'>
+      <div className='flex h-16 items-center justify-between gap-4'>
         {/* Left side: Mobile menu and logo */}
         <div className='flex items-center gap-2'>
           {/* Mobile menu trigger */}
@@ -105,7 +104,7 @@ export default function Navbar() {
           <div className='w-full max-w-md'>
             <input
               type='text'
-              placeholder='Search...'
+              placeholder={t('placeholder')}
               className='border-input bg-background text-foreground placeholder:text-muted-foreground focus-visible:ring-ring w-full rounded-md border px-3 py-1.5 text-sm transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50'
             />
           </div>

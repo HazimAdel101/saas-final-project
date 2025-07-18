@@ -50,11 +50,10 @@ export default async function Home({
   const totalResults = filteredProducts.length
 
   return (
-    <div className='min-h-screen bg-gray-50'>
-      <div className='sticky top-16 z-40 border-b border-gray-200 bg-white'>
-        <div className='mx-auto max-w-7xl px-4 py-2 sm:px-6 lg:px-8'>
+    <div className='min-h-screen'>
+      <div className='sticky top-16 z-40 border-b border-gray-200'>
+        <div className='mx-auto max-w-7xl bg-slate-50 px-4 py-2 sm:px-6 lg:px-8 dark:bg-slate-700'>
           {/* Filter Tabs */}
-          <h1 className='text-5xl'>{t('title')}</h1>
           <div className='flex items-center justify-between'>
             <div className='flex space-x-1'>
               {filterCategories.map((category) => (
@@ -63,8 +62,8 @@ export default async function Home({
                   variant={selectedFilter === category.id ? 'default' : 'ghost'}
                   className={`rounded-full px-4 py-2 text-sm font-medium ${
                     selectedFilter === category.id
-                      ? 'bg-gray-900 text-white hover:bg-gray-800'
-                      : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
+                      ? 'bg-slate-100 text-slate-900 hover:bg-gray-300 dark:bg-gray-900 dark:text-white'
+                      : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900 dark:text-slate-100'
                   }`}
                 >
                   {t(category.labelKey)}
@@ -73,7 +72,7 @@ export default async function Home({
             </div>
 
             <div className='flex items-center space-x-4'>
-              <span className='text-sm text-gray-500'>
+              <span className='text-sm'>
                 {t('resultsRange', {
                   start: 1,
                   end: totalResults,
@@ -104,8 +103,8 @@ export default async function Home({
       </div>
 
       {/* Products Grid */}
-      <div className='flex-1 overflow-y-auto'>
-        <div className='mx-auto max-w-7xl px-4 py-2 sm:px-6 lg:px-8'>
+      <div className='mt-16 flex-1 overflow-y-auto'>
+        <div className='mx-auto max-w-7xl bg-slate-50 px-4 py-2 sm:px-6 lg:px-8 dark:bg-slate-700'>
           <div
             className={`grid gap-6 ${
               viewMode === 'grid'

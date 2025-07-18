@@ -1,8 +1,8 @@
-'use client';
+'use client'
 
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Card, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button'
+import { Badge } from '@/components/ui/badge'
+import { Card, CardContent } from '@/components/ui/card'
 import {
   Star,
   Check,
@@ -12,58 +12,55 @@ import {
   Clock,
   Award,
   Users2
-} from 'lucide-react';
+} from 'lucide-react'
 
 interface Service {
-  id: string;
-  name: string;
-  icon: React.ReactNode;
-  company: string;
-  usedBy: string;
-  category: string;
-  isPremium: boolean;
-  originalPrice: string;
-  discountedPrice: string;
-  savings: string;
-  description: string;
-  longDescription: string;
-  features: string[];
-  benefits: string[];
-  terms?: string;
-  deliveryTime: string;
-  rating: number;
-  reviews: number;
+  id: string
+  name: string
+  icon: React.ReactNode
+  company: string
+  usedBy: string
+  category: string
+  isPremium: boolean
+  originalPrice: string
+  discountedPrice: string
+  savings: string
+  description: string
+  longDescription: string
+  features: string[]
+  benefits: string[]
+  terms?: string
+  deliveryTime: string
+  rating: number
+  reviews: number
 }
 
 interface ProductDetailsClientProps {
-  service: Service;
+  service: Service
 }
 
 export default function ProductDetailsClient({
   service
 }: ProductDetailsClientProps) {
-
   const handlePurchase = () => {
-    alert(`Redirecting to secure checkout for ${service.name}...`);
-  };
+    alert(`Redirecting to secure checkout for ${service.name}...`)
+  }
 
   return (
-    <div className='min-h-screen bg-gray-50'>
+    <div className='min-h-screen'>
       <div className='mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8'>
         <div className='grid gap-8 lg:grid-cols-3'>
           {/* Main Content */}
           <div className='space-y-8 lg:col-span-2'>
             {/* Header */}
-            <div className='rounded-lg border border-gray-200 bg-white p-8 shadow-sm'>
+            <div className='rounded-lg border p-8 shadow-sm'>
               <div className='mb-6 flex items-start space-x-4'>
-                <div className='flex h-16 w-16 items-center justify-center rounded-lg bg-gray-50'>
+                <div className='flex h-16 w-16 items-center justify-center rounded-lg'>
                   {service.icon}
                 </div>
                 <div className='flex-1'>
                   <div className='mb-2 flex items-center space-x-3'>
-                    <h1 className='text-3xl font-bold text-gray-900'>
-                      {service.name}
-                    </h1>
+                    <h1 className='text-3xl font-bold'>{service.name}</h1>
                     {service.isPremium && (
                       <Badge className='bg-blue-100 text-blue-800'>
                         Premium
@@ -71,7 +68,7 @@ export default function ProductDetailsClient({
                     )}
                   </div>
                   <p className='mb-2 text-gray-600'>by {service.company}</p>
-                  <div className='flex items-center space-x-4 text-sm text-gray-500'>
+                  <div className='flex items-center space-x-4 text-sm'>
                     <span className='flex items-center'>
                       <Users2 className='mr-1 h-4 w-4' />
                       {service.usedBy}
@@ -88,7 +85,7 @@ export default function ProductDetailsClient({
                 </div>
               </div>
 
-              <p className='text-lg leading-relaxed text-gray-700'>
+              <p className='text-lg leading-relaxed'>
                 {service.longDescription}
               </p>
             </div>
@@ -157,7 +154,6 @@ export default function ProductDetailsClient({
                       <span className='font-semibold'>{service.savings}</span>
                     </div>
                   </div>
-
                   {/* Purchase Buttons */}
                   <div className='mb-6 space-y-3'>
                     <Button
@@ -177,7 +173,6 @@ export default function ProductDetailsClient({
                       Add to Cart
                     </Button>
                   </div>
-
                   {/* Security Features */}
                   <div className='space-y-3 text-sm text-gray-600'>
                     <div className='flex items-center space-x-2'>
@@ -193,7 +188,7 @@ export default function ProductDetailsClient({
                       <span>Instant access after purchase</span>
                     </div>
                   </div>
-
+                  715016111 711636092
                   {/* Delivery Info */}
                   <div className='mt-6 border-t border-gray-200 pt-6'>
                     <h3 className='mb-2 font-semibold text-gray-900'>
@@ -211,5 +206,5 @@ export default function ProductDetailsClient({
         </div>
       </div>
     </div>
-  );
+  )
 }
