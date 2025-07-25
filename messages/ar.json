@@ -53,5 +53,17 @@
     "placeholder": "البحث...",
     "login": "تسجيل الدخول",
     "register": "إنشاء حساب"
+  },
+  "ProductDetails": {
+    "brand": "العلامة التجارية",
+    "tags": "العلامات",
+    "categories": "الفئات",
+    "officialActivation": "تفعيل رسمي 100%",
+    "goldenWarranty": "تمتع بضمان ذهبي",
+    "instantActivation": "تفعيل فوري (5 دقائق - 60 دقيقة)"
+  },
+  "ProductTabs": {
+    "description": "الوصف",
+    "reviews": "المراجعات"
   }
 }

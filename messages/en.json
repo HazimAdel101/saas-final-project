@@ -47,5 +47,17 @@
     "placeholder": "Search...",
     "login": "Login",
     "register": "Register"
+  },
+  "ProductDetails": {
+    "brand": "Brand",
+    "tags": "Tags",
+    "categories": "Categories",
+    "officialActivation": "100% Official Activation",
+    "goldenWarranty": "Enjoy Golden Warranty",
+    "instantActivation": "Instant Activation (5-60 minutes)"
+  },
+  "ProductTabs": {
+    "description": "Description",
+    "reviews": "Reviews"
   }
 }

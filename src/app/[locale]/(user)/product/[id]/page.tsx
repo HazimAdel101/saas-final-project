@@ -25,7 +25,7 @@ interface Service {
 
 const services: Service[] = [
   {
-    id: 'web-development',
+    id: '1',
     name: 'Custom Web Development',
     icon: <Code className='h-8 w-8 text-blue-600' />,
     company: 'WebCraft Pro',
@@ -270,5 +270,9 @@ export default async function ProductPage({
     notFound()
   }
 
-  return <ProductDetailsClient service={service} />
+  return (
+    <div className='mt-16'>
+      <ProductDetailsClient service={service} />
+    </div>
+  )
 }
