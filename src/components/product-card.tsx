@@ -26,7 +26,7 @@ export default function ProductCard({
 }: ProductCardProps) {
   const t = useTranslations('ProductCard')
   return (
-    <Card className='w-full max-w-sm overflow-hidden'>
+    <Card className='h-full w-full max-w-sm justify-between gap-2 overflow-hidden'>
       <CardHeader className='p-0'>
         <div className='relative'>
           <Image
@@ -50,7 +50,7 @@ export default function ProductCard({
           </Button>
         </div>
       </CardHeader>
-      <CardContent className='p-4'>
+      <CardContent className='h-full px-4'>
         <h3 className='mb-2 text-lg font-semibold'>{name}</h3>
         <p className='text-muted-foreground mb-3 text-sm'>{description}</p>
         <div className='flex items-center gap-2'>
