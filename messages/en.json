@@ -59,5 +59,11 @@
   "ProductTabs": {
     "description": "Description",
     "reviews": "Reviews"
+  },
+  "Footer": {
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "support": "Support",
+    "copyright": "All rights reserved."
   }
 }
