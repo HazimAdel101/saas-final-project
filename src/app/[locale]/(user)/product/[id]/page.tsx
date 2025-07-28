@@ -5,9 +5,9 @@ import { PrismaClient } from '@prisma/client'
 export default async function ProductPage({
   params
 }: {
-  params: Promise<{ id: string }>
+  params: Promise<{ id: string; locale: string }>
 }) {
-  const { id } = await params
+  const { id, locale } = await params
   const prisma = new PrismaClient()
   const product = await prisma.product.findUnique({
     where: { id: Number(id) },
@@ -26,28 +26,13 @@ export default async function ProductPage({
   return (
     <div className='mt-16'>
       <ProductDetailsClient
+        locale={locale}
         product={{
           ...product,
-          price_usd:
-            product.price_usd instanceof Object &&
-            'toNumber' in product.price_usd
-              ? product.price_usd.toNumber()
-              : Number(product.price_usd),
-          price_ksa:
-            product.price_ksa instanceof Object &&
-            'toNumber' in product.price_ksa
-              ? product.price_ksa.toNumber()
-              : Number(product.price_ksa),
-          discount_usd:
-            product.discount_usd instanceof Object &&
-            'toNumber' in product.discount_usd
-              ? product.discount_usd.toNumber()
-              : Number(product.discount_usd),
-          discount_ksa:
-            product.discount_ksa instanceof Object &&
-            'toNumber' in product.discount_ksa
-              ? product.discount_ksa.toNumber()
-              : Number(product.discount_ksa)
+          price_usd: Number(product.price_usd),
+          price_ksa: Number(product.price_ksa),
+          discount_usd: Number(product.discount_usd),
+          discount_ksa: Number(product.discount_ksa)
         }}
       />
     </div>

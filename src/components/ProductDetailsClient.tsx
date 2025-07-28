@@ -33,18 +33,26 @@ type Product = {
 }
 
 export default function ProductDetailsClient({
-  product
+  product,
+  locale
 }: {
   product: Product
+  locale: string
 }) {
   const t = useTranslations('ProductDetails')
-  const saving = product.price_usd - product.discount_usd
+  const language = locale
+  const index = language === 'en' ? 0 : 1
+  let saving = 0
+  if (language === 'ar')
+    saving = Number(product.price_ksa) - Number(product.discount_ksa)
+  else saving = Number(product.price_usd) - Number(product.discount_usd)
+
   return (
     <>
       <div className='flex justify-center gap-6 pt-6'>
         <div className=''>
           <Image
-            src='/products/chatgpt.jpeg'
+            src={product.image_url}
             alt='Example image'
             width={400}
             height={400}
@@ -52,19 +60,23 @@ export default function ProductDetailsClient({
           />
         </div>
         <div className=''>
-          <h1>{product.productDetails?.[0]?.name}</h1>
+          <h1>{product.productDetails?.[index]?.name}</h1>
           {Array.from({ length: 5 }).map((_, i) => (
             <Star key={i} className='inline-block h-5 w-5 text-yellow-500' />
           ))}
           <div className='mt-2 flex items-center gap-2'>
             <span className='text-lg font-semibold text-gray-900'>
-              {product.discount_usd}
+              {language === 'ar'
+                ? product.discount_ksa.toString() + ' SAR'
+                : product.discount_usd.toString() + ' USD'}
             </span>
             <span className='text-sm text-gray-500 line-through'>
-              {product.price_usd}
+              {language === 'ar'
+                ? product.price_ksa.toString() + ' SAR'
+                : product.price_usd.toString() + ' USD'}
             </span>
             <span className='ml-2 text-xs text-green-600'>
-              Save {saving} USD
+              Save {saving.toString()} {language === 'ar' ? 'SAR' : 'USD'}!
             </span>
           </div>
           <Separator />
@@ -72,15 +84,15 @@ export default function ProductDetailsClient({
             <tbody>
               <tr>
                 <td>{t('brand')}</td>
-                <td>{product.productDetails?.[0]?.company}</td>
+                <td>{product.productDetails?.[index]?.company}</td>
               </tr>
               <tr>
                 <td>{t('tags')}</td>
-                <td>{product.productDetails?.[0]?.company}</td>
+                <td>{product.productDetails?.[index]?.company}</td>
               </tr>
               <tr>
                 <td>{t('categories')}</td>
-                <td>{product.productDetails?.[0]?.company}</td>
+                <td>{product.productDetails?.[index]?.company}</td>
               </tr>
             </tbody>
           </table>
@@ -92,7 +104,7 @@ export default function ProductDetailsClient({
           </ul>
         </div>
       </div>
-      <ProductTabs description={product.productDetails?.[0]?.description} />
+      <ProductTabs description={product.productDetails?.[1]?.description} />
     </>
   )
 }
