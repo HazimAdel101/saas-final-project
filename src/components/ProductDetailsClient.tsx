@@ -5,6 +5,7 @@ import { Star } from 'lucide-react'
 import { Separator } from '@/components/ui/separator'
 import { useTranslations } from 'next-intl'
 import { ProductTabs } from '@/components/product.tabs'
+import { Button } from './ui/button'
 
 type Language = {
   id: number
@@ -59,11 +60,13 @@ export default function ProductDetailsClient({
             className='size-[400px] rounded-2xl shadow-md'
           />
         </div>
-        <div className=''>
+        <div className='flex min-h-[400px] flex-col justify-between'>
           <h1>{product.productDetails?.[index]?.name}</h1>
-          {Array.from({ length: 5 }).map((_, i) => (
-            <Star key={i} className='inline-block h-5 w-5 text-yellow-500' />
-          ))}
+          <span>
+            {Array.from({ length: 5 }).map((_, i) => (
+              <Star key={i} className='inline-block h-5 w-5 text-yellow-500' />
+            ))}
+          </span>
           <div className='mt-2 flex items-center gap-2'>
             <span className='text-lg font-semibold text-gray-900'>
               {language === 'ar'
@@ -102,6 +105,8 @@ export default function ProductDetailsClient({
             <li>{t('goldenWarranty')}</li>
             <li>{t('instantActivation')}</li>
           </ul>
+
+          <Button className='mt-4 w-full'>{t('buyNow')}</Button>
         </div>
       </div>
       <ProductTabs description={product.productDetails?.[1]?.description} />
