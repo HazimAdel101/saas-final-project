@@ -1,9 +1,6 @@
 import ProductCard from '@/components/product-card'
 import Link from 'next/link'
 import { prisma } from '@/lib/db'
-// If you get a type error here, make sure you have run: npx prisma generate
-// and that @prisma/client is installed and up-to-date
-// import { getTranslations } from 'next-intl/server'
 
 export default async function Home({
   params
