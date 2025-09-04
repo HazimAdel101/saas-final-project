@@ -20,7 +20,7 @@ export const navItems: NavItem[] = [
   },
   {
     title: 'Product',
-    url: '/en/dashboard/product',
+    url: '/en/dashboard/products',
     icon: 'product',
     shortcut: ['p', 'p'],
     isActive: false,

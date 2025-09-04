@@ -40,6 +40,6 @@ export async function addProduct(input: NewProductInput) {
       language_id: input.languageId
     }
   })
-  revalidatePath('/dashboard/products')
+  revalidatePath('/dashboard/productss')
   return product
 }

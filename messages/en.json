@@ -54,7 +54,8 @@
     "categories": "Categories",
     "officialActivation": "100% Official Activation",
     "goldenWarranty": "Enjoy Golden Warranty",
-    "instantActivation": "Instant Activation (5-60 minutes)"
+    "instantActivation": "Instant Activation (5-60 minutes)",
+    "buyNow": "Buy Now"
   },
   "ProductTabs": {
     "description": "Description",

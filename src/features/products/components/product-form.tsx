@@ -106,13 +106,13 @@ export default function ProductForm({
       company: null
     }
     // Call API to create product
-    const res = await fetch('/api/products', {
+    const res = await fetch('/api/productss', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
     })
     if (res.ok) {
-      router.push('/dashboard/products')
+      router.push('/dashboard/productss')
     }
   }
 

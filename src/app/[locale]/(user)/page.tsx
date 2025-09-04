@@ -44,12 +44,19 @@ export default async function Home({
           >
             {filteredProducts.map((product) => {
               const details = product.productDetails[0]
-              // Convert Decimal values to string for client components
-              const originalPrice = product.price_usd?.toString() || ''
-              const discountedPrice = product.discount_usd?.toString() || ''
-              const savings = product.discount_usd?.toString() || ''
+              // Convert Decimal values to string for client components based on locale
+              const isArabic = locale === 'ar'
+              const originalPrice = isArabic 
+                ? product.price_ksa?.toString() || ''
+                : product.price_usd?.toString() || ''
+              const discountedPrice = isArabic 
+                ? product.discount_ksa?.toString() || ''
+                : product.discount_usd?.toString() || ''
+              const savings = isArabic 
+                ? product.discount_ksa?.toString() || ''
+                : product.discount_usd?.toString() || ''
               return (
-                <Link key={product.id} href={`/product/${product.id}`}>
+                <Link key={product.id} href={`/${locale}/product/${product.id}`}>
                   <ProductCard
                     name={details?.name || ''}
                     image={product.image_url}
