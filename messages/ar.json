@@ -66,5 +66,9 @@
   "ProductTabs": {
     "description": "الوصف",
     "reviews": "المراجعات"
+  },
+  "SearchInput": {
+    "SearchInput": "بحث",
+    "placeholder": "ابحث عن منتج أو فئة"
   }
 }

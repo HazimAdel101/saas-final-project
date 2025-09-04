@@ -21,9 +21,10 @@ model ProductDetail {
   id          Int      @id @default(autoincrement())
   product_id  Int
   name        String
-  description String
+  description String @db.Text
   features    Json
   language_id Int
+  company     String?
   product     Product  @relation(fields: [product_id], references: [id])
   language    Language @relation(fields: [language_id], references: [id])
 }
@@ -33,4 +34,4 @@ model Language {
   name  String
   code  String @unique
   productDetails ProductDetail[]
-}
+} 

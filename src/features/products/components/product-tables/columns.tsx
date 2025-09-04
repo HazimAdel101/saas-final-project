@@ -1,24 +1,24 @@
 'use client'
-import { Badge } from '@/components/ui/badge'
+// import { Badge } from '@/components/ui/badge'
 import { DataTableColumnHeader } from '@/components/ui/table/data-table-column-header'
 import { Product } from '@/constants/data'
 import { Column, ColumnDef } from '@tanstack/react-table'
-import { CheckCircle2, Text, XCircle } from 'lucide-react'
+import { Text } from 'lucide-react'
 import Image from 'next/image'
 import { CellAction } from './cell-action'
-import { useCategoryOptions } from './options'
+// import { useCategoryOptions } from './options'
 
 export function useProductColumns(): ColumnDef<Product>[] {
-  const categoryOptions = useCategoryOptions()
+  // const categoryOptions = useCategoryOptions()
   return [
     {
-      accessorKey: 'photo_url',
+      accessorKey: 'image_url',
       header: 'IMAGE',
       cell: ({ row }) => {
         return (
           <div className='relative aspect-square'>
             <Image
-              src={row.getValue('photo_url')}
+              src={row.getValue('image_url')}
               alt={row.getValue('name')}
               fill
               className='rounded-lg'
@@ -42,30 +42,30 @@ export function useProductColumns(): ColumnDef<Product>[] {
       },
       enableColumnFilter: true
     },
-    {
-      id: 'category',
-      accessorKey: 'category',
-      header: ({ column }: { column: Column<Product, unknown> }) => (
-        <DataTableColumnHeader column={column} title='Category' />
-      ),
-      cell: ({ cell }) => {
-        const status = cell.getValue<Product['category']>()
-        const Icon = status === 'active' ? CheckCircle2 : XCircle
+    // {
+    //   id: 'category',
+    //   accessorKey: 'category',
+    //   header: ({ column }: { column: Column<Product, unknown> }) => (
+    //     <DataTableColumnHeader column={column} title='Category' />
+    //   ),
+    //   cell: ({ cell }) => {
+    //     const status = cell.getValue<Product['category']>()
+    //     const Icon = status === 'active' ? CheckCircle2 : XCircle
 
-        return (
-          <Badge variant='outline' className='capitalize'>
-            <Icon />
-            {status}
-          </Badge>
-        )
-      },
-      enableColumnFilter: true,
-      meta: {
-        label: 'categories',
-        variant: 'multiSelect',
-        options: categoryOptions
-      }
-    },
+    //     return (
+    //       <Badge variant='outline' className='capitalize'>
+    //         <Icon />
+    //         {status}
+    //       </Badge>
+    //     )
+    //   },
+    //   enableColumnFilter: true,
+    //   meta: {
+    //     label: 'categories',
+    //     variant: 'multiSelect',
+    //     options: categoryOptions
+    //   }
+    // },
     {
       accessorKey: 'price',
       header: 'PRICE'

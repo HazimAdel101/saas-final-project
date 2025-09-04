@@ -26,25 +26,27 @@ export default function ProductCard({
 }: ProductCardProps) {
   const t = useTranslations('ProductCard')
   return (
-    <Card className='h-full w-full max-w-sm justify-between gap-2 overflow-hidden'>
+    <Card className='size-full max-w-sm justify-between gap-2 overflow-hidden'>
       <CardHeader className='p-0'>
         <div className='relative'>
-          <Image
-            src={image}
-            alt={name}
-            width={300}
-            height={200}
-            className='h-48 w-full object-cover'
-          />
+          {image && (
+            <Image
+              src={image}
+              alt={name}
+              width={300}
+              height={200}
+              className='h-48 w-full object-cover'
+            />
+          )}
           {isPremium && (
-            <Badge className='absolute top-2 left-2 bg-blue-500'>
+            <Badge className='bg-primary text-primary-foreground absolute top-2 left-2'>
               {t('premium')}
             </Badge>
           )}
           <Button
             size='icon'
             variant='ghost'
-            className='absolute top-2 right-2 bg-white/80 hover:bg-white'
+            className='bg-secondary/80 hover:bg-secondary absolute top-2 right-2'
           >
             <Heart className='h-4 w-4' />
           </Button>
@@ -59,9 +61,7 @@ export default function ProductCard({
             {originalPrice}
           </span>
         </div>
-        {savings && (
-          <div className='mt-1 text-xs text-green-600'>{savings}</div>
-        )}
+        {savings && <div className='text-primary mt-1 text-xs'>{savings}</div>}
       </CardContent>
       <CardFooter className='p-4 pt-0'>
         <Button className='w-full'>

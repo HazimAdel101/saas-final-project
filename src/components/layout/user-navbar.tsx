@@ -12,6 +12,7 @@ import { ThemeTogglePopover } from '@/components/layout/ThemeTogglePopover'
 import { useLanguage } from '@/context/LanguageContext'
 import { useTranslations } from 'next-intl'
 import Link from 'next/link'
+import Image from 'next/image'
 
 export default function Navbar() {
   const { isSignedIn } = useUser()
@@ -87,7 +88,13 @@ export default function Navbar() {
           </Popover>
           {/* Logo */}
           <Link href='/' className='text-primary hover:text-primary/90 ml-2'>
-            logo
+            <Image
+              src='/logo.svg'
+              alt='Logo'
+              width={40}
+              height={40}
+              className='rounded-full'
+            />
           </Link>
         </div>
 

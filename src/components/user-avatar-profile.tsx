@@ -1,13 +1,13 @@
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 
 interface UserAvatarProfileProps {
-  className?: string;
-  showInfo?: boolean;
+  className?: string
+  showInfo?: boolean
   user: {
-    imageUrl?: string;
-    fullName?: string | null;
-    emailAddresses: Array<{ emailAddress: string }>;
-  } | null;
+    imageUrl?: string
+    fullName?: string | null
+    emailAddresses: Array<{ emailAddress: string }>
+  } | null
 }
 
 export function UserAvatarProfile({
@@ -18,7 +18,13 @@ export function UserAvatarProfile({
   return (
     <div className='flex items-center gap-2'>
       <Avatar className={className}>
-        <AvatarImage src={user?.imageUrl || ''} alt={user?.fullName || ''} />
+        {/* Only render AvatarImage when we have a non-empty URL to avoid passing an empty src */}
+        {user?.imageUrl ? (
+          <AvatarImage
+            src={user.imageUrl}
+            alt={user?.fullName ?? 'User avatar'}
+          />
+        ) : null}
         <AvatarFallback className='rounded-lg'>
           {user?.fullName?.slice(0, 2)?.toUpperCase() || 'CN'}
         </AvatarFallback>
@@ -33,5 +39,5 @@ export function UserAvatarProfile({
         </div>
       )}
     </div>
-  );
+  )
 }

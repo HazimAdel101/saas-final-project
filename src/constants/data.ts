@@ -1,21 +1,18 @@
-import { NavItem } from '@/types';
+import { NavItem } from '@/types'
 
 export type Product = {
-  photo_url: string;
-  name: string;
-  description: string;
-  created_at: string;
-  price: number;
-  id: number;
-  category: string;
-  updated_at: string;
-};
+  id: number
+  image_url: string
+  name: string
+  price: number
+  description: string
+}
 
 //Info: The following data is used for the sidebar navigation and Cmd K bar.
 export const navItems: NavItem[] = [
   {
     title: 'Dashboard',
-    url: '/dashboard/overview',
+    url: '/en/dashboard/overview',
     icon: 'dashboard',
     isActive: false,
     shortcut: ['d', 'd'],
@@ -23,7 +20,7 @@ export const navItems: NavItem[] = [
   },
   {
     title: 'Product',
-    url: '/dashboard/product',
+    url: '/en/dashboard/product',
     icon: 'product',
     shortcut: ['p', 'p'],
     isActive: false,
@@ -38,7 +35,7 @@ export const navItems: NavItem[] = [
     items: [
       {
         title: 'Profile',
-        url: '/dashboard/profile',
+        url: '/en/dashboard/profile',
         icon: 'userPen',
         shortcut: ['m', 'm']
       },
@@ -52,21 +49,21 @@ export const navItems: NavItem[] = [
   },
   {
     title: 'Kanban',
-    url: '/dashboard/kanban',
+    url: '/en/dashboard/kanban',
     icon: 'kanban',
     shortcut: ['k', 'k'],
     isActive: false,
     items: [] // No child items
   }
-];
+]
 
 export interface SaleUser {
-  id: number;
-  name: string;
-  email: string;
-  amount: string;
-  image: string;
-  initials: string;
+  id: number
+  name: string
+  email: string
+  amount: string
+  image: string
+  initials: string
 }
 
 export const recentSalesData: SaleUser[] = [
@@ -110,4 +107,4 @@ export const recentSalesData: SaleUser[] = [
     image: 'https://api.slingacademy.com/public/sample-users/5.png',
     initials: 'SD'
   }
-];
+]

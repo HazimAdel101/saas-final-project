@@ -1,16 +1,6 @@
-import clerk from './clerk-middleware';
-import intl from './intl-middleware';
-import { NextFetchEvent, NextRequest } from 'next/server';
+import { clerkMiddleware } from '@clerk/nextjs/server'
 
-export default function middleware(req: NextRequest, event: NextFetchEvent) {
-  // First run next-intl middleware for locale detection
-  const intlResponse = intl(req);
-  // Then run Clerk middleware for authentication
-  const clerkResponse = clerk(req, event);
-
-  // If either middleware returns a response, return it
-  return intlResponse || clerkResponse;
-}
+export default clerkMiddleware()
 
 export const config = {
   matcher: [
@@ -21,4 +11,4 @@ export const config = {
     // Always run for API routes
     '/(api|trpc)(.*)'
   ]
-};
+}

@@ -65,5 +65,9 @@
     "terms": "Terms of Service",
     "support": "Support",
     "copyright": "All rights reserved."
+  },
+  "SearchInput": {
+    "SearchInput": "Search",
+    "placeholder": "Search products..."
   }
 }
