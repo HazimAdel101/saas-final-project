@@ -14,9 +14,11 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 
 import { useTaskStore } from '../utils/store';
+import { useTranslations } from 'next-intl';
 
 export default function NewTaskDialog() {
   const addTask = useTaskStore((state) => state.addTask);
+  const t = useTranslations('Kanban');
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -33,14 +35,14 @@ export default function NewTaskDialog() {
     <Dialog>
       <DialogTrigger asChild>
         <Button variant='secondary' size='sm'>
-          ＋ Add New Todo
+          ＋ {t('addNewTodo')}
         </Button>
       </DialogTrigger>
       <DialogContent className='sm:max-w-[425px]'>
         <DialogHeader>
-          <DialogTitle>Add New Todo</DialogTitle>
+          <DialogTitle>{t('addNewTodo')}</DialogTitle>
           <DialogDescription>
-            What do you want to get done today?
+            {t('whatToDo')}
           </DialogDescription>
         </DialogHeader>
         <form
@@ -52,7 +54,7 @@ export default function NewTaskDialog() {
             <Input
               id='title'
               name='title'
-              placeholder='Todo title...'
+              placeholder={t('todoTitle')}
               className='col-span-4'
             />
           </div>
@@ -60,7 +62,7 @@ export default function NewTaskDialog() {
             <Textarea
               id='description'
               name='description'
-              placeholder='Description...'
+              placeholder={t('description')}
               className='col-span-4'
             />
           </div>
@@ -68,7 +70,7 @@ export default function NewTaskDialog() {
         <DialogFooter>
           <DialogTrigger asChild>
             <Button type='submit' size='sm' form='todo-form'>
-              Add Todo
+              {t('addTodo')}
             </Button>
           </DialogTrigger>
         </DialogFooter>

@@ -13,6 +13,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useTransition } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
+import { useTranslations } from 'next-intl';
 import * as z from 'zod';
 import GithubSignInButton from './github-auth-button';
 
@@ -26,6 +27,7 @@ export default function UserAuthForm() {
   // const searchParams = useSearchParams();
   // const callbackUrl = searchParams.get('callbackUrl');
   const [loading, startTransition] = useTransition();
+  const t = useTranslations('Auth');
   const defaultValues = {
     email: 'demo@gmail.com'
   };
@@ -38,7 +40,7 @@ export default function UserAuthForm() {
   const onSubmit = async (data: UserFormValue) => {
     startTransition(() => {
       // console.log('continue with email clicked');
-      toast.success('Signed In Successfully!');
+      toast.success(t('signInSuccessfully'));
     });
   };
 
@@ -54,11 +56,11 @@ export default function UserAuthForm() {
             name='email'
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Email</FormLabel>
+                <FormLabel>{t('email')}</FormLabel>
                 <FormControl>
                   <Input
                     type='email'
-                    placeholder='Enter your email...'
+                    placeholder={t('enterEmail')}
                     disabled={loading}
                     {...field}
                   />
@@ -73,7 +75,7 @@ export default function UserAuthForm() {
             className='mt-2 ml-auto w-full'
             type='submit'
           >
-            Continue With Email
+            {t('continueWithEmail')}
           </Button>
         </form>
       </Form>
@@ -83,7 +85,7 @@ export default function UserAuthForm() {
         </div>
         <div className='relative flex justify-center text-xs uppercase'>
           <span className='bg-background text-muted-foreground px-2'>
-            Or continue with
+            {t('orContinueWith')}
           </span>
         </div>
       </div>

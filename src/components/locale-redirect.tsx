@@ -8,17 +8,15 @@ export default function LocaleRedirect() {
   const pathname = usePathname()
 
   useEffect(() => {
-    // Only redirect if we're on the root path
-    if (pathname !== '/') return
-
-    // Check for saved language preference
-    const savedLocale = localStorage.getItem('language')
+    // Check if we're in a locale-specific path
+    const isLocaleSpecific = pathname.startsWith('/en') || pathname.startsWith('/ar')
     
-    if (savedLocale && (savedLocale === 'en' || savedLocale === 'ar')) {
-      // Redirect to saved preference
-      router.replace(`/${savedLocale}`)
+    if (isLocaleSpecific) {
+      // Extract current locale and save it
+      const currentLocale = pathname.split('/')[1] as 'en' | 'ar'
+      localStorage.setItem('language', currentLocale)
     }
-  }, [router, pathname])
+  }, [pathname])
 
   return null // This component doesn't render anything
 }

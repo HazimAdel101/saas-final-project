@@ -325,9 +325,10 @@ export const { Link, redirect, usePathname, useRouter } =
 3. **Fallback**: Default to English (`en`)
 
 **Routing Structure**:
-- Root URL (`/`) → Redirects based on language detection
+- Root URL (`/`) → Server-side redirect based on Accept-Language header detection
 - Localized URLs: `/en/*`, `/ar/*`
 - `localePrefix: 'always'` ensures locale is always in URL
+- No root layout to prevent HTML nesting issues with locale-specific layouts
 
 **Language Persistence**:
 ```tsx

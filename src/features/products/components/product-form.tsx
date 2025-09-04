@@ -25,6 +25,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import React, { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { useTranslations } from 'next-intl'
 import * as z from 'zod'
 
 const MAX_FILE_SIZE = 5000000
@@ -35,29 +36,30 @@ const ACCEPTED_IMAGE_TYPES = [
   'image/webp'
 ]
 
-const formSchema = z.object({
+// Create form schema function to use translations
+const createFormSchema = (t: any) => z.object({
   image: z
     .any()
-    .refine((files) => files?.length == 1, 'Image is required.')
+    .refine((files) => files?.length == 1, t('imageRequired'))
     .refine(
       (files) => files?.[0]?.size <= MAX_FILE_SIZE,
-      `Max file size is 5MB.`
+      t('maxFileSize')
     )
     .refine(
       (files) => ACCEPTED_IMAGE_TYPES.includes(files?.[0]?.type),
-      '.jpg, .jpeg, .png and .webp files are accepted.'
+      t('acceptedFormats')
     ),
   name: z.string().min(2, {
-    message: 'Product name must be at least 2 characters.'
+    message: t('productNameLength')
   }),
   category: z.string(),
-  language: z.string().nonempty({ message: 'Language is required.' }),
+  language: z.string().nonempty({ message: t('languageRequired') }),
   price: z.preprocess((val) => {
     if (typeof val === 'string') return parseFloat(val)
     return val
   }, z.number()),
   description: z.string().min(10, {
-    message: 'Description must be at least 10 characters.'
+    message: t('descriptionLength')
   })
 })
 
@@ -79,6 +81,7 @@ export default function ProductForm({
     languages[0]?.code || 'en'
   )
   const router = useRouter()
+  const t = useTranslations('ProductForm')
   const defaultValues = {
     name: initialData?.name || '',
     category: initialData?.category || '',
@@ -87,6 +90,7 @@ export default function ProductForm({
     description: initialData?.description || ''
   }
 
+  const formSchema = createFormSchema(t)
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     values: defaultValues
@@ -158,7 +162,7 @@ export default function ProductForm({
                 name='language'
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Language</FormLabel>
+                    <FormLabel>{t('language')}</FormLabel>
                     <Select
                       onValueChange={(val) => {
                         field.onChange(val)
@@ -168,7 +172,7 @@ export default function ProductForm({
                     >
                       <FormControl>
                         <SelectTrigger>
-                          <SelectValue placeholder='Select language' />
+                          <SelectValue placeholder={t('selectLanguage')} />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
@@ -188,9 +192,9 @@ export default function ProductForm({
                 name='name'
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Product Name</FormLabel>
+                    <FormLabel>{t('productName')}</FormLabel>
                     <FormControl>
-                      <Input placeholder='Enter product name' {...field} />
+                      <Input placeholder={t('enterProductName')} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -201,14 +205,14 @@ export default function ProductForm({
                 name='category'
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Category</FormLabel>
+                    <FormLabel>{t('category')}</FormLabel>
                     <Select
                       onValueChange={(value) => field.onChange(value)}
                       value={field.value[field.value.length - 1]}
                     >
                       <FormControl>
                         <SelectTrigger>
-                          <SelectValue placeholder='Select categories' />
+                          <SelectValue placeholder={t('selectCategory')} />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
@@ -231,13 +235,13 @@ export default function ProductForm({
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      Price ({selectedLang === 'en' ? 'USD' : 'KSA'})
+                      {t('price')} ({selectedLang === 'en' ? 'USD' : 'KSA'})
                     </FormLabel>
                     <FormControl>
                       <Input
                         type='number'
                         step='0.01'
-                        placeholder='Enter price'
+                        placeholder={t('enterPrice')}
                         {...field}
                       />
                     </FormControl>
@@ -251,10 +255,10 @@ export default function ProductForm({
               name='description'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Description</FormLabel>
+                  <FormLabel>{t('description')}</FormLabel>
                   <FormControl>
                     <Textarea
-                      placeholder='Enter product description'
+                      placeholder={t('enterProductDescription')}
                       className='resize-none'
                       {...field}
                     />
@@ -263,7 +267,7 @@ export default function ProductForm({
                 </FormItem>
               )}
             />
-            <Button type='submit'>Add Product</Button>
+            <Button type='submit'>{t('addProduct')}</Button>
           </form>
         </Form>
       </CardContent>

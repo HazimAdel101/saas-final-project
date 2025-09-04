@@ -10,6 +10,7 @@ import { NuqsAdapter } from 'nuqs/adapters/next/app'
 import { NextIntlClientProvider, hasLocale } from 'next-intl'
 import { notFound } from 'next/navigation'
 import { routing } from '@/i18n/routing'
+import LocaleRedirect from '@/components/locale-redirect'
 import './globals.css'
 import './theme.css'
 
@@ -66,6 +67,7 @@ export default async function RootLayout({
         )}
       >
         <NextTopLoader showSpinner={false} />
+        <LocaleRedirect />
         <NuqsAdapter>
           <ThemeProvider
             attribute='class'
