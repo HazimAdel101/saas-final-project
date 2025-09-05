@@ -11,8 +11,6 @@ import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 import Link from 'next/link'
 import { useParams } from 'next/navigation'
-// Note: metadata can't be used with 'use client' directive
-// We'll handle page title differently
 
 export default function CartPage() {
   const {
@@ -61,27 +59,26 @@ export default function CartPage() {
 
   return (
     <PageContainer>
-      <div className="space-y-6">
-        {/* Header */}
+      <div className="space-y-6 w-full mt-12">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
             <Link href={`/${locale}`}>
               <Button variant="outline" size="sm">
                 <ArrowLeft className="mr-2 h-4 w-4" />
-                Continue Shopping
+                {t('continueShopping')}
               </Button>
             </Link>
             <div>
-              <h1 className="text-3xl font-bold">Shopping Cart</h1>
+              <h1 className="text-3xl font-bold">{t('shoppingCart')}</h1>
               <p className="text-muted-foreground">
-                {totalItems} {totalItems === 1 ? 'item' : 'items'} in your cart
+                {totalItems} {totalItems === 1 ? t('item') : t('items')} {t('inCart')}
               </p>
             </div>
           </div>
           <div className="flex gap-2">
             <Link href={`/${locale}/dashboard/products`}>
               <Button variant="outline" size="sm">
-                Browse Products
+                {t('browseProducts')}
               </Button>
             </Link>
           </div>
@@ -93,20 +90,20 @@ export default function CartPage() {
           <div className="flex flex-col items-center justify-center py-16 space-y-4">
             <ShoppingCart className="h-24 w-24 text-muted-foreground" />
             <div className="text-center space-y-2">
-              <h2 className="text-2xl font-semibold">Your cart is empty</h2>
+              <h2 className="text-2xl font-semibold">{t('emptyCart')}</h2>
               <p className="text-muted-foreground max-w-md">
-                Add some products to your cart and they will appear here.
+                {t('emptyCartDescription')}
               </p>
             </div>
             <div className="flex gap-4">
               <Link href={`/${locale}`}>
                 <Button>
-                  Continue Shopping
+                  {t('continueShopping')}
                 </Button>
               </Link>
               <Link href={`/${locale}/dashboard/products`}>
                 <Button variant="outline">
-                  Browse Products
+                  {t('browseProducts')}
                 </Button>
               </Link>
             </div>
@@ -179,31 +176,31 @@ export default function CartPage() {
             <div className="space-y-4">
               <Card>
                 <CardHeader>
-                  <CardTitle>Order Summary</CardTitle>
+                  <CardTitle>{t('orderSummary')}</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="flex justify-between text-sm">
-                    <span>Subtotal ({totalItems} items)</span>
+                    <span>{t('subtotal')} ({totalItems} {totalItems === 1 ? t('item') : t('items')})</span>
                     <span>${totalPrice.toFixed(2)}</span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span>Shipping</span>
-                    <span className="text-muted-foreground">Calculated at checkout</span>
+                    <span>{t('shipping')}</span>
+                    <span className="text-muted-foreground">{t('calculatedAtCheckout')}</span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span>Tax</span>
-                    <span className="text-muted-foreground">Calculated at checkout</span>
+                    <span>{t('tax')}</span>
+                    <span className="text-muted-foreground">{t('calculatedAtCheckout')}</span>
                   </div>
                   <Separator />
                   <div className="flex justify-between font-semibold text-lg">
-                    <span>Total</span>
+                    <span>{t('total')}</span>
                     <span>${totalPrice.toFixed(2)}</span>
                   </div>
                 </CardContent>
               </Card>
 
               <Button className="w-full" size="lg">
-                Proceed to Checkout
+                {t('proceedToCheckout')}
               </Button>
 
               <Button
@@ -211,7 +208,7 @@ export default function CartPage() {
                 className="w-full"
                 onClick={clearCart}
               >
-                Clear Cart
+{t('clearCart')}
               </Button>
             </div>
           </div>

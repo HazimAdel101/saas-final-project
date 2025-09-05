@@ -17,10 +17,14 @@
     "item": "item",
     "items": "items",
     "emptyCart": "Your cart is empty",
-    "emptyCartDescription": "Add some products to get started!",
-    "quantity": "Quantity",
-    "remove": "Remove",
+    "emptyCartDescription": "Add some products to your cart and they will appear here.",
+    "continueShopping": "Continue Shopping",
+    "browseProducts": "Browse Products",
+    "orderSummary": "Order Summary",
     "subtotal": "Subtotal",
+    "shipping": "Shipping",
+    "tax": "Tax",
+    "calculatedAtCheckout": "Calculated at checkout",
     "total": "Total",
     "proceedToCheckout": "Proceed to Checkout",
     "clearCart": "Clear Cart",
@@ -76,7 +80,8 @@
   },
   "ProductTabs": {
     "description": "Description",
-    "reviews": "Reviews"
+    "reviews": "Reviews",
+    "reviewsContent": "User reviews and comments will appear here"
   },
   "Footer": {
     "privacy": "Privacy Policy",
@@ -248,5 +253,14 @@
     "betaCorp": "Beta Corp",
     "gammaLtd": "Gamma Ltd",
     "enterprise": "Enterprise"
+  },
+  "WhatsApp": {
+    "chatOnWhatsApp": "Chat on WhatsApp"
+  },
+  "NotFound": {
+    "title": "Something's missing",
+    "description": "Sorry, the page you are looking for doesn't exist or has been moved.",
+    "goBack": "Go back",
+    "backToHome": "Back to Home"
   }
 }

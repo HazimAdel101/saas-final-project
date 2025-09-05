@@ -17,10 +17,14 @@
     "item": "عنصر",
     "items": "عناصر",
     "emptyCart": "سلة التسوق فارغة",
-    "emptyCartDescription": "أضف بعض المنتجات للبدء!",
-    "quantity": "الكمية",
-    "remove": "إزالة",
+    "emptyCartDescription": "أضف بعض المنتجات إلى سلة التسوق وسيتم عرضها هنا.",
+    "continueShopping": "متابعة التسوق",
+    "browseProducts": "تصفح المنتجات",
+    "orderSummary": "ملخص الطلب",
     "subtotal": "المجموع الفرعي",
+    "shipping": "الشحن",
+    "tax": "الضريبة",
+    "calculatedAtCheckout": "يتم حسابها عند الدفع",
     "total": "المجموع",
     "proceedToCheckout": "المتابعة للدفع",
     "clearCart": "إفراغ السلة",
@@ -82,7 +86,8 @@
   },
   "ProductTabs": {
     "description": "الوصف",
-    "reviews": "المراجعات"
+    "reviews": "المراجعات",
+    "reviewsContent": "ستظهر مراجعات وتعليقات المستخدمين هنا"
   },
   "SearchInput": {
     "SearchInput": "بحث",
@@ -248,5 +253,14 @@
     "betaCorp": "مؤسسة بيتا",
     "gammaLtd": "جاما المحدودة",
     "enterprise": "المؤسسة"
+  },
+  "WhatsApp": {
+    "chatOnWhatsApp": "تحدث عبر الواتساب"
+  },
+  "NotFound": {
+    "title": "شيء مفقود",
+    "description": "عذراً، الصفحة التي تبحث عنها غير موجودة أو تم نقلها.",
+    "goBack": "العودة",
+    "backToHome": "العودة للرئيسية"
   }
 }
