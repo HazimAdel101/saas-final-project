@@ -7,7 +7,7 @@ export const runtime = 'experimental-edge'
 // Define protected routes that require authentication
 const isProtectedRoute = createRouteMatcher([
   '/dashboard(.*)',
-  '/en/dashboard(.*)', 
+  '/en/dashboard(.*)',
   '/ar/dashboard(.*)'
 ])
 
@@ -50,10 +50,10 @@ export default clerkMiddleware(async (auth, req: NextRequest) => {
   if (isProtectedRoute(req)) {
     try {
       const { userId } = await auth()
-      
+
       if (!userId) {
         // Extract locale from pathname
-        const locale = pathname.split('/')[1] || defaultLocale 
+        const locale = pathname.split('/')[1] || defaultLocale
         const signInUrl = new URL(`/${locale}/auth/sign-in`, req.url)
         return NextResponse.redirect(signInUrl)
       }
