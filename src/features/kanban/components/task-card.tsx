@@ -66,7 +66,7 @@ export function TaskCard({ task, isOverlay }: TaskCardProps) {
         dragging: isOverlay ? 'overlay' : isDragging ? 'over' : undefined
       })}
     >
-      <CardHeader className='space-between border-secondary relative flex flex-row border-b-2 px-3 py-3'>
+      <CardHeader className='space-between border-border relative flex flex-row border-b-2 px-3 py-3'>
         <Button
           variant={'ghost'}
           {...attributes}

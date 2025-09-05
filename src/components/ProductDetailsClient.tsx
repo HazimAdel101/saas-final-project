@@ -64,21 +64,21 @@ export default function ProductDetailsClient({
           <h1>{product.productDetails?.[index]?.name}</h1>
           <span>
             {Array.from({ length: 5 }).map((_, i) => (
-              <Star key={i} className='inline-block h-5 w-5 text-yellow-500' />
+              <Star key={i} className='inline-block h-5 w-5 text-warning-500' />
             ))}
           </span>
           <div className='mt-2 flex items-center gap-2'>
-            <span className='text-lg font-semibold text-gray-900'>
+            <span className='text-lg font-semibold text-foreground'>
               {language === 'ar'
                 ? product.discount_ksa.toString() + ' SAR'
                 : product.discount_usd.toString() + ' USD'}
             </span>
-            <span className='text-sm text-gray-500 line-through'>
+            <span className='text-sm text-muted-foreground line-through'>
               {language === 'ar'
                 ? product.price_ksa.toString() + ' SAR'
                 : product.price_usd.toString() + ' USD'}
             </span>
-            <span className='ml-2 text-xs text-green-600'>
+            <span className='ml-2 text-xs text-success-600'>
               Save {saving.toString()} {language === 'ar' ? 'SAR' : 'USD'}!
             </span>
           </div>

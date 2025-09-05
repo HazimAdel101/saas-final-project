@@ -30,43 +30,75 @@ body {
 .theme-default-scaled {
   --primary: var(--color-neutral-600);
   --primary-foreground: var(--color-neutral-50);
+  --secondary: var(--color-neutral-200);
+  --secondary-foreground: var(--color-neutral-800);
+  --accent: var(--color-neutral-300);
+  --accent-foreground: var(--color-neutral-900);
 
   @variant dark {
     --primary: var(--color-neutral-500);
     --primary-foreground: var(--color-neutral-50);
+    --secondary: var(--color-neutral-700);
+    --secondary-foreground: var(--color-neutral-200);
+    --accent: var(--color-neutral-600);
+    --accent-foreground: var(--color-neutral-100);
   }
 }
 
 .theme-blue,
 .theme-blue-scaled {
-  --primary: var(--color-blue-600);
-  --primary-foreground: var(--color-blue-50);
+  --primary: var(--color-primary-600);
+  --primary-foreground: var(--color-primary-50);
+  --secondary: var(--color-secondary-200);
+  --secondary-foreground: var(--color-secondary-800);
+  --accent: var(--color-accent-300);
+  --accent-foreground: var(--color-accent-900);
 
   @variant dark {
-    --primary: var(--color-blue-500);
-    --primary-foreground: var(--color-blue-50);
+    --primary: var(--color-primary-500);
+    --primary-foreground: var(--color-primary-50);
+    --secondary: var(--color-secondary-700);
+    --secondary-foreground: var(--color-secondary-200);
+    --accent: var(--color-accent-600);
+    --accent-foreground: var(--color-accent-100);
   }
 }
 
 .theme-green,
 .theme-green-scaled {
-  --primary: var(--color-lime-600);
-  --primary-foreground: var(--color-lime-50);
+  --primary: var(--color-success-600);
+  --primary-foreground: var(--color-success-50);
+  --secondary: var(--color-success-200);
+  --secondary-foreground: var(--color-success-800);
+  --accent: var(--color-accent-300);
+  --accent-foreground: var(--color-accent-900);
 
   @variant dark {
-    --primary: var(--color-lime-600);
-    --primary-foreground: var(--color-lime-50);
+    --primary: var(--color-success-500);
+    --primary-foreground: var(--color-success-50);
+    --secondary: var(--color-success-700);
+    --secondary-foreground: var(--color-success-200);
+    --accent: var(--color-accent-600);
+    --accent-foreground: var(--color-accent-100);
   }
 }
 
 .theme-amber,
 .theme-amber-scaled {
-  --primary: var(--color-amber-600);
-  --primary-foreground: var(--color-amber-50);
+  --primary: var(--color-warning-600);
+  --primary-foreground: var(--color-warning-50);
+  --secondary: var(--color-warning-200);
+  --secondary-foreground: var(--color-warning-800);
+  --accent: var(--color-accent-300);
+  --accent-foreground: var(--color-accent-900);
 
   @variant dark {
-    --primary: var(--color-amber-500);
-    --primary-foreground: var(--color-amber-50);
+    --primary: var(--color-warning-500);
+    --primary-foreground: var(--color-warning-50);
+    --secondary: var(--color-warning-700);
+    --secondary-foreground: var(--color-warning-200);
+    --accent: var(--color-accent-600);
+    --accent-foreground: var(--color-accent-100);
   }
 }
 
@@ -75,10 +107,18 @@ body {
   --font-sans: var(--font-mono);
   --primary: var(--color-neutral-600);
   --primary-foreground: var(--color-neutral-50);
+  --secondary: var(--color-neutral-200);
+  --secondary-foreground: var(--color-neutral-800);
+  --accent: var(--color-neutral-300);
+  --accent-foreground: var(--color-neutral-900);
 
   @variant dark {
     --primary: var(--color-neutral-500);
     --primary-foreground: var(--color-neutral-50);
+    --secondary: var(--color-neutral-700);
+    --secondary-foreground: var(--color-neutral-200);
+    --accent: var(--color-neutral-600);
+    --accent-foreground: var(--color-neutral-100);
   }
 
   .rounded-xs,

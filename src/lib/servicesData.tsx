@@ -25,7 +25,7 @@ export const services: Service[] = [
   {
     id: 'web-development',
     name: 'Custom Web Development',
-    icon: <Code className='h-8 w-8 text-blue-600' />,
+    icon: <Code className='h-8 w-8 text-primary' />,
     company: 'WebCraft Pro',
     usedBy: 'Used by 2,847 members',
     category: 'most-popular',
@@ -63,7 +63,7 @@ export const services: Service[] = [
   {
     id: 'digital-marketing',
     name: 'Digital Marketing Suite',
-    icon: <Megaphone className='h-8 w-8 text-orange-600' />,
+    icon: <Megaphone className='h-8 w-8 text-warning-600' />,
     company: 'MarketBoost',
     usedBy: 'Used by 1,923 members',
     category: 'premium',
@@ -101,7 +101,7 @@ export const services: Service[] = [
   {
     id: 'seo-optimization',
     name: 'SEO Optimization',
-    icon: <Search className='h-8 w-8 text-green-600' />,
+    icon: <Search className='h-8 w-8 text-success-600' />,
     company: 'RankMaster',
     usedBy: 'Used by 3,156 members',
     category: 'most-popular',
@@ -139,7 +139,7 @@ export const services: Service[] = [
   {
     id: 'brand-design',
     name: 'Brand Identity Design',
-    icon: <Palette className='h-8 w-8 text-purple-600' />,
+    icon: <Palette className='h-8 w-8 text-accent-600' />,
     company: 'DesignStudio',
     usedBy: 'Used by 892 members',
     category: 'premium',
@@ -177,7 +177,7 @@ export const services: Service[] = [
   {
     id: 'content-creation',
     name: 'Content Creation Package',
-    icon: <PenTool className='h-8 w-8 text-indigo-600' />,
+    icon: <PenTool className='h-8 w-8 text-primary-600' />,
     company: 'ContentCraft',
     usedBy: 'Used by 1,567 members',
     category: 'free',
@@ -214,7 +214,7 @@ export const services: Service[] = [
   {
     id: 'business-consulting',
     name: 'Business Consulting',
-    icon: <Users className='h-8 w-8 text-teal-600' />,
+    icon: <Users className='h-8 w-8 text-secondary-600' />,
     company: 'ConsultPro',
     usedBy: 'Used by 743 members',
     category: 'recently-added',

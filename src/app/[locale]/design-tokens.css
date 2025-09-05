@@ -1,0 +1,129 @@
+/**
+ * Design Tokens - The foundation of the design system
+ * 
+ * This file contains all the base design tokens that can be customized.
+ * These tokens are then referenced in the theme files.
+ */
+
+:root {
+  /* 
+   * COLOR PALETTE
+   * Base colors that can be customized
+   */
+
+  /* Primary Colors */
+  --color-primary-50: oklch(0.97 0.03 260);
+  --color-primary-100: oklch(0.93 0.05 260);
+  --color-primary-200: oklch(0.88 0.08 260);
+  --color-primary-300: oklch(0.80 0.12 260);
+  --color-primary-400: oklch(0.71 0.16 260);
+  --color-primary-500: oklch(0.62 0.19 260); /* Main primary color */
+  --color-primary-600: oklch(0.55 0.22 260);
+  --color-primary-700: oklch(0.45 0.18 260);
+  --color-primary-800: oklch(0.35 0.14 260);
+  --color-primary-900: oklch(0.25 0.10 260);
+  --color-primary-950: oklch(0.15 0.06 260);
+
+  /* Secondary Colors */
+  --color-secondary-50: oklch(0.97 0.03 220);
+  --color-secondary-100: oklch(0.93 0.05 220);
+  --color-secondary-200: oklch(0.88 0.08 220);
+  --color-secondary-300: oklch(0.80 0.12 220);
+  --color-secondary-400: oklch(0.71 0.16 220);
+  --color-secondary-500: oklch(0.62 0.19 220); /* Main secondary color */
+  --color-secondary-600: oklch(0.55 0.22 220);
+  --color-secondary-700: oklch(0.45 0.18 220);
+  --color-secondary-800: oklch(0.35 0.14 220);
+  --color-secondary-900: oklch(0.25 0.10 220);
+  --color-secondary-950: oklch(0.15 0.06 220);
+
+  /* Accent Colors */
+  --color-accent-50: oklch(0.97 0.03 120);
+  --color-accent-100: oklch(0.93 0.05 120);
+  --color-accent-200: oklch(0.88 0.08 120);
+  --color-accent-300: oklch(0.80 0.12 120);
+  --color-accent-400: oklch(0.71 0.16 120);
+  --color-accent-500: oklch(0.62 0.19 120); /* Main accent color */
+  --color-accent-600: oklch(0.55 0.22 120);
+  --color-accent-700: oklch(0.45 0.18 120);
+  --color-accent-800: oklch(0.35 0.14 120);
+  --color-accent-900: oklch(0.25 0.10 120);
+  --color-accent-950: oklch(0.15 0.06 120);
+
+  /* Neutral Colors */
+  --color-neutral-50: oklch(0.98 0.003 0);
+  --color-neutral-100: oklch(0.95 0.005 0);
+  --color-neutral-200: oklch(0.90 0.01 0);
+  --color-neutral-300: oklch(0.80 0.015 0);
+  --color-neutral-400: oklch(0.70 0.02 0);
+  --color-neutral-500: oklch(0.60 0.025 0); /* Main neutral color */
+  --color-neutral-600: oklch(0.50 0.03 0);
+  --color-neutral-700: oklch(0.40 0.025 0);
+  --color-neutral-800: oklch(0.30 0.02 0);
+  --color-neutral-900: oklch(0.20 0.015 0);
+  --color-neutral-950: oklch(0.10 0.01 0);
+
+  /* Success Colors */
+  --color-success-50: oklch(0.97 0.03 140);
+  --color-success-100: oklch(0.93 0.05 140);
+  --color-success-200: oklch(0.88 0.08 140);
+  --color-success-300: oklch(0.80 0.12 140);
+  --color-success-400: oklch(0.71 0.16 140);
+  --color-success-500: oklch(0.62 0.19 140); /* Main success color */
+  --color-success-600: oklch(0.55 0.22 140);
+  --color-success-700: oklch(0.45 0.18 140);
+  --color-success-800: oklch(0.35 0.14 140);
+  --color-success-900: oklch(0.25 0.10 140);
+  --color-success-950: oklch(0.15 0.06 140);
+
+  /* Warning Colors */
+  --color-warning-50: oklch(0.97 0.03 80);
+  --color-warning-100: oklch(0.93 0.05 80);
+  --color-warning-200: oklch(0.88 0.08 80);
+  --color-warning-300: oklch(0.80 0.12 80);
+  --color-warning-400: oklch(0.71 0.16 80);
+  --color-warning-500: oklch(0.62 0.19 80); /* Main warning color */
+  --color-warning-600: oklch(0.55 0.22 80);
+  --color-warning-700: oklch(0.45 0.18 80);
+  --color-warning-800: oklch(0.35 0.14 80);
+  --color-warning-900: oklch(0.25 0.10 80);
+  --color-warning-950: oklch(0.15 0.06 80);
+
+  /* Danger/Error Colors */
+  --color-danger-50: oklch(0.97 0.03 30);
+  --color-danger-100: oklch(0.93 0.05 30);
+  --color-danger-200: oklch(0.88 0.08 30);
+  --color-danger-300: oklch(0.80 0.12 30);
+  --color-danger-400: oklch(0.71 0.16 30);
+  --color-danger-500: oklch(0.62 0.19 30); /* Main danger color */
+  --color-danger-600: oklch(0.55 0.22 30);
+  --color-danger-700: oklch(0.45 0.18 30);
+  --color-danger-800: oklch(0.35 0.14 30);
+  --color-danger-900: oklch(0.25 0.10 30);
+  --color-danger-950: oklch(0.15 0.06 30);
+
+  /* 
+   * TYPOGRAPHY
+   */
+  --font-sans: Inter, sans-serif;
+  --font-serif: serif;
+  --font-mono: monospace;
+  
+  /* 
+   * SPACING & SIZING
+   */
+  --spacing-unit: 0.25rem;
+  --radius-base: 0.5rem;
+  
+  /* 
+   * EFFECTS
+   */
+  --shadow-2xs: 0px 2px 4px 0px hsl(0 0% 0% / 0.05);
+  --shadow-xs: 0px 2px 4px 0px hsl(0 0% 0% / 0.05);
+  --shadow-sm: 0px 2px 4px 0px hsl(0 0% 0% / 0.1), 0px 1px 2px -1px hsl(0 0% 0% / 0.1);
+  --shadow: 0px 2px 4px 0px hsl(0 0% 0% / 0.1), 0px 1px 2px -1px hsl(0 0% 0% / 0.1);
+  --shadow-md: 0px 2px 4px 0px hsl(0 0% 0% / 0.1), 0px 2px 4px -1px hsl(0 0% 0% / 0.1);
+  --shadow-lg: 0px 2px 4px 0px hsl(0 0% 0% / 0.1), 0px 4px 6px -1px hsl(0 0% 0% / 0.1);
+  --shadow-xl: 0px 2px 4px 0px hsl(0 0% 0% / 0.1), 0px 8px 10px -1px hsl(0 0% 0% / 0.1);
+  --shadow-2xl: 0px 2px 4px 0px hsl(0 0% 0% / 0.25);
+}

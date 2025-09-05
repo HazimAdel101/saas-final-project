@@ -5,6 +5,7 @@ import { useTheme } from 'next-themes'
 import React from 'react'
 import { ActiveThemeProvider } from '../active-theme'
 import { LanguageProvider } from '@/context/LanguageContext'
+import ThemeConfigurator from '../theme-configurator'
 
 export default function Providers({
   activeThemeValue,
@@ -26,6 +27,7 @@ export default function Providers({
             }}
           >
             {children}
+            <ThemeConfigurator />
           </ClerkProvider>
         </LanguageProvider>
       </ActiveThemeProvider>

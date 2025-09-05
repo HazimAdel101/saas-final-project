@@ -22,15 +22,15 @@ export default function Navbar() {
   const totalItems = isClient ? getTotalItems() : 0
 
   return (
-    <nav className='sticky top-0 z-50 bg-white border-b'>
+    <nav className='sticky top-0 z-50 bg-background border-b border-border'>
       <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
         <div className='flex h-16 items-center justify-between'>
           <div className='flex items-center'>
             <div className='flex items-center space-x-2'>
-              <div className='flex h-8 w-8 items-center justify-center rounded-lg bg-blue-600'>
-                <Star className='h-5 w-5 text-white' />
+              <div className='flex h-8 w-8 items-center justify-center rounded-lg bg-primary'>
+                <Star className='h-5 w-5 text-primary-foreground' />
               </div>
-              <span className='text-xl font-bold text-gray-900'>
+              <span className='text-xl font-bold text-foreground'>
                 ExclusiveServices
               </span>
             </div>
@@ -38,19 +38,19 @@ export default function Navbar() {
           <div className='hidden items-center space-x-8 md:flex'>
             <a
               href='#services'
-              className='text-gray-700 transition-colors hover:text-blue-600'
+              className='text-muted-foreground transition-colors hover:text-primary'
             >
               Services
             </a>
             <a
               href='#about'
-              className='text-gray-700 transition-colors hover:text-blue-600'
+              className='text-muted-foreground transition-colors hover:text-primary'
             >
               About
             </a>
             <a
               href='#contact'
-              className='text-gray-700 transition-colors hover:text-blue-600'
+              className='text-muted-foreground transition-colors hover:text-primary'
             >
               Contact
             </a>
@@ -67,7 +67,7 @@ export default function Navbar() {
                 )}
               </Button>
             </Link>
-            <Button className='bg-blue-600 hover:bg-blue-700'>
+            <Button>
               Get Started
             </Button>
           </div>
