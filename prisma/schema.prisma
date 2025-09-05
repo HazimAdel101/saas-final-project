@@ -3,16 +3,16 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider = "sqlite"
+  url      = "file:./dev.db"
 }
 
 model Product {
   id            Int             @id @default(autoincrement())
-  price_usd     Decimal         @db.Decimal
-  price_ksa     Decimal         @db.Decimal
-  discount_usd  Decimal         @db.Decimal
-  discount_ksa  Decimal         @db.Decimal
+  price_usd     Float
+  price_ksa     Float
+  discount_usd  Float
+  discount_ksa  Float
   image_url     String
   productDetails ProductDetail[]
 }
@@ -21,12 +21,12 @@ model ProductDetail {
   id          Int      @id @default(autoincrement())
   product_id  Int
   name        String
-  description String @db.Text
-  features    Json
+  description String
+  features    String  // SQLite doesn't have native JSON, store as string
   language_id Int
   company     String?
-  product     Product  @relation(fields: [product_id], references: [id])
-  language    Language @relation(fields: [language_id], references: [id])
+  product     Product  @relation(fields: [product_id], references: [id], onDelete: Cascade)
+  language    Language @relation(fields: [language_id], references: [id], onDelete: Cascade)
 }
 
 model Language {

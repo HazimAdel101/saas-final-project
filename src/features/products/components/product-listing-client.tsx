@@ -1,7 +1,7 @@
 'use client'
 import { Product } from '@/constants/data'
-import { ProductTable } from './products-tables'
-import { useProductColumns } from './products-tables/columns'
+import { ProductTable } from './product-tables'
+import { useProductColumns } from './product-tables/columns'
 
 type ProductListingClientProps = {
   products: Product[]

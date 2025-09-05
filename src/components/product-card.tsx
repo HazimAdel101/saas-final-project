@@ -29,9 +29,17 @@ export default function ProductCard({
     <Card className='size-full max-w-sm justify-between gap-2 overflow-hidden'>
       <CardHeader className='p-0'>
         <div className='relative'>
-          {image && (
+          {image ? (
             <Image
               src={image}
+              alt={name}
+              width={300}
+              height={200}
+              className='h-48 w-full object-cover'
+            />
+          ) : (
+            <Image
+              src={'/logo.svg'}
               alt={name}
               width={300}
               height={200}

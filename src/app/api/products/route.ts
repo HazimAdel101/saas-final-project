@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server'
 import {
   addProduct,
   NewProductInput
-} from '@/features/productss/actions/products-actions'
+} from '@/features/products/actions/product-actions'
 
 export async function POST(request: Request) {
   try {

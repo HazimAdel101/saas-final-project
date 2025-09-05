@@ -24,7 +24,7 @@ import { Product } from '@/constants/mock-api'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import React, { useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { useRouter } from '@/i18n/navigation'
 import { useTranslations } from 'next-intl'
 import * as z from 'zod'
 
@@ -37,28 +37,61 @@ const ACCEPTED_IMAGE_TYPES = [
 ]
 
 // Create form schema function to use translations
-const createFormSchema = (t: any) => z.object({
+const createFormSchema = (t: any, uploadedImageUrl: string) => z.object({
   image: z
     .any()
-    .refine((files) => files?.length == 1, t('imageRequired'))
-    .refine(
-      (files) => files?.[0]?.size <= MAX_FILE_SIZE,
-      t('maxFileSize')
-    )
-    .refine(
-      (files) => ACCEPTED_IMAGE_TYPES.includes(files?.[0]?.type),
-      t('acceptedFormats')
-    ),
-  name: z.string().min(2, {
+    .optional()
+    .superRefine((files, ctx) => {
+      // If no uploaded image URL and no files, it's required
+      if (!uploadedImageUrl && (!files || files.length === 0)) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: t('imageRequired')
+        })
+        return
+      }
+      
+      // If files are present, validate them
+      if (files && files.length > 0) {
+        if (files.length !== 1) {
+          ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            message: t('imageRequired')
+          })
+        }
+        if (files[0]?.size > MAX_FILE_SIZE) {
+          ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            message: t('maxFileSize')
+          })
+        }
+        if (!ACCEPTED_IMAGE_TYPES.includes(files[0]?.type)) {
+          ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            message: t('acceptedFormats')
+          })
+        }
+      }
+    }),
+  name_en: z.string().min(2, {
+    message: t('productNameLength')
+  }),
+  name_ar: z.string().min(2, {
     message: t('productNameLength')
   }),
   category: z.string(),
-  language: z.string().nonempty({ message: t('languageRequired') }),
-  price: z.preprocess((val) => {
+  price_usd: z.preprocess((val) => {
     if (typeof val === 'string') return parseFloat(val)
     return val
-  }, z.number()),
-  description: z.string().min(10, {
+  }, z.number().min(0, { message: t('priceMinimum') })),
+  price_ksa: z.preprocess((val) => {
+    if (typeof val === 'string') return parseFloat(val)
+    return val
+  }, z.number().min(0, { message: t('priceMinimum') })),
+  description_en: z.string().min(10, {
+    message: t('descriptionLength')
+  }),
+  description_ar: z.string().min(10, {
     message: t('descriptionLength')
   })
 })
@@ -77,46 +110,84 @@ export default function ProductForm({
   pageTitle: string
   languages: Language[]
 }) {
-  const [selectedLang, setSelectedLang] = useState<string>(
-    languages[0]?.code || 'en'
-  )
+  const [uploadedImageUrl, setUploadedImageUrl] = useState<string>('')
+  const [isUploading, setIsUploading] = useState(false)
   const router = useRouter()
   const t = useTranslations('ProductForm')
   const defaultValues = {
-    name: initialData?.name || '',
+    name_en: initialData?.name || '',
+    name_ar: '',
     category: initialData?.category || '',
-    language: selectedLang,
-    price: initialData?.price || 0,
-    description: initialData?.description || ''
+    price_usd: initialData?.price || 0,
+    price_ksa: 0,
+    description_en: initialData?.description || '',
+    description_ar: ''
   }
 
-  const formSchema = createFormSchema(t)
+  const formSchema = React.useMemo(() => createFormSchema(t, uploadedImageUrl), [t, uploadedImageUrl])
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     values: defaultValues
   })
 
+  // Handle file upload
+  const handleFileUpload = async (files: File[]) => {
+    if (files.length === 0) return
+
+    setIsUploading(true)
+    try {
+      const file = files[0]
+      const formData = new FormData()
+      formData.append('file', file)
+
+      const response = await fetch('/api/upload', {
+        method: 'POST',
+        body: formData
+      })
+
+      if (!response.ok) {
+        throw new Error('Upload failed')
+      }
+
+      const result = await response.json()
+      setUploadedImageUrl(result.url)
+    } catch (error) {
+      console.error('Upload error:', error)
+      throw error // This will be caught by the toast in FileUploader
+    } finally {
+      setIsUploading(false)
+    }
+  }
+
   async function onSubmit(values: z.infer<typeof formSchema>) {
     // Log submission payload for debugging
     // eslint-disable-next-line no-console
     console.log('Submitting product with values:', values)
-    const langObj = languages.find((l) => l.code === selectedLang)
-    const payload = {
-      name: values.name,
-      description: values.description,
-      languageId: langObj?.id ?? languages[0].id,
-      price: values.price,
-      imageUrl: '', // TODO: replace with actual uploaded image URL
-      company: null
+    
+    if (!uploadedImageUrl) {
+      form.setError('image', { message: t('imageRequired') })
+      return
     }
+
+    const payload = {
+      name_en: values.name_en,
+      name_ar: values.name_ar,
+      description_en: values.description_en,
+      description_ar: values.description_ar,
+      price_usd: values.price_usd,
+      price_ksa: values.price_ksa,
+      imageUrl: uploadedImageUrl,
+      category: values.category
+    }
+    
     // Call API to create product
-    const res = await fetch('/api/productss', {
+    const res = await fetch('/api/products', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
     })
     if (res.ok) {
-      router.push('/dashboard/productss')
+      router.push('/dashboard/products')
     }
   }
 
@@ -136,137 +207,194 @@ export default function ProductForm({
               render={({ field }) => (
                 <div className='space-y-6'>
                   <FormItem className='w-full'>
-                    <FormLabel>Images</FormLabel>
+                    <FormLabel>{t('productImage')}</FormLabel>
                     <FormControl>
                       <FileUploader
                         value={field.value}
                         onValueChange={field.onChange}
-                        maxFiles={4}
-                        maxSize={4 * 1024 * 1024}
-                        // disabled={loading}
-                        // progresses={progresses}
-                        // pass the onUpload function here for direct upload
-                        // onUpload={uploadFiles}
-                        // disabled={isUploading}
+                        maxFiles={1}
+                        maxSize={5 * 1024 * 1024}
+                        accept={{
+                          'image/*': ['.jpeg', '.jpg', '.png', '.webp']
+                        }}
+                        onUpload={handleFileUpload}
+                        disabled={isUploading}
                       />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
+                  {uploadedImageUrl && (
+                    <div className='space-y-2'>
+                      <p className='text-sm text-green-600'>
+                        ✅ Image uploaded successfully
+                      </p>
+                      <div className='flex items-center space-x-2'>
+                        <img 
+                          src={uploadedImageUrl} 
+                          alt="Uploaded preview" 
+                          className='h-20 w-20 object-cover rounded border'
+                        />
+                        <p className='text-sm text-muted-foreground'>
+                          Image will be saved as: {uploadedImageUrl}
+                        </p>
+                      </div>
+                    </div>
+                  )}
                 </div>
               )}
             />
 
-            <div className='grid grid-cols-1 gap-6 md:grid-cols-2'>
-              <FormField
-                control={form.control}
-                name='language'
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>{t('language')}</FormLabel>
-                    <Select
-                      onValueChange={(val) => {
-                        field.onChange(val)
-                        setSelectedLang(val)
-                      }}
-                      value={selectedLang}
-                    >
+            {/* Product Names Section */}
+            <div className='space-y-4'>
+              <h3 className='text-lg font-semibold'>{t('productInformation')}</h3>
+              <div className='grid grid-cols-1 gap-6 md:grid-cols-2'>
+                <FormField
+                  control={form.control}
+                  name='name_en'
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>{t('productNameEnglish')}</FormLabel>
                       <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder={t('selectLanguage')} />
-                        </SelectTrigger>
+                        <Input placeholder={t('enterProductNameEnglish')} {...field} />
                       </FormControl>
-                      <SelectContent>
-                        {languages.map((lang) => (
-                          <SelectItem key={lang.id} value={lang.code}>
-                            {lang.name}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name='name'
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>{t('productName')}</FormLabel>
-                    <FormControl>
-                      <Input placeholder={t('enterProductName')} {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name='category'
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>{t('category')}</FormLabel>
-                    <Select
-                      onValueChange={(value) => field.onChange(value)}
-                      value={field.value[field.value.length - 1]}
-                    >
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name='name_ar'
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>{t('productNameArabic')}</FormLabel>
                       <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder={t('selectCategory')} />
-                        </SelectTrigger>
+                        <Input 
+                          placeholder={t('enterProductNameArabic')} 
+                          dir="rtl"
+                          {...field} 
+                        />
                       </FormControl>
-                      <SelectContent>
-                        <SelectItem value='beauty'>Beauty Products</SelectItem>
-                        <SelectItem value='electronics'>Electronics</SelectItem>
-                        <SelectItem value='clothing'>Clothing</SelectItem>
-                        <SelectItem value='home'>Home & Garden</SelectItem>
-                        <SelectItem value='sports'>
-                          Sports & Outdoors
-                        </SelectItem>
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name='price'
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>
-                      {t('price')} ({selectedLang === 'en' ? 'USD' : 'KSA'})
-                    </FormLabel>
-                    <FormControl>
-                      <Input
-                        type='number'
-                        step='0.01'
-                        placeholder={t('enterPrice')}
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
             </div>
-            <FormField
-              control={form.control}
-              name='description'
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{t('description')}</FormLabel>
-                  <FormControl>
-                    <Textarea
-                      placeholder={t('enterProductDescription')}
-                      className='resize-none'
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+
+            {/* Category and Pricing Section */}
+            <div className='space-y-4'>
+              <h3 className='text-lg font-semibold'>{t('categoryAndPricing')}</h3>
+              <div className='grid grid-cols-1 gap-6 md:grid-cols-3'>
+                <FormField
+                  control={form.control}
+                  name='category'
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>{t('category')}</FormLabel>
+                      <Select
+                        onValueChange={(value) => field.onChange(value)}
+                        value={field.value}
+                      >
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder={t('selectCategory')} />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectItem value='beauty'>Beauty Products</SelectItem>
+                          <SelectItem value='electronics'>Electronics</SelectItem>
+                          <SelectItem value='clothing'>Clothing</SelectItem>
+                          <SelectItem value='home'>Home & Garden</SelectItem>
+                          <SelectItem value='sports'>
+                            Sports & Outdoors
+                          </SelectItem>
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name='price_usd'
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>{t('priceUSD')}</FormLabel>
+                      <FormControl>
+                        <Input
+                          type='number'
+                          step='0.01'
+                          placeholder={t('enterPriceUSD')}
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name='price_ksa'
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>{t('priceKSA')}</FormLabel>
+                      <FormControl>
+                        <Input
+                          type='number'
+                          step='0.01'
+                          placeholder={t('enterPriceKSA')}
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+            </div>
+            {/* Product Descriptions Section */}
+            <div className='space-y-4'>
+              <h3 className='text-lg font-semibold'>{t('productDescriptions')}</h3>
+              <div className='grid grid-cols-1 gap-6 md:grid-cols-2'>
+                <FormField
+                  control={form.control}
+                  name='description_en'
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>{t('descriptionEnglish')}</FormLabel>
+                      <FormControl>
+                        <Textarea
+                          placeholder={t('enterProductDescriptionEnglish')}
+                          className='resize-none'
+                          rows={4}
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name='description_ar'
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>{t('descriptionArabic')}</FormLabel>
+                      <FormControl>
+                        <Textarea
+                          placeholder={t('enterProductDescriptionArabic')}
+                          className='resize-none'
+                          dir="rtl"
+                          rows={4}
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+            </div>
             <Button type='submit'>{t('addProduct')}</Button>
           </form>
         </Form>

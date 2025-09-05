@@ -1,4 +1,4 @@
-import { ProductListingClient } from './products-listing-client'
+import { ProductListingClient } from './product-listing-client'
 import { Product } from '@/constants/data'
 
 export default async function ProductListingPage({

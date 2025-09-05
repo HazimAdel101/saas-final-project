@@ -17,12 +17,14 @@ export function useProductColumns(): ColumnDef<Product>[] {
       cell: ({ row }) => {
         return (
           <div className='relative aspect-square'>
-            <Image
-              src={row.getValue('image_url')}
-              alt={row.getValue('name')}
-              fill
-              className='rounded-lg'
-            />
+            {typeof row.getValue('image_url') === 'string' && (
+              <Image
+                src={row.getValue('image_url') as string}
+                alt={String(row.getValue('name') ?? '')}
+                fill
+                className='rounded-lg'
+              />
+            )}
           </div>
         )
       }
