@@ -1,90 +1,69 @@
-import { clerkMiddleware } from '@clerk/nextjs/server'
-import createIntlMiddleware from 'next-intl/middleware'
-import { routing } from './i18n/routing'
-import { NextResponse, NextRequest } from 'next/server'
+import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server'
+import { NextRequest, NextResponse } from 'next/server'
 
-// Create the internationalization middleware
-const intlMiddleware = createIntlMiddleware({
-  locales: routing.locales,
-  defaultLocale: routing.defaultLocale,
-  localeDetection: true
-})
+// Define protected routes that require authentication
+const isProtectedRoute = createRouteMatcher([
+  '/dashboard(.*)',
+  '/en/dashboard(.*)', 
+  '/ar/dashboard(.*)'
+])
+
+// Define the locales
+const locales = ['en', 'ar']
+const defaultLocale = 'en'
 
 export default clerkMiddleware(async (auth, req: NextRequest) => {
-  try {
-    const { pathname } = req.nextUrl
+  const { pathname } = req.nextUrl
 
-    // Skip middleware for static files, API routes, and Next.js internals
-    if (
-      pathname.startsWith('/_next') ||
-      pathname.startsWith('/api') ||
-      pathname.includes('.') ||
-      pathname === '/favicon.ico'
-    ) {
-      return NextResponse.next()
-    }
+  // Skip middleware for static files, API routes, and Next.js internals
+  if (
+    pathname.startsWith('/_next') ||
+    pathname.startsWith('/api') ||
+    pathname.startsWith('/monitoring') ||
+    pathname.includes('.') ||
+    pathname === '/favicon.ico'
+  ) {
+    return NextResponse.next()
+  }
 
-    // Check if the pathname starts with a locale
-    const pathnameHasLocale = routing.locales.some(
-      (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
-    )
+  // Handle root path redirection to default locale
+  if (pathname === '/') {
+    const url = new URL(`/${defaultLocale}`, req.url)
+    return NextResponse.redirect(url)
+  }
 
-    // For requests without locale or root path, use intl middleware for redirection
-    if (!pathnameHasLocale || pathname === '/') {
-      try {
-        return intlMiddleware(req)
-      } catch (error) {
-        console.error('Intl middleware error:', error)
-        // Fallback: redirect to default locale
-        const url = new URL(`/${routing.defaultLocale}${pathname === '/' ? '' : pathname}`, req.url)
-        return NextResponse.redirect(url)
-      }
-    }
+  // Check if the pathname already has a locale
+  const pathnameHasLocale = locales.some(
+    (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
+  )
 
-    // Extract locale from pathname
-    const locale = pathname.split('/')[1] || routing.defaultLocale
+  // If no locale in pathname, redirect to default locale
+  if (!pathnameHasLocale) {
+    const url = new URL(`/${defaultLocale}${pathname}`, req.url)
+    return NextResponse.redirect(url)
+  }
 
-    // Check if this is a dashboard route that requires authentication
-    const isDashboardRoute = pathname.startsWith(`/${locale}/dashboard`)
-
-    if (isDashboardRoute) {
-      try {
-        // Get user authentication info
-        const { userId, sessionClaims } = await auth()
-        
-        // If user is not authenticated, redirect to sign-in
-        if (!userId) {
-          const signInUrl = new URL(`/${locale}/auth/sign-in`, req.url)
-          return NextResponse.redirect(signInUrl)
-        }
-
-        // Optional: Check if user has admin role (only if you need role-based access)
-        // Uncomment the following lines if you want to restrict dashboard to admin users only
-        /*
-        const userRole = (sessionClaims?.metadata as any)?.role || (sessionClaims?.publicMetadata as any)?.role
-        
-        if (userRole !== 'admin') {
-          // Redirect non-admin users to the main user area
-          const userAreaUrl = new URL(`/${locale}`, req.url)
-          return NextResponse.redirect(userAreaUrl)
-        }
-        */
-      } catch (authError) {
-        console.error('Auth middleware error:', authError)
-        // Fallback: redirect to sign-in on auth errors
+  // Handle authentication for protected routes
+  if (isProtectedRoute(req)) {
+    try {
+      const { userId } = await auth()
+      
+      if (!userId) {
+        // Extract locale from pathname
+        const locale = pathname.split('/')[1] || defaultLocale
         const signInUrl = new URL(`/${locale}/auth/sign-in`, req.url)
         return NextResponse.redirect(signInUrl)
       }
+    } catch (error) {
+      console.error('Auth middleware error:', error)
+      // Extract locale from pathname for error fallback
+      const locale = pathname.split('/')[1] || defaultLocale
+      const signInUrl = new URL(`/${locale}/auth/sign-in`, req.url)
+      return NextResponse.redirect(signInUrl)
     }
-
-    // For all other requests, continue normally
-    return NextResponse.next()
-  } catch (error) {
-    console.error('Middleware error:', error)
-    // Fallback: redirect to default locale home page
-    const fallbackUrl = new URL(`/${routing.defaultLocale}`, req.url)
-    return NextResponse.redirect(fallbackUrl)
   }
+
+  return NextResponse.next()
 })
 
 export const config = {
