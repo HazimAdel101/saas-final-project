@@ -8,6 +8,7 @@ import { cookies } from 'next/headers'
 import NextTopLoader from 'nextjs-toploader'
 import { NuqsAdapter } from 'nuqs/adapters/next/app'
 import { NextIntlClientProvider, hasLocale } from 'next-intl'
+import { getMessages } from 'next-intl/server'
 import { notFound } from 'next/navigation'
 import { routing } from '@/i18n/routing'
 import LocaleRedirect from '@/components/locale-redirect'
@@ -44,6 +45,7 @@ export default async function RootLayout({
     notFound()
   }
   const direction = locale === 'ar' ? 'rtl' : 'ltr'
+  const messages = await getMessages({ locale })
   return (
     <html lang={locale} dir={direction} suppressHydrationWarning>
       <head>
@@ -80,7 +82,9 @@ export default async function RootLayout({
             <Providers activeThemeValue={activeThemeValue as string}>
               <CartHydration />
               <Toaster />
-              <NextIntlClientProvider>{children}</NextIntlClientProvider>
+              <NextIntlClientProvider messages={messages} locale={locale}>
+                {children}
+              </NextIntlClientProvider>
             </Providers>
           </ThemeProvider>
         </NuqsAdapter>

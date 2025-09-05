@@ -29,7 +29,7 @@ export function ProductTabs({ description }: Props) {
           <div dangerouslySetInnerHTML={{ __html: description as string }} />
         </TabsContent>
         <TabsContent className='min-h-20' value='reviews'>
-          here stays the chats of users
+          {t('reviewsContent')}
         </TabsContent>
       </Tabs>
     </div>

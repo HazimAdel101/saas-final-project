@@ -10,11 +10,13 @@ import {
   DialogTrigger
 } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
+import { useTranslations } from 'next-intl'
 
 import { useTaskStore } from '../utils/store'
 
 export default function NewSectionDialog() {
   const addCol = useTaskStore((state) => state.addCol)
+  const t = useTranslations('Kanban')
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -31,14 +33,14 @@ export default function NewSectionDialog() {
     <Dialog>
       <DialogTrigger asChild>
         <Button variant='secondary' size='lg' className='w-full'>
-          ＋ Add New Section
+          ＋ {t('addNewSection')}
         </Button>
       </DialogTrigger>
       <DialogContent className='sm:max-w-[425px]'>
         <DialogHeader>
-          <DialogTitle>Add New Section</DialogTitle>
+          <DialogTitle>{t('addNewSection')}</DialogTitle>
           <DialogDescription>
-            What section you want to add today?
+            {t('createNewSection')}
           </DialogDescription>
         </DialogHeader>
         <form
@@ -50,7 +52,7 @@ export default function NewSectionDialog() {
             <Input
               id='title'
               name='title'
-              placeholder='Section title...'
+              placeholder={t('sectionName')}
               className='col-span-4'
             />
           </div>
@@ -58,7 +60,7 @@ export default function NewSectionDialog() {
         <DialogFooter>
           <DialogTrigger asChild>
             <Button type='submit' size='sm' form='todo-form'>
-              Add Section
+              {t('addSection')}
             </Button>
           </DialogTrigger>
         </DialogFooter>

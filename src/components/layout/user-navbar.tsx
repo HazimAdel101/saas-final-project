@@ -21,21 +21,6 @@ export default function Navbar() {
   // Change language and update URL
   const handleLanguageChange = (lang: string) => {
     setLanguage(lang as any)
-    // Change the locale in the URL (assumes /[locale]/... structure)
-    if (typeof window !== 'undefined') {
-      const pathParts = window.location.pathname.split('/').filter(Boolean)
-      if (
-        pathParts.length > 0 &&
-        (pathParts[0] === 'en' || pathParts[0] === 'ar')
-      ) {
-        pathParts[0] = lang
-      } else {
-        pathParts.unshift(lang)
-      }
-      const newPath = '/' + pathParts.join('/')
-      window.location.search + window.location.hash
-      window.location.assign(newPath)
-    }
   }
   const languages = [
     { code: 'en', label: 'English' },
