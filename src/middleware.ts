@@ -2,8 +2,6 @@
 import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server'
 import { NextRequest, NextResponse } from 'next/server'
 
-export const runtime = 'experimental-edge'
-
 // Define protected routes
 const isProtectedRoute = createRouteMatcher([
   '/dashboard(.*)',
