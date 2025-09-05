@@ -1,7 +1,7 @@
 {
   "functions": {
     "src/middleware.ts": {
-      "runtime": "experimental-edge"
+      "runtime": "vercel-node@20"
     }
   },
   "regions": ["iad1"],
