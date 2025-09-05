@@ -67,13 +67,12 @@ The easiest way to customize the design system is to use the Theme Configurator 
 1. Import and add the ThemeConfigurator component to your layout:
 
 ```tsx
-import { ThemeConfigurator } from "@/components/theme-configurator";
 
 // In your layout component
 return (
   <>
     {/* Your existing layout */}
-    <ThemeConfigurator />
+    {/* <ThemeConfigurator /> */}
   </>
 );
 ```

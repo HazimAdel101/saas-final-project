@@ -21,8 +21,8 @@ const META_THEME_COLORS = {
 }
 
 export const metadata: Metadata = {
-  title: 'Next Shadcn',
-  description: 'Basic dashboard with Next.js and Shadcn'
+  title: 'Digital Market',
+  description: 'Digital Market'
 }
 
 export const viewport: Viewport = {
