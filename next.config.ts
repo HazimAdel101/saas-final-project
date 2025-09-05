@@ -13,7 +13,16 @@ const baseConfig: NextConfig = {
       }
     ]
   },
-  transpilePackages: ['geist']
+  transpilePackages: ['geist'],
+  // Ensure compatibility with Vercel deployment
+  typescript: {
+    // Disable type checking during build (optional - speeds up deployment)
+    ignoreBuildErrors: false
+  },
+  eslint: {
+    // Disable ESLint during build (optional - speeds up deployment)
+    ignoreDuringBuilds: false
+  }
 }
 
 let configWithPlugins = baseConfig

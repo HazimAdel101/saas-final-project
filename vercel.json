@@ -1,0 +1,9 @@
+{
+  "functions": {
+    "src/middleware.ts": {
+      "runtime": "experimental-edge"
+    }
+  },
+  "regions": ["iad1"],
+  "framework": "nextjs"
+}

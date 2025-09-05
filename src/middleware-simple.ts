@@ -35,7 +35,6 @@ export default clerkMiddleware(async (auth, req: NextRequest) => {
       try {
         await auth.protect()
       } catch (error) {
-        console.error('Auth protection error:', error)
         // Redirect to sign-in on authentication failure
         const locale = pathname.startsWith('/ar') ? 'ar' : 'en'
         const signInUrl = new URL(`/${locale}/auth/sign-in`, req.url)
@@ -45,7 +44,6 @@ export default clerkMiddleware(async (auth, req: NextRequest) => {
 
     return NextResponse.next()
   } catch (error) {
-    console.error('Simple middleware error:', error)
     // Fallback to English homepage
     const fallbackUrl = new URL('/en', req.url)
     return NextResponse.redirect(fallbackUrl)

@@ -1,6 +1,9 @@
 import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server'
 import { NextRequest, NextResponse } from 'next/server'
 
+// Configure middleware to run on Edge Runtime (required for Vercel)
+export const runtime = 'experimental-edge'
+
 // Define protected routes that require authentication
 const isProtectedRoute = createRouteMatcher([
   '/dashboard(.*)',
@@ -55,7 +58,6 @@ export default clerkMiddleware(async (auth, req: NextRequest) => {
         return NextResponse.redirect(signInUrl)
       }
     } catch (error) {
-      console.error('Auth middleware error:', error)
       // Extract locale from pathname for error fallback
       const locale = pathname.split('/')[1] || defaultLocale
       const signInUrl = new URL(`/${locale}/auth/sign-in`, req.url)
