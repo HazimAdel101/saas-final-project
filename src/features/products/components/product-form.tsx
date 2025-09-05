@@ -156,7 +156,6 @@ export default function ProductForm({
       const result = await response.json()
       setUploadedImageUrl(result.url)
     } catch (error) {
-      console.error('Upload error:', error)
       throw error // This will be caught by the toast in FileUploader
     } finally {
       setIsUploading(false)

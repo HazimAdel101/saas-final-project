@@ -1,5 +1,4 @@
 import ProductCard from '@/components/product-card'
-import Link from 'next/link'
 import { prisma } from '@/lib/db'
 
 export default async function Home({

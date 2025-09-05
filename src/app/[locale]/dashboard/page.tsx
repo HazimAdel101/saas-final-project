@@ -8,11 +8,19 @@ export default async function Dashboard({
 }) {
   const { locale } = await params
 
-  const { userId } = await auth()
+  const { userId, sessionClaims } = await auth()
 
   if (!userId) {
-    return redirect('/auth/sign-in')
-  } else {
-    redirect(`/${locale}/dashboard/overview`)
+    return redirect(`/${locale}/auth/sign-in`)
   }
+
+  // Check if user has admin role - backup check to middleware
+  const userRole = (sessionClaims?.metadata as any)?.role || (sessionClaims?.publicMetadata as any)?.role
+  
+  if (userRole !== 'admin') {
+    return redirect(`/${locale}`)
+  }
+
+  // Redirect to overview if user is authenticated and has admin role
+  redirect(`/${locale}/dashboard/overview`)
 }

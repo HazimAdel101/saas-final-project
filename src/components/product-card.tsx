@@ -7,7 +7,6 @@ import { ShoppingCart, Heart, Eye } from 'lucide-react'
 import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 import { useCartStore } from '@/stores/cart-store'
-import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { useParams } from 'next/navigation'
 
@@ -38,11 +37,6 @@ export default function ProductCard({
   const params = useParams()
   const locale = params.locale as string
   const { addItem } = useCartStore()
-  const [isClient, setIsClient] = useState(false)
-
-  useEffect(() => {
-    setIsClient(true)
-  }, [])
 
   const handleAddToCart = () => {
     addItem({
