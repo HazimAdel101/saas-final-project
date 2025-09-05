@@ -1,7 +1,7 @@
-'use client';
+'use client'
 
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { IconAlertCircle } from '@tabler/icons-react';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
+import { IconAlertCircle } from '@tabler/icons-react'
 
 export default function PieStatsError({ error }: { error: Error }) {
   return (
@@ -12,5 +12,5 @@ export default function PieStatsError({ error }: { error: Error }) {
         Failed to load pie statistics: {error.message}
       </AlertDescription>
     </Alert>
-  );
+  )
 }

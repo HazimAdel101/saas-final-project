@@ -58,12 +58,14 @@ src/
 ### 2. Routing Structure
 
 **Internationalized Routing (i18n)**:
+
 - Base route: `/[locale]` (supports: `en`, `ar`)
 - Authentication: `/[locale]/auth/sign-in`, `/[locale]/auth/sign-up`
 - Dashboard: `/[locale]/dashboard/*`
 - User pages: `/[locale]/(user)/*`
 
 **Route Groups**:
+
 - `(user)`: Public user-facing pages
 - `(auth)`: Authentication pages
 - `dashboard`: Protected dashboard routes
@@ -73,6 +75,7 @@ src/
 ### 1. Code Style and Structure
 
 **TypeScript Configuration**:
+
 ```json
 {
   "strict": true,
@@ -85,10 +88,12 @@ src/
 ```
 
 **Import Aliases**:
+
 - `@/*` → `./src/*`
 - `~/*` → `./public/*`
 
 **File Naming Conventions**:
+
 - Components: `PascalCase.tsx` (e.g., `ProductForm.tsx`)
 - Utilities: `kebab-case.ts` (e.g., `use-debounce.ts`)
 - Pages: `page.tsx`, `layout.tsx`, `loading.tsx`, `error.tsx`
@@ -97,12 +102,14 @@ src/
 ### 2. Component Patterns
 
 **UI Components (shadcn/ui)**:
+
 - Configuration: New York style with CSS variables
 - Base color: zinc
 - Radius: 0.5rem
 - Location: `src/components/ui/`
 
 **Component Structure**:
+
 ```tsx
 // Standard component pattern
 'use client' // Only when needed
@@ -114,63 +121,54 @@ interface ComponentNameProps {
   // Props definition
 }
 
-export function ComponentName({ 
-  className, 
-  ...props 
-}: ComponentNameProps) {
-  return (
-    <div 
-      className={cn("base-classes", className)}
-      {...props}
-    />
-  )
+export function ComponentName({ className, ...props }: ComponentNameProps) {
+  return <div className={cn('base-classes', className)} {...props} />
 }
 ```
 
 **Component Variants (CVA Pattern)**:
+
 ```tsx
 import { cva, type VariantProps } from 'class-variance-authority'
 
-const componentVariants = cva(
-  "base-classes",
-  {
-    variants: {
-      variant: {
-        default: "default-classes",
-        secondary: "secondary-classes"
-      },
-      size: {
-        default: "default-size",
-        sm: "small-size"
-      }
+const componentVariants = cva('base-classes', {
+  variants: {
+    variant: {
+      default: 'default-classes',
+      secondary: 'secondary-classes'
     },
-    defaultVariants: {
-      variant: "default",
-      size: "default"
+    size: {
+      default: 'default-size',
+      sm: 'small-size'
     }
+  },
+  defaultVariants: {
+    variant: 'default',
+    size: 'default'
   }
-)
+})
 ```
 
 ### 3. Form Handling
 
 **Form Pattern** (React Hook Form + Zod):
+
 ```tsx
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
 
 const formSchema = z.object({
-  name: z.string().min(2, "Minimum 2 characters"),
-  email: z.string().email("Invalid email")
+  name: z.string().min(2, 'Minimum 2 characters'),
+  email: z.string().email('Invalid email')
 })
 
 export function FormComponent() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: "",
-      email: ""
+      name: '',
+      email: ''
     }
   })
 
@@ -180,9 +178,7 @@ export function FormComponent() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)}>
-        {/* Form fields */}
-      </form>
+      <form onSubmit={form.handleSubmit(onSubmit)}>{/* Form fields */}</form>
     </Form>
   )
 }
@@ -191,6 +187,7 @@ export function FormComponent() {
 ### 4. Server Actions Pattern
 
 **Server Actions** (`'use server'`):
+
 ```tsx
 'use server'
 
@@ -207,10 +204,10 @@ export async function actionName(input: ActionInput) {
     const result = await prisma.model.create({
       data: input
     })
-    
+
     // Revalidate relevant paths
     revalidatePath('/dashboard/path')
-    
+
     return result
   } catch (error) {
     throw new Error('Action failed')
@@ -221,6 +218,7 @@ export async function actionName(input: ActionInput) {
 ### 5. State Management (Zustand)
 
 **Store Pattern**:
+
 ```tsx
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
@@ -238,13 +236,14 @@ export const useStore = create<State & Actions>()(
     (set, get) => ({
       // Initial state
       items: [],
-      
+
       // Actions
-      addItem: (item) => set((state) => ({
-        items: [...state.items, item]
-      }))
+      addItem: (item) =>
+        set((state) => ({
+          items: [...state.items, item]
+        }))
     }),
-    { 
+    {
       name: 'store-name',
       skipHydration: true // For SSR
     }
@@ -255,6 +254,7 @@ export const useStore = create<State & Actions>()(
 ### 6. Database Schema (Prisma)
 
 **Model Patterns**:
+
 ```prisma
 model Product {
   id            Int             @id @default(autoincrement())
@@ -279,12 +279,14 @@ model ProductDetail {
 ### 7. Styling Patterns
 
 **Tailwind CSS v4 Configuration**:
+
 - Uses CSS variables for theming
 - Custom themes: default, blue, green, amber, mono
 - Scaling support with `theme-scaled` class
 - Dark mode support via CSS custom properties
 
 **CSS Variable Pattern**:
+
 ```css
 :root {
   --background: oklch(1 0 0);
@@ -300,6 +302,7 @@ model ProductDetail {
 ```
 
 **Theme System**:
+
 - Multiple theme variants: `theme-default`, `theme-blue`, `theme-green`, `theme-amber`, `theme-mono`
 - Scaled versions: `theme-*-scaled` for compact layouts
 - Automatic dark mode switching
@@ -307,12 +310,13 @@ model ProductDetail {
 ### 8. Internationalization (i18n)
 
 **next-intl Configuration**:
+
 ```tsx
 // Navigation helper
 import { createNavigation } from 'next-intl/navigation'
 import { routing } from './routing'
 
-export const { Link, redirect, usePathname, useRouter } = 
+export const { Link, redirect, usePathname, useRouter } =
   createNavigation(routing)
 ```
 
@@ -320,17 +324,20 @@ export const { Link, redirect, usePathname, useRouter } =
 **RTL Support**: Automatic direction switching for Arabic
 
 **Locale Detection Strategy**:
+
 1. **New Users**: Browser language detection via `Accept-Language` header
 2. **Returning Users**: Saved preference in localStorage
 3. **Fallback**: Default to English (`en`)
 
 **Routing Structure**:
+
 - Root URL (`/`) → Server-side redirect based on Accept-Language header detection
 - Localized URLs: `/en/*`, `/ar/*`
 - `localePrefix: 'always'` ensures locale is always in URL
 - No root layout to prevent HTML nesting issues with locale-specific layouts
 
 **Language Persistence**:
+
 ```tsx
 // Automatic syncing between URL locale and localStorage
 useEffect(() => {
@@ -345,6 +352,7 @@ useEffect(() => {
 ### 9. Authentication (Clerk)
 
 **Provider Setup**:
+
 ```tsx
 <ClerkProvider
   appearance={{
@@ -356,6 +364,7 @@ useEffect(() => {
 ```
 
 **Middleware Configuration**:
+
 ```tsx
 import { clerkMiddleware } from '@clerk/nextjs/server'
 
@@ -373,12 +382,14 @@ export const config = {
 ### 10. Error Handling and Monitoring
 
 **Sentry Integration**:
+
 - Conditional setup (can be disabled via `NEXT_PUBLIC_SENTRY_DISABLED`)
 - Source map upload for better debugging
 - Tunnel route: `/monitoring`
 - React component annotation enabled
 
 **Error Boundaries**:
+
 - Global error handling with `global-error.tsx`
 - Route-specific error handling with `error.tsx`
 
@@ -389,7 +400,7 @@ export const config = {
 ```json
 {
   "dev": "next dev",
-  "build": "next build", 
+  "build": "next build",
   "start": "next start",
   "lint": "next lint",
   "lint:fix": "eslint src --fix && pnpm format",
@@ -401,12 +412,14 @@ export const config = {
 ### 2. Code Quality
 
 **ESLint + Prettier**:
+
 - Strict TypeScript checking
 - Prettier for code formatting
 - Husky for pre-commit hooks
 - Lint-staged for staged file processing
 
 **Pre-commit Hooks**:
+
 ```json
 {
   "**/*.{js,jsx,tsx,ts,css,less,scss,sass}": [
@@ -418,6 +431,7 @@ export const config = {
 ### 3. Environment Configuration
 
 **Required Environment Variables**:
+
 - Database: `DATABASE_URL`
 - Clerk: `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`, `CLERK_SECRET_KEY`
 - Sentry: `NEXT_PUBLIC_SENTRY_ORG`, `NEXT_PUBLIC_SENTRY_PROJECT`
@@ -427,12 +441,14 @@ export const config = {
 ### 1. Layout Structure
 
 **Dashboard Layout**:
+
 - Collapsible sidebar with persistent state (cookie-based)
 - Header with user navigation
 - Main content area with proper spacing
 - Breadcrumb navigation
 
 **Responsive Design**:
+
 - Mobile-first approach
 - Sidebar collapses on mobile
 - Grid layouts adapt to screen size
@@ -440,11 +456,11 @@ export const config = {
 ### 2. Command Interface (kbar)
 
 **Usage Pattern**:
+
 ```tsx
-<KBar>
-  {children}
-</KBar>
+<KBar>{children}</KBar>
 ```
+
 - Command+K shortcut
 - Integrated theme switching
 - Navigation shortcuts
@@ -452,6 +468,7 @@ export const config = {
 ### 3. Data Tables (TanStack Table)
 
 **Features**:
+
 - Server-side filtering, sorting, pagination
 - Search params state management with nuqs
 - Responsive design
@@ -460,6 +477,7 @@ export const config = {
 ### 4. Drag and Drop (@dnd-kit)
 
 **Kanban Board Pattern**:
+
 - Accessible drag and drop
 - Touch support
 - Persistent state with Zustand
@@ -512,11 +530,13 @@ const nextConfig = {
 ### 3. Data Validation
 
 **Consistent Validation Pattern**:
+
 ```tsx
 const schema = z.object({
-  field: z.string()
-    .min(2, "Minimum length message")
-    .max(50, "Maximum length message")
+  field: z
+    .string()
+    .min(2, 'Minimum length message')
+    .max(50, 'Maximum length message')
 })
 ```
 

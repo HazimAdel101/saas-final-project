@@ -1,38 +1,38 @@
-import { Task } from '../utils/store';
-import { useDndContext, type UniqueIdentifier } from '@dnd-kit/core';
-import { SortableContext, useSortable } from '@dnd-kit/sortable';
-import { CSS } from '@dnd-kit/utilities';
-import { cva } from 'class-variance-authority';
-import { IconGripVertical } from '@tabler/icons-react';
-import { useMemo } from 'react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
-import { ColumnActions } from './column-action';
-import { TaskCard } from './task-card';
-import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
+import { Task } from '../utils/store'
+import { useDndContext, type UniqueIdentifier } from '@dnd-kit/core'
+import { SortableContext, useSortable } from '@dnd-kit/sortable'
+import { CSS } from '@dnd-kit/utilities'
+import { cva } from 'class-variance-authority'
+import { IconGripVertical } from '@tabler/icons-react'
+import { useMemo } from 'react'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardHeader } from '@/components/ui/card'
+import { ColumnActions } from './column-action'
+import { TaskCard } from './task-card'
+import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area'
 
 export interface Column {
-  id: UniqueIdentifier;
-  title: string;
+  id: UniqueIdentifier
+  title: string
 }
 
-export type ColumnType = 'Column';
+export type ColumnType = 'Column'
 
 export interface ColumnDragData {
-  type: ColumnType;
-  column: Column;
+  type: ColumnType
+  column: Column
 }
 
 interface BoardColumnProps {
-  column: Column;
-  tasks: Task[];
-  isOverlay?: boolean;
+  column: Column
+  tasks: Task[]
+  isOverlay?: boolean
 }
 
 export function BoardColumn({ column, tasks, isOverlay }: BoardColumnProps) {
   const tasksIds = useMemo(() => {
-    return tasks.map((task) => task.id);
-  }, [tasks]);
+    return tasks.map((task) => task.id)
+  }, [tasks])
 
   const {
     setNodeRef,
@@ -50,12 +50,12 @@ export function BoardColumn({ column, tasks, isOverlay }: BoardColumnProps) {
     attributes: {
       roleDescription: `Column: ${column.title}`
     }
-  });
+  })
 
   const style = {
     transition,
     transform: CSS.Translate.toString(transform)
-  };
+  }
 
   const variants = cva(
     'h-[75vh] max-h-[75vh] w-[350px] max-w-full bg-secondary flex flex-col shrink-0 snap-center',
@@ -68,7 +68,7 @@ export function BoardColumn({ column, tasks, isOverlay }: BoardColumnProps) {
         }
       }
     }
-  );
+  )
 
   return (
     <Card
@@ -105,11 +105,11 @@ export function BoardColumn({ column, tasks, isOverlay }: BoardColumnProps) {
         </ScrollArea>
       </CardContent>
     </Card>
-  );
+  )
 }
 
 export function BoardContainer({ children }: { children: React.ReactNode }) {
-  const dndContext = useDndContext();
+  const dndContext = useDndContext()
 
   const variations = cva('px-2  pb-4 md:px-0 flex lg:justify-start', {
     variants: {
@@ -118,7 +118,7 @@ export function BoardContainer({ children }: { children: React.ReactNode }) {
         active: 'snap-none'
       }
     }
-  });
+  })
 
   return (
     <ScrollArea className='w-full rounded-md whitespace-nowrap'>
@@ -133,5 +133,5 @@ export function BoardContainer({ children }: { children: React.ReactNode }) {
       </div>
       <ScrollBar orientation='horizontal' />
     </ScrollArea>
-  );
+  )
 }

@@ -1,7 +1,7 @@
-import { type Table as TanstackTable, flexRender } from '@tanstack/react-table';
-import type * as React from 'react';
+import { type Table as TanstackTable, flexRender } from '@tanstack/react-table'
+import type * as React from 'react'
 
-import { DataTablePagination } from '@/components/ui/table/data-table-pagination';
+import { DataTablePagination } from '@/components/ui/table/data-table-pagination'
 import {
   Table,
   TableBody,
@@ -9,13 +9,13 @@ import {
   TableHead,
   TableHeader,
   TableRow
-} from '@/components/ui/table';
-import { getCommonPinningStyles } from '@/lib/data-table';
-import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
+} from '@/components/ui/table'
+import { getCommonPinningStyles } from '@/lib/data-table'
+import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area'
 
 interface DataTableProps<TData> extends React.ComponentProps<'div'> {
-  table: TanstackTable<TData>;
-  actionBar?: React.ReactNode;
+  table: TanstackTable<TData>
+  actionBar?: React.ReactNode
 }
 
 export function DataTable<TData>({
@@ -97,5 +97,5 @@ export function DataTable<TData>({
           actionBar}
       </div>
     </div>
-  );
+  )
 }

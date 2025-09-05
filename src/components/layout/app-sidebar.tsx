@@ -1,9 +1,9 @@
-'use client';
+'use client'
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger
-} from '@/components/ui/collapsible';
+} from '@/components/ui/collapsible'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,7 +12,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger
-} from '@/components/ui/dropdown-menu';
+} from '@/components/ui/dropdown-menu'
 import {
   Sidebar,
   SidebarContent,
@@ -27,57 +27,49 @@ import {
   SidebarMenuSubButton,
   SidebarMenuSubItem,
   SidebarRail
-} from '@/components/ui/sidebar';
-import { UserAvatarProfile } from '@/components/user-avatar-profile';
-import { navItems } from '@/constants/data';
-import { useMediaQuery } from '@/hooks/use-media-query';
-import { useUser } from '@clerk/nextjs';
+} from '@/components/ui/sidebar'
+import { UserAvatarProfile } from '@/components/user-avatar-profile'
+import { navItems } from '@/constants/data'
+import { useMediaQuery } from '@/hooks/use-media-query'
+import { useUser } from '@clerk/nextjs'
 import {
   IconBell,
   IconChevronRight,
   IconChevronsDown,
   IconCreditCard,
   IconLogout,
-  IconPhotoUp,
   IconUserCircle
-} from '@tabler/icons-react';
-import { SignOutButton } from '@clerk/nextjs';
-import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
-import * as React from 'react';
-import { Icons } from '../icons';
-import { OrgSwitcher } from '../org-switcher';
-import { useTranslations } from 'next-intl';
+} from '@tabler/icons-react'
+import { SignOutButton } from '@clerk/nextjs'
+import Link from 'next/link'
+import { usePathname, useRouter } from 'next/navigation'
+import * as React from 'react'
+import { Icons } from '../icons'
+import { OrgSwitcher } from '../org-switcher'
+import { useTranslations } from 'next-intl'
 export default function AppSidebar() {
-  const pathname = usePathname();
-  const { isOpen } = useMediaQuery();
-  const { user } = useUser();
-  const router = useRouter();
-  const t = useTranslations('Sidebar');
-  const tUserNav = useTranslations('UserNav');
-  const tCompany = useTranslations('Company');
-
-  const company = {
-    name: tCompany('acmeInc'),
-    logo: IconPhotoUp,
-    plan: tCompany('enterprise')
-  };
+  const pathname = usePathname()
+  const { isOpen } = useMediaQuery()
+  const { user } = useUser()
+  const router = useRouter()
+  const t = useTranslations('Sidebar')
+  const tCompany = useTranslations('Company')
 
   const tenants = [
     { id: '1', name: tCompany('acmeInc') },
     { id: '2', name: tCompany('betaCorp') },
     { id: '3', name: tCompany('gammaLtd') }
-  ];
+  ]
 
   const handleSwitchTenant = () => {
     // Tenant switching functionality would be implemented here
-  };
+  }
 
-  const activeTenant = tenants[0];
+  const activeTenant = tenants[0]
 
   React.useEffect(() => {
     // Side effects based on sidebar state changes
-  }, [isOpen]);
+  }, [isOpen])
 
   return (
     <Sidebar collapsible='icon'>
@@ -93,7 +85,7 @@ export default function AppSidebar() {
           <SidebarGroupLabel>{t('Overview')}</SidebarGroupLabel>
           <SidebarMenu>
             {navItems.map((item) => {
-              const Icon = item.icon ? Icons[item.icon] : Icons.logo;
+              const Icon = item.icon ? Icons[item.icon] : Icons.logo
               return item?.items && item?.items?.length > 0 ? (
                 <Collapsible
                   key={item.title}
@@ -143,7 +135,7 @@ export default function AppSidebar() {
                     </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
-              );
+              )
             })}
           </SidebarMenu>
         </SidebarGroup>
@@ -214,5 +206,5 @@ export default function AppSidebar() {
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>
-  );
+  )
 }

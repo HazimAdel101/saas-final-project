@@ -1,8 +1,8 @@
-'use client';
+'use client'
 
-import * as React from 'react';
-import { IconTrendingUp } from '@tabler/icons-react';
-import { Label, Pie, PieChart } from 'recharts';
+import * as React from 'react'
+import { IconTrendingUp } from '@tabler/icons-react'
+import { Label, Pie, PieChart } from 'recharts'
 
 import {
   Card,
@@ -11,13 +11,13 @@ import {
   CardFooter,
   CardHeader,
   CardTitle
-} from '@/components/ui/card';
+} from '@/components/ui/card'
 import {
   ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent
-} from '@/components/ui/chart';
+} from '@/components/ui/chart'
 
 const chartData = [
   { browser: 'chrome', visitors: 275, fill: 'var(--primary)' },
@@ -25,7 +25,7 @@ const chartData = [
   { browser: 'firefox', visitors: 287, fill: 'var(--primary-lighter)' },
   { browser: 'edge', visitors: 173, fill: 'var(--primary-dark)' },
   { browser: 'other', visitors: 190, fill: 'var(--primary-darker)' }
-];
+]
 
 const chartConfig = {
   visitors: {
@@ -51,12 +51,12 @@ const chartConfig = {
     label: 'Other',
     color: 'var(--primary)'
   }
-} satisfies ChartConfig;
+} satisfies ChartConfig
 
 export function PieGraph() {
   const totalVisitors = React.useMemo(() => {
-    return chartData.reduce((acc, curr) => acc + curr.visitors, 0);
-  }, []);
+    return chartData.reduce((acc, curr) => acc + curr.visitors, 0)
+  }, [])
 
   return (
     <Card className='@container/card'>
@@ -140,7 +140,7 @@ export function PieGraph() {
                           Total Visitors
                         </tspan>
                       </text>
-                    );
+                    )
                   }
                 }}
               />
@@ -159,5 +159,5 @@ export function PieGraph() {
         </div>
       </CardFooter>
     </Card>
-  );
+  )
 }

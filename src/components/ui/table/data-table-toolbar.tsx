@@ -1,19 +1,19 @@
-'use client';
+'use client'
 
-import type { Column, Table } from '@tanstack/react-table';
-import * as React from 'react';
+import type { Column, Table } from '@tanstack/react-table'
+import * as React from 'react'
 
-import { DataTableDateFilter } from '@/components/ui/table/data-table-date-filter';
-import { DataTableFacetedFilter } from '@/components/ui/table/data-table-faceted-filter';
-import { DataTableSliderFilter } from '@/components/ui/table/data-table-slider-filter';
-import { DataTableViewOptions } from '@/components/ui/table/data-table-view-options';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { cn } from '@/lib/utils';
-import { Cross2Icon } from '@radix-ui/react-icons';
+import { DataTableDateFilter } from '@/components/ui/table/data-table-date-filter'
+import { DataTableFacetedFilter } from '@/components/ui/table/data-table-faceted-filter'
+import { DataTableSliderFilter } from '@/components/ui/table/data-table-slider-filter'
+import { DataTableViewOptions } from '@/components/ui/table/data-table-view-options'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { cn } from '@/lib/utils'
+import { Cross2Icon } from '@radix-ui/react-icons'
 
 interface DataTableToolbarProps<TData> extends React.ComponentProps<'div'> {
-  table: Table<TData>;
+  table: Table<TData>
 }
 
 export function DataTableToolbar<TData>({
@@ -22,16 +22,16 @@ export function DataTableToolbar<TData>({
   className,
   ...props
 }: DataTableToolbarProps<TData>) {
-  const isFiltered = table.getState().columnFilters.length > 0;
+  const isFiltered = table.getState().columnFilters.length > 0
 
   const columns = React.useMemo(
     () => table.getAllColumns().filter((column) => column.getCanFilter()),
     [table]
-  );
+  )
 
   const onReset = React.useCallback(() => {
-    table.resetColumnFilters();
-  }, [table]);
+    table.resetColumnFilters()
+  }, [table])
 
   return (
     <div
@@ -65,20 +65,20 @@ export function DataTableToolbar<TData>({
         <DataTableViewOptions table={table} />
       </div>
     </div>
-  );
+  )
 }
 interface DataTableToolbarFilterProps<TData> {
-  column: Column<TData>;
+  column: Column<TData>
 }
 
 function DataTableToolbarFilter<TData>({
   column
 }: DataTableToolbarFilterProps<TData>) {
   {
-    const columnMeta = column.columnDef.meta;
+    const columnMeta = column.columnDef.meta
 
     const onFilterRender = React.useCallback(() => {
-      if (!columnMeta?.variant) return null;
+      if (!columnMeta?.variant) return null
 
       switch (columnMeta.variant) {
         case 'text':
@@ -89,7 +89,7 @@ function DataTableToolbarFilter<TData>({
               onChange={(event) => column.setFilterValue(event.target.value)}
               className='h-8 w-40 lg:w-56'
             />
-          );
+          )
 
         case 'number':
           return (
@@ -108,7 +108,7 @@ function DataTableToolbarFilter<TData>({
                 </span>
               )}
             </div>
-          );
+          )
 
         case 'range':
           return (
@@ -116,7 +116,7 @@ function DataTableToolbarFilter<TData>({
               column={column}
               title={columnMeta.label ?? column.id}
             />
-          );
+          )
 
         case 'date':
         case 'dateRange':
@@ -126,7 +126,7 @@ function DataTableToolbarFilter<TData>({
               title={columnMeta.label ?? column.id}
               multiple={columnMeta.variant === 'dateRange'}
             />
-          );
+          )
 
         case 'select':
         case 'multiSelect':
@@ -137,13 +137,13 @@ function DataTableToolbarFilter<TData>({
               options={columnMeta.options ?? []}
               multiple={columnMeta.variant === 'multiSelect'}
             />
-          );
+          )
 
         default:
-          return null;
+          return null
       }
-    }, [column, columnMeta]);
+    }, [column, columnMeta])
 
-    return onFilterRender();
+    return onFilterRender()
   }
 }

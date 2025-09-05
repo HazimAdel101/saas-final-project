@@ -1,11 +1,6 @@
-'use client';
+'use client'
 
-import {
-  IconFolder,
-  IconShare,
-  IconDots,
-  IconTrash
-} from '@tabler/icons-react';
+import { IconFolder, IconShare, IconDots, IconTrash } from '@tabler/icons-react'
 
 import {
   DropdownMenu,
@@ -13,7 +8,7 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger
-} from '@/components/ui/dropdown-menu';
+} from '@/components/ui/dropdown-menu'
 import {
   SidebarGroup,
   SidebarGroupLabel,
@@ -22,19 +17,19 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   useSidebar
-} from '@/components/ui/sidebar';
-import { Icon } from '@/components/icons';
+} from '@/components/ui/sidebar'
+import { Icon } from '@/components/icons'
 
 export function NavProjects({
   projects
 }: {
   projects: {
-    name: string;
-    url: string;
-    icon: Icon;
-  }[];
+    name: string
+    url: string
+    icon: Icon
+  }[]
 }) {
-  const { isMobile } = useSidebar();
+  const { isMobile } = useSidebar()
 
   return (
     <SidebarGroup className='group-data-[collapsible=icon]:hidden'>
@@ -85,5 +80,5 @@ export function NavProjects({
         </SidebarMenuItem>
       </SidebarMenu>
     </SidebarGroup>
-  );
+  )
 }

@@ -1,7 +1,7 @@
-'use client';
+'use client'
 
-import type { Column } from '@tanstack/react-table';
-import { EyeOff } from 'lucide-react';
+import type { Column } from '@tanstack/react-table'
+import { EyeOff } from 'lucide-react'
 
 import {
   DropdownMenu,
@@ -9,19 +9,19 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger
-} from '@/components/ui/dropdown-menu';
-import { cn } from '@/lib/utils';
+} from '@/components/ui/dropdown-menu'
+import { cn } from '@/lib/utils'
 import {
   ChevronDownIcon,
   ChevronUpIcon,
   CaretSortIcon,
   Cross2Icon
-} from '@radix-ui/react-icons';
+} from '@radix-ui/react-icons'
 
 interface DataTableColumnHeaderProps<TData, TValue>
   extends React.ComponentProps<typeof DropdownMenuTrigger> {
-  column: Column<TData, TValue>;
-  title: string;
+  column: Column<TData, TValue>
+  title: string
 }
 
 export function DataTableColumnHeader<TData, TValue>({
@@ -31,7 +31,7 @@ export function DataTableColumnHeader<TData, TValue>({
   ...props
 }: DataTableColumnHeaderProps<TData, TValue>) {
   if (!column.getCanSort() && !column.getCanHide()) {
-    return <div className={cn(className)}>{title}</div>;
+    return <div className={cn(className)}>{title}</div>
   }
 
   return (
@@ -95,5 +95,5 @@ export function DataTableColumnHeader<TData, TValue>({
         )}
       </DropdownMenuContent>
     </DropdownMenu>
-  );
+  )
 }

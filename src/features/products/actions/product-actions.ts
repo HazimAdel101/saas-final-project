@@ -20,9 +20,9 @@ export interface NewProductInput {
 export async function addProduct(input: NewProductInput) {
   // Get language records
   const languages = await prisma.language.findMany()
-  const englishLang = languages.find(l => l.code === 'en')
-  const arabicLang = languages.find(l => l.code === 'ar')
-  
+  const englishLang = languages.find((l) => l.code === 'en')
+  const arabicLang = languages.find((l) => l.code === 'ar')
+
   if (!englishLang || !arabicLang) {
     throw new Error('Required languages not found in database')
   }

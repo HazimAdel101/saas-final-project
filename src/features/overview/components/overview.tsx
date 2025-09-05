@@ -1,5 +1,5 @@
-import PageContainer from '@/components/layout/page-container';
-import { Button } from '@/components/ui/button';
+import PageContainer from '@/components/layout/page-container'
+import { Button } from '@/components/ui/button'
 import {
   Card,
   CardDescription,
@@ -7,20 +7,20 @@ import {
   CardHeader,
   CardTitle,
   CardAction
-} from '@/components/ui/card';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { AreaGraph } from './area-graph';
-import { BarGraph } from './bar-graph';
-import { PieGraph } from './pie-graph';
-import { RecentSales } from './recent-sales';
-import { IconTrendingUp, IconTrendingDown } from '@tabler/icons-react';
-import { Badge } from '@/components/ui/badge';
-import { useTranslations } from 'next-intl';
+} from '@/components/ui/card'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { AreaGraph } from './area-graph'
+import { BarGraph } from './bar-graph'
+import { PieGraph } from './pie-graph'
+import { RecentSales } from './recent-sales'
+import { IconTrendingUp, IconTrendingDown } from '@tabler/icons-react'
+import { Badge } from '@/components/ui/badge'
+import { useTranslations } from 'next-intl'
 
 export default function OverViewPage() {
-  const t = useTranslations('Dashboard');
-  const tAuth = useTranslations('Auth');
-  
+  const t = useTranslations('Dashboard')
+  const tAuth = useTranslations('Auth')
+
   return (
     <PageContainer>
       <div className='flex flex-1 flex-col space-y-2'>
@@ -149,5 +149,5 @@ export default function OverViewPage() {
         </Tabs>
       </div>
     </PageContainer>
-  );
+  )
 }

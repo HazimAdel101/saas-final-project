@@ -21,16 +21,10 @@ export default async function ProductViewPage({
     pageTitle = `Edit Product`
   }
 
-  // Define available languages (in real app, fetch from DB or API)
-  const languages = [
-    { id: 1, name: 'English', code: 'en' },
-    { id: 2, name: 'Arabic', code: 'ar' }
-  ]
   return (
     <ProductForm
       initialData={product}
       pageTitle={pageTitle}
-      languages={languages}
     />
   )
 }

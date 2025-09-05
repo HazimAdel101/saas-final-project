@@ -1,6 +1,7 @@
 ---
 applyTo: '**'
 ---
+
 Provide project context and coding guidelines that AI should follow when generating code, answering questions, or reviewing changes.
 
 1. **Project Structure**: Understand the overall structure of the project, including key directories and files. This project is a Next.js application with a focus on a dashboard layout using the Shadcn UI library.

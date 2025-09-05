@@ -1,32 +1,32 @@
-'use client';
+'use client'
 
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
-import { IconAlertCircle } from '@tabler/icons-react';
-import { useRouter } from 'next/navigation';
-import { useEffect, useTransition } from 'react';
-import * as Sentry from '@sentry/nextjs';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardHeader } from '@/components/ui/card'
+import { IconAlertCircle } from '@tabler/icons-react'
+import { useRouter } from 'next/navigation'
+import { useEffect, useTransition } from 'react'
+import * as Sentry from '@sentry/nextjs'
 
 interface StatsErrorProps {
-  error: Error;
-  reset: () => void; // Add reset function from error boundary
+  error: Error
+  reset: () => void // Add reset function from error boundary
 }
 export default function StatsError({ error, reset }: StatsErrorProps) {
-  const router = useRouter();
-  const [isPending, startTransition] = useTransition();
+  const router = useRouter()
+  const [isPending, startTransition] = useTransition()
 
   useEffect(() => {
-    Sentry.captureException(error);
-  }, [error]);
+    Sentry.captureException(error)
+  }, [error])
 
   // the reload fn ensures the refresh is deffered  until the next render phase allowing react to handle any pending states before processing
   const reload = () => {
     startTransition(() => {
-      router.refresh();
-      reset();
-    });
-  };
+      router.refresh()
+      reset()
+    })
+  }
   return (
     <Card className='border-red-500'>
       <CardHeader className='flex flex-col items-stretch space-y-0 border-b p-0 sm:flex-row'>
@@ -56,5 +56,5 @@ export default function StatsError({ error, reset }: StatsErrorProps) {
         </div>
       </CardContent>
     </Card>
-  );
+  )
 }

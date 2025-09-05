@@ -26,6 +26,7 @@ import { useForm } from 'react-hook-form'
 import React, { useState } from 'react'
 import { useRouter } from '@/i18n/navigation'
 import { useTranslations } from 'next-intl'
+import Image from 'next/image'
 import * as z from 'zod'
 
 const MAX_FILE_SIZE = 5000000
@@ -37,78 +38,78 @@ const ACCEPTED_IMAGE_TYPES = [
 ]
 
 // Create form schema function to use translations
-const createFormSchema = (t: any, uploadedImageUrl: string) => z.object({
-  image: z
-    .any()
-    .optional()
-    .superRefine((files, ctx) => {
-      // If no uploaded image URL and no files, it's required
-      if (!uploadedImageUrl && (!files || files.length === 0)) {
-        ctx.addIssue({
-          code: z.ZodIssueCode.custom,
-          message: t('imageRequired')
-        })
-        return
-      }
-      
-      // If files are present, validate them
-      if (files && files.length > 0) {
-        if (files.length !== 1) {
+const createFormSchema = (t: any, uploadedImageUrl: string) =>
+  z.object({
+    image: z
+      .any()
+      .optional()
+      .superRefine((files, ctx) => {
+        // If no uploaded image URL and no files, it's required
+        if (!uploadedImageUrl && (!files || files.length === 0)) {
           ctx.addIssue({
             code: z.ZodIssueCode.custom,
             message: t('imageRequired')
           })
+          return
         }
-        if (files[0]?.size > MAX_FILE_SIZE) {
-          ctx.addIssue({
-            code: z.ZodIssueCode.custom,
-            message: t('maxFileSize')
-          })
-        }
-        if (!ACCEPTED_IMAGE_TYPES.includes(files[0]?.type)) {
-          ctx.addIssue({
-            code: z.ZodIssueCode.custom,
-            message: t('acceptedFormats')
-          })
-        }
-      }
-    }),
-  name_en: z.string().min(2, {
-    message: t('productNameLength')
-  }),
-  name_ar: z.string().min(2, {
-    message: t('productNameLength')
-  }),
-  category: z.string(),
-  price_usd: z.preprocess((val) => {
-    if (typeof val === 'string') return parseFloat(val)
-    return val
-  }, z.number().min(0, { message: t('priceMinimum') })),
-  price_ksa: z.preprocess((val) => {
-    if (typeof val === 'string') return parseFloat(val)
-    return val
-  }, z.number().min(0, { message: t('priceMinimum') })),
-  description_en: z.string().min(10, {
-    message: t('descriptionLength')
-  }),
-  description_ar: z.string().min(10, {
-    message: t('descriptionLength')
-  })
-})
 
-interface Language {
-  id: number
-  name: string
-  code: string
-}
+        // If files are present, validate them
+        if (files && files.length > 0) {
+          if (files.length !== 1) {
+            ctx.addIssue({
+              code: z.ZodIssueCode.custom,
+              message: t('imageRequired')
+            })
+          }
+          if (files[0]?.size > MAX_FILE_SIZE) {
+            ctx.addIssue({
+              code: z.ZodIssueCode.custom,
+              message: t('maxFileSize')
+            })
+          }
+          if (!ACCEPTED_IMAGE_TYPES.includes(files[0]?.type)) {
+            ctx.addIssue({
+              code: z.ZodIssueCode.custom,
+              message: t('acceptedFormats')
+            })
+          }
+        }
+      }),
+    name_en: z.string().min(2, {
+      message: t('productNameLength')
+    }),
+    name_ar: z.string().min(2, {
+      message: t('productNameLength')
+    }),
+    category: z.string(),
+    price_usd: z.preprocess(
+      (val) => {
+        if (typeof val === 'string') return parseFloat(val)
+        return val
+      },
+      z.number().min(0, { message: t('priceMinimum') })
+    ),
+    price_ksa: z.preprocess(
+      (val) => {
+        if (typeof val === 'string') return parseFloat(val)
+        return val
+      },
+      z.number().min(0, { message: t('priceMinimum') })
+    ),
+    description_en: z.string().min(10, {
+      message: t('descriptionLength')
+    }),
+    description_ar: z.string().min(10, {
+      message: t('descriptionLength')
+    })
+  })
+
 export default function ProductForm({
   initialData,
-  pageTitle,
-  languages
+  pageTitle
 }: {
   initialData: Product | null
   pageTitle: string
-  languages: Language[]
 }) {
   const [uploadedImageUrl, setUploadedImageUrl] = useState<string>('')
   const [isUploading, setIsUploading] = useState(false)
@@ -124,7 +125,10 @@ export default function ProductForm({
     description_ar: ''
   }
 
-  const formSchema = React.useMemo(() => createFormSchema(t, uploadedImageUrl), [t, uploadedImageUrl])
+  const formSchema = React.useMemo(
+    () => createFormSchema(t, uploadedImageUrl),
+    [t, uploadedImageUrl]
+  )
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     values: defaultValues
@@ -161,9 +165,7 @@ export default function ProductForm({
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     // Log submission payload for debugging
-    // eslint-disable-next-line no-console
-    console.log('Submitting product with values:', values)
-    
+
     if (!uploadedImageUrl) {
       form.setError('image', { message: t('imageRequired') })
       return
@@ -179,7 +181,7 @@ export default function ProductForm({
       imageUrl: uploadedImageUrl,
       category: values.category
     }
-    
+
     // Call API to create product
     const res = await fetch('/api/products', {
       method: 'POST',
@@ -229,12 +231,14 @@ export default function ProductForm({
                         ✅ Image uploaded successfully
                       </p>
                       <div className='flex items-center space-x-2'>
-                        <img 
-                          src={uploadedImageUrl} 
-                          alt="Uploaded preview" 
-                          className='h-20 w-20 object-cover rounded border'
+                        <Image
+                          src={uploadedImageUrl}
+                          alt='Uploaded preview'
+                          width={80}
+                          height={80}
+                          className='h-20 w-20 rounded border object-cover'
                         />
-                        <p className='text-sm text-muted-foreground'>
+                        <p className='text-muted-foreground text-sm'>
                           Image will be saved as: {uploadedImageUrl}
                         </p>
                       </div>
@@ -246,7 +250,9 @@ export default function ProductForm({
 
             {/* Product Names Section */}
             <div className='space-y-4'>
-              <h3 className='text-lg font-semibold'>{t('productInformation')}</h3>
+              <h3 className='text-lg font-semibold'>
+                {t('productInformation')}
+              </h3>
               <div className='grid grid-cols-1 gap-6 md:grid-cols-2'>
                 <FormField
                   control={form.control}
@@ -255,7 +261,10 @@ export default function ProductForm({
                     <FormItem>
                       <FormLabel>{t('productNameEnglish')}</FormLabel>
                       <FormControl>
-                        <Input placeholder={t('enterProductNameEnglish')} {...field} />
+                        <Input
+                          placeholder={t('enterProductNameEnglish')}
+                          {...field}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -268,10 +277,10 @@ export default function ProductForm({
                     <FormItem>
                       <FormLabel>{t('productNameArabic')}</FormLabel>
                       <FormControl>
-                        <Input 
-                          placeholder={t('enterProductNameArabic')} 
-                          dir="rtl"
-                          {...field} 
+                        <Input
+                          placeholder={t('enterProductNameArabic')}
+                          dir='rtl'
+                          {...field}
                         />
                       </FormControl>
                       <FormMessage />
@@ -283,7 +292,9 @@ export default function ProductForm({
 
             {/* Category and Pricing Section */}
             <div className='space-y-4'>
-              <h3 className='text-lg font-semibold'>{t('categoryAndPricing')}</h3>
+              <h3 className='text-lg font-semibold'>
+                {t('categoryAndPricing')}
+              </h3>
               <div className='grid grid-cols-1 gap-6 md:grid-cols-3'>
                 <FormField
                   control={form.control}
@@ -301,8 +312,12 @@ export default function ProductForm({
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          <SelectItem value='beauty'>Beauty Products</SelectItem>
-                          <SelectItem value='electronics'>Electronics</SelectItem>
+                          <SelectItem value='beauty'>
+                            Beauty Products
+                          </SelectItem>
+                          <SelectItem value='electronics'>
+                            Electronics
+                          </SelectItem>
                           <SelectItem value='clothing'>Clothing</SelectItem>
                           <SelectItem value='home'>Home & Garden</SelectItem>
                           <SelectItem value='sports'>
@@ -354,7 +369,9 @@ export default function ProductForm({
             </div>
             {/* Product Descriptions Section */}
             <div className='space-y-4'>
-              <h3 className='text-lg font-semibold'>{t('productDescriptions')}</h3>
+              <h3 className='text-lg font-semibold'>
+                {t('productDescriptions')}
+              </h3>
               <div className='grid grid-cols-1 gap-6 md:grid-cols-2'>
                 <FormField
                   control={form.control}
@@ -384,7 +401,7 @@ export default function ProductForm({
                         <Textarea
                           placeholder={t('enterProductDescriptionArabic')}
                           className='resize-none'
-                          dir="rtl"
+                          dir='rtl'
                           rows={4}
                           {...field}
                         />

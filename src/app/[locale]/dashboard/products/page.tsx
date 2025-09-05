@@ -20,10 +20,11 @@ export default async function Page({
   params,
   searchParams
 }: {
-  params: { locale: string }
-  searchParams: SearchParams
+  params: Promise<{ locale: string }>
+  searchParams: Promise<SearchParams>
 }) {
-  const { locale } = params
+  const { locale } = await params
+  const resolvedSearchParams = await searchParams
   const prisma = new PrismaClient()
 
   const products = await prisma.product.findMany({
@@ -39,7 +40,7 @@ export default async function Page({
   })
 
   // Allow nested RSCs to access the search params (in a type-safe way)
-  searchParamsCache.parse(searchParams)
+  searchParamsCache.parse(resolvedSearchParams)
 
   // This key is used for invoke suspense if any of the search params changed (used for filters).
   // const key = serialize({ ...searchParams });

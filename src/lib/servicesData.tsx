@@ -1,24 +1,24 @@
-import { Code, Megaphone, Search, Palette, PenTool, Users } from 'lucide-react';
+import { Code, Megaphone, Search, Palette, PenTool, Users } from 'lucide-react'
 
 export interface Service {
-  id: string;
-  name: string;
-  icon: React.ReactNode;
-  company: string;
-  usedBy: string;
-  category: string;
-  isPremium: boolean;
-  originalPrice: string;
-  discountedPrice: string;
-  savings: string;
-  description: string;
-  longDescription: string;
-  features: string[];
-  benefits: string[];
-  terms?: string;
-  deliveryTime: string;
-  rating: number;
-  reviews: number;
+  id: string
+  name: string
+  icon: React.ReactNode
+  company: string
+  usedBy: string
+  category: string
+  isPremium: boolean
+  originalPrice: string
+  discountedPrice: string
+  savings: string
+  description: string
+  longDescription: string
+  features: string[]
+  benefits: string[]
+  terms?: string
+  deliveryTime: string
+  rating: number
+  reviews: number
 }
 
 export const services: Service[] = [
@@ -248,4 +248,4 @@ export const services: Service[] = [
     reviews: 243,
     terms: '8-week program with weekly sessions. Additional support available.'
   }
-];
+]

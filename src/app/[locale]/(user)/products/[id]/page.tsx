@@ -23,17 +23,24 @@ export default async function ProductPage({
     notFound()
   }
 
+  // Transform the product data to match the expected type
+  const transformedProduct = {
+    ...product,
+    price_usd: Number(product.price_usd),
+    price_ksa: Number(product.price_ksa),
+    discount_usd: Number(product.discount_usd),
+    discount_ksa: Number(product.discount_ksa),
+    productDetails: product.productDetails.map(detail => ({
+      ...detail,
+      company: detail.company || undefined
+    }))
+  }
+
   return (
     <div className='mt-16'>
       <ProductDetailsClient
         locale={locale}
-        product={{
-          ...product,
-          price_usd: Number(product.price_usd),
-          price_ksa: Number(product.price_ksa),
-          discount_usd: Number(product.discount_usd),
-          discount_ksa: Number(product.discount_ksa)
-        }}
+        product={transformedProduct}
       />
     </div>
   )

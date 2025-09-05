@@ -1,6 +1,6 @@
-import React from 'react';
-import { Button } from '@/components/ui/button';
-import { IconBrandGithub } from '@tabler/icons-react';
+import React from 'react'
+import { Button } from '@/components/ui/button'
+import { IconBrandGithub } from '@tabler/icons-react'
 
 export default function CtaGithub() {
   return (
@@ -14,5 +14,5 @@ export default function CtaGithub() {
         <IconBrandGithub />
       </a>
     </Button>
-  );
+  )
 }

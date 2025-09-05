@@ -46,17 +46,20 @@ export default async function Home({
               const details = product.productDetails[0]
               // Convert Decimal values to string for client components based on locale
               const isArabic = locale === 'ar'
-              const originalPrice = isArabic 
+              const originalPrice = isArabic
                 ? product.price_ksa?.toString() || ''
                 : product.price_usd?.toString() || ''
-              const discountedPrice = isArabic 
+              const discountedPrice = isArabic
                 ? product.discount_ksa?.toString() || ''
                 : product.discount_usd?.toString() || ''
-              const savings = isArabic 
+              const savings = isArabic
                 ? product.discount_ksa?.toString() || ''
                 : product.discount_usd?.toString() || ''
               return (
-                <Link key={product.id} href={`/${locale}/product/${product.id}`}>
+                <Link
+                  key={product.id}
+                  href={`/${locale}/product/${product.id}`}
+                >
                   <ProductCard
                     name={details?.name || ''}
                     image={product.image_url}

@@ -1,11 +1,11 @@
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
-import { Task } from '../utils/store';
-import { useSortable } from '@dnd-kit/sortable';
-import { CSS } from '@dnd-kit/utilities';
-import { cva } from 'class-variance-authority';
-import { IconGripVertical } from '@tabler/icons-react';
-import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardHeader } from '@/components/ui/card'
+import { Task } from '../utils/store'
+import { useSortable } from '@dnd-kit/sortable'
+import { CSS } from '@dnd-kit/utilities'
+import { cva } from 'class-variance-authority'
+import { IconGripVertical } from '@tabler/icons-react'
+import { Badge } from '@/components/ui/badge'
 
 // export interface Task {
 //   id: UniqueIdentifier;
@@ -14,15 +14,15 @@ import { Badge } from '@/components/ui/badge';
 // }
 
 interface TaskCardProps {
-  task: Task;
-  isOverlay?: boolean;
+  task: Task
+  isOverlay?: boolean
 }
 
-export type TaskType = 'Task';
+export type TaskType = 'Task'
 
 export interface TaskDragData {
-  type: TaskType;
-  task: Task;
+  type: TaskType
+  task: Task
 }
 
 export function TaskCard({ task, isOverlay }: TaskCardProps) {
@@ -42,12 +42,12 @@ export function TaskCard({ task, isOverlay }: TaskCardProps) {
     attributes: {
       roleDescription: 'Task'
     }
-  });
+  })
 
   const style = {
     transition,
     transform: CSS.Translate.toString(transform)
-  };
+  }
 
   const variants = cva('mb-2', {
     variants: {
@@ -56,7 +56,7 @@ export function TaskCard({ task, isOverlay }: TaskCardProps) {
         overlay: 'ring-2 ring-primary'
       }
     }
-  });
+  })
 
   return (
     <Card
@@ -84,5 +84,5 @@ export function TaskCard({ task, isOverlay }: TaskCardProps) {
         {task.title}
       </CardContent>
     </Card>
-  );
+  )
 }

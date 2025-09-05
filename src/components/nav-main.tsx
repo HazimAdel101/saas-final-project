@@ -1,12 +1,12 @@
-'use client';
+'use client'
 
-import { IconChevronRight } from '@tabler/icons-react';
+import { IconChevronRight } from '@tabler/icons-react'
 
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger
-} from '@/components/ui/collapsible';
+} from '@/components/ui/collapsible'
 import {
   SidebarGroup,
   SidebarGroupContent,
@@ -17,22 +17,22 @@ import {
   SidebarMenuSub,
   SidebarMenuSubButton,
   SidebarMenuSubItem
-} from '@/components/ui/sidebar';
-import { Icon } from '@/components/icons';
+} from '@/components/ui/sidebar'
+import { Icon } from '@/components/icons'
 
 export function NavMain({
   items
 }: {
   items: {
-    title: string;
-    url: string;
-    icon?: Icon;
-    isActive?: boolean;
+    title: string
+    url: string
+    icon?: Icon
+    isActive?: boolean
     items?: {
-      title: string;
-      url: string;
-    }[];
-  }[];
+      title: string
+      url: string
+    }[]
+  }[]
 }) {
   return (
     <SidebarGroup>
@@ -76,5 +76,5 @@ export function NavMain({
         </SidebarMenu>
       </SidebarGroupContent>
     </SidebarGroup>
-  );
+  )
 }

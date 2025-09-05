@@ -1,5 +1,5 @@
-'use client';
-import { Button } from '@/components/ui/button';
+'use client'
+import { Button } from '@/components/ui/button'
 import {
   Form,
   FormControl,
@@ -7,42 +7,42 @@ import {
   FormItem,
   FormLabel,
   FormMessage
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useTransition } from 'react';
-import { useForm } from 'react-hook-form';
-import { toast } from 'sonner';
-import { useTranslations } from 'next-intl';
-import * as z from 'zod';
-import GithubSignInButton from './github-auth-button';
+} from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useTransition } from 'react'
+import { useForm } from 'react-hook-form'
+import { toast } from 'sonner'
+import { useTranslations } from 'next-intl'
+import * as z from 'zod'
+import GithubSignInButton from './github-auth-button'
 
 const formSchema = z.object({
   email: z.string().email({ message: 'Enter a valid email address' })
-});
+})
 
-type UserFormValue = z.infer<typeof formSchema>;
+type UserFormValue = z.infer<typeof formSchema>
 
 export default function UserAuthForm() {
   // const searchParams = useSearchParams();
   // const callbackUrl = searchParams.get('callbackUrl');
-  const [loading, startTransition] = useTransition();
-  const t = useTranslations('Auth');
+  const [loading, startTransition] = useTransition()
+  const t = useTranslations('Auth')
   const defaultValues = {
     email: 'demo@gmail.com'
-  };
+  }
   const form = useForm<UserFormValue>({
     resolver: zodResolver(formSchema),
     defaultValues
-  });
+  })
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const onSubmit = async (data: UserFormValue) => {
     startTransition(() => {
       // console.log('continue with email clicked');
-      toast.success(t('signInSuccessfully'));
-    });
-  };
+      toast.success(t('signInSuccessfully'))
+    })
+  }
 
   return (
     <>
@@ -91,5 +91,5 @@ export default function UserAuthForm() {
       </div>
       <GithubSignInButton />
     </>
-  );
+  )
 }

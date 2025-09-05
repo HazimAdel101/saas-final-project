@@ -1,32 +1,32 @@
-import { create } from 'zustand';
-import { v4 as uuid } from 'uuid';
-import { persist } from 'zustand/middleware';
-import { UniqueIdentifier } from '@dnd-kit/core';
-import { Column } from '../components/board-column';
+import { create } from 'zustand'
+import { v4 as uuid } from 'uuid'
+import { persist } from 'zustand/middleware'
+import { UniqueIdentifier } from '@dnd-kit/core'
+import { Column } from '../components/board-column'
 
-export type Status = 'TODO' | 'IN_PROGRESS' | 'DONE';
+export type Status = 'TODO' | 'IN_PROGRESS' | 'DONE'
 
 const defaultCols = [
   {
     id: 'TODO' as const,
     title: 'Todo'
   }
-] satisfies Column[];
+] satisfies Column[]
 
-export type ColumnId = (typeof defaultCols)[number]['id'];
+export type ColumnId = (typeof defaultCols)[number]['id']
 
 export type Task = {
-  id: string;
-  title: string;
-  description?: string;
-  status: Status;
-};
+  id: string
+  title: string
+  description?: string
+  status: Status
+}
 
 export type State = {
-  tasks: Task[];
-  columns: Column[];
-  draggedTask: string | null;
-};
+  tasks: Task[]
+  columns: Column[]
+  draggedTask: string | null
+}
 
 const initialTasks: Task[] = [
   {
@@ -39,18 +39,18 @@ const initialTasks: Task[] = [
     status: 'TODO',
     title: 'Gather requirements from stakeholders'
   }
-];
+]
 
 export type Actions = {
-  addTask: (title: string, description?: string) => void;
-  addCol: (title: string) => void;
-  dragTask: (id: string | null) => void;
-  removeTask: (title: string) => void;
-  removeCol: (id: UniqueIdentifier) => void;
-  setTasks: (updatedTask: Task[]) => void;
-  setCols: (cols: Column[]) => void;
-  updateCol: (id: UniqueIdentifier, newName: string) => void;
-};
+  addTask: (title: string, description?: string) => void
+  addCol: (title: string) => void
+  dragTask: (id: string | null) => void
+  removeTask: (title: string) => void
+  removeCol: (id: UniqueIdentifier) => void
+  setTasks: (updatedTask: Task[]) => void
+  setCols: (cols: Column[]) => void
+  updateCol: (id: UniqueIdentifier, newName: string) => void
+}
 
 export const useTaskStore = create<State & Actions>()(
   persist(
@@ -92,4 +92,4 @@ export const useTaskStore = create<State & Actions>()(
     }),
     { name: 'task-store', skipHydration: true }
   )
-);
+)

@@ -6,7 +6,7 @@ export async function POST(request: NextRequest) {
   try {
     const formData = await request.formData()
     const file = formData.get('file') as File
-    
+
     if (!file) {
       return NextResponse.json({ error: 'No file uploaded' }, { status: 400 })
     }
@@ -47,15 +47,14 @@ export async function POST(request: NextRequest) {
     // Return the public URL
     const fileUrl = `/products/${filename}`
 
-    return NextResponse.json({ 
-      success: true, 
+    return NextResponse.json({
+      success: true,
       url: fileUrl,
       filename: filename
     })
-
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.error('Upload error:', error)
     return NextResponse.json({ error: 'Upload failed' }, { status: 500 })
   }
 }
-

@@ -1,6 +1,6 @@
-'use client';
-import { DotsHorizontalIcon } from '@radix-ui/react-icons';
-import * as React from 'react';
+'use client'
+import { DotsHorizontalIcon } from '@radix-ui/react-icons'
+import * as React from 'react'
 
 import {
   AlertDialog,
@@ -10,42 +10,42 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle
-} from '@/components/ui/alert-dialog';
-import { Button } from '@/components/ui/button';
+} from '@/components/ui/alert-dialog'
+import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger
-} from '@/components/ui/dropdown-menu';
-import { useTaskStore } from '../utils/store';
-import { UniqueIdentifier } from '@dnd-kit/core';
-import { Input } from '@/components/ui/input';
-import { toast } from 'sonner';
+} from '@/components/ui/dropdown-menu'
+import { useTaskStore } from '../utils/store'
+import { UniqueIdentifier } from '@dnd-kit/core'
+import { Input } from '@/components/ui/input'
+import { toast } from 'sonner'
 
 export function ColumnActions({
   title,
   id
 }: {
-  title: string;
-  id: UniqueIdentifier;
+  title: string
+  id: UniqueIdentifier
 }) {
-  const [name, setName] = React.useState(title);
-  const updateCol = useTaskStore((state) => state.updateCol);
-  const removeCol = useTaskStore((state) => state.removeCol);
-  const [editDisable, setIsEditDisable] = React.useState(true);
-  const [showDeleteDialog, setShowDeleteDialog] = React.useState(false);
-  const inputRef = React.useRef<HTMLInputElement>(null);
+  const [name, setName] = React.useState(title)
+  const updateCol = useTaskStore((state) => state.updateCol)
+  const removeCol = useTaskStore((state) => state.removeCol)
+  const [editDisable, setIsEditDisable] = React.useState(true)
+  const [showDeleteDialog, setShowDeleteDialog] = React.useState(false)
+  const inputRef = React.useRef<HTMLInputElement>(null)
 
   return (
     <>
       <form
         onSubmit={(e) => {
-          e.preventDefault();
-          setIsEditDisable(!editDisable);
-          updateCol(id, name);
-          toast(`${title} updated to ${name}`);
+          e.preventDefault()
+          setIsEditDisable(!editDisable)
+          updateCol(id, name)
+          toast(`${title} updated to ${name}`)
         }}
       >
         <Input
@@ -66,10 +66,10 @@ export function ColumnActions({
         <DropdownMenuContent align='end'>
           <DropdownMenuItem
             onSelect={() => {
-              setIsEditDisable(!editDisable);
+              setIsEditDisable(!editDisable)
               setTimeout(() => {
-                inputRef.current && inputRef.current?.focus();
-              }, 500);
+                inputRef.current && inputRef.current?.focus()
+              }, 500)
             }}
           >
             Rename
@@ -100,11 +100,11 @@ export function ColumnActions({
               variant='destructive'
               onClick={() => {
                 // yes, you have to set a timeout
-                setTimeout(() => (document.body.style.pointerEvents = ''), 100);
+                setTimeout(() => (document.body.style.pointerEvents = ''), 100)
 
-                setShowDeleteDialog(false);
-                removeCol(id);
-                toast('This column has been deleted.');
+                setShowDeleteDialog(false)
+                removeCol(id)
+                toast('This column has been deleted.')
               }}
             >
               Delete
@@ -113,5 +113,5 @@ export function ColumnActions({
         </AlertDialogContent>
       </AlertDialog>
     </>
-  );
+  )
 }

@@ -1,11 +1,11 @@
-'use client';
+'use client'
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger
-} from '@/components/ui/accordion';
-import { Button } from '@/components/ui/button';
+} from '@/components/ui/accordion'
+import { Button } from '@/components/ui/button'
 import {
   Form,
   FormControl,
@@ -13,46 +13,46 @@ import {
   FormItem,
   FormLabel,
   FormMessage
-} from '@/components/ui/form';
-import { Heading } from '@/components/ui/heading';
-import { Input } from '@/components/ui/input';
+} from '@/components/ui/form'
+import { Heading } from '@/components/ui/heading'
+import { Input } from '@/components/ui/input'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue
-} from '@/components/ui/select';
-import { Separator } from '@/components/ui/separator';
-import { profileSchema, type ProfileFormValues } from '../utils/form-schema';
-import { cn } from '@/lib/utils';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { IconAlertTriangle, IconTrash } from '@tabler/icons-react';
-import { useParams, useRouter } from 'next/navigation';
-import { useState } from 'react';
-import { SubmitHandler, useFieldArray, useForm } from 'react-hook-form';
+} from '@/components/ui/select'
+import { Separator } from '@/components/ui/separator'
+import { profileSchema, type ProfileFormValues } from '../utils/form-schema'
+import { cn } from '@/lib/utils'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { IconAlertTriangle, IconTrash } from '@tabler/icons-react'
+import { useParams, useRouter } from 'next/navigation'
+import { useState } from 'react'
+import { SubmitHandler, useFieldArray, useForm } from 'react-hook-form'
 
 interface ProfileFormType {
-  initialData: any | null;
+  initialData: any | null
 }
 
 const ProfileCreateForm: React.FC<ProfileFormType> = ({ initialData }) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const params = useParams();
+  const params = useParams()
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const router = useRouter();
+  const router = useRouter()
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false)
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [open, setOpen] = useState(false);
-  const title = initialData ? 'Edit product' : 'Create Your Profile';
+  const [open, setOpen] = useState(false)
+  const title = initialData ? 'Edit product' : 'Create Your Profile'
   const description = initialData
     ? 'Edit a product.'
-    : 'To create your resume, we first need some basic information about you.';
+    : 'To create your resume, we first need some basic information about you.'
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [previousStep, setPreviousStep] = useState(0);
-  const [currentStep, setCurrentStep] = useState(0);
-  const [data, setData] = useState({});
+  const [previousStep, setPreviousStep] = useState(0)
+  const [currentStep, setCurrentStep] = useState(0)
+  const [data, setData] = useState({})
 
   const defaultValues = {
     jobs: [
@@ -65,32 +65,32 @@ const ProfileCreateForm: React.FC<ProfileFormType> = ({ initialData }) => {
         jobcity: ''
       }
     ]
-  };
+  }
 
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(profileSchema),
     defaultValues,
     mode: 'onChange'
-  });
+  })
 
   const {
     control,
     formState: { errors }
-  } = form;
+  } = form
 
   const { append, remove, fields } = useFieldArray({
     control,
     name: 'jobs'
-  });
+  })
 
   const processForm: SubmitHandler<ProfileFormValues> = (data) => {
     // Process form data
-    setData(data);
+    setData(data)
     // api call and reset
     // form.reset();
-  };
+  }
 
-  type FieldName = keyof ProfileFormValues;
+  type FieldName = keyof ProfileFormValues
 
   const steps = [
     {
@@ -115,35 +115,35 @@ const ProfileCreateForm: React.FC<ProfileFormType> = ({ initialData }) => {
         .flat()
     },
     { id: 'Step 3', name: 'Complete' }
-  ];
+  ]
 
   const next = async () => {
-    const fields = steps[currentStep].fields;
+    const fields = steps[currentStep].fields
 
     const output = await form.trigger(fields as FieldName[], {
       shouldFocus: true
-    });
+    })
 
-    if (!output) return;
+    if (!output) return
 
     if (currentStep < steps.length - 1) {
       if (currentStep === steps.length - 2) {
-        await form.handleSubmit(processForm)();
+        await form.handleSubmit(processForm)()
       }
-      setPreviousStep(currentStep);
-      setCurrentStep((step) => step + 1);
+      setPreviousStep(currentStep)
+      setCurrentStep((step) => step + 1)
     }
-  };
+  }
 
   const prev = () => {
     if (currentStep > 0) {
-      setPreviousStep(currentStep);
-      setCurrentStep((step) => step - 1);
+      setPreviousStep(currentStep)
+      setCurrentStep((step) => step - 1)
     }
-  };
+  }
 
-  const countries = [{ id: 'wow', name: 'india' }];
-  const cities = [{ id: '2', name: 'kerala' }];
+  const countries = [{ id: 'wow', name: 'india' }]
+  const cities = [{ id: '2', name: 'kerala' }]
 
   return (
     <>
@@ -609,7 +609,7 @@ const ProfileCreateForm: React.FC<ProfileFormType> = ({ initialData }) => {
         </div>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default ProfileCreateForm;
+export default ProfileCreateForm

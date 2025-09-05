@@ -1,5 +1,5 @@
-import type { ActionId, ActionImpl } from 'kbar';
-import * as React from 'react';
+import type { ActionId, ActionImpl } from 'kbar'
+import * as React from 'react'
 
 const ResultItem = React.forwardRef(
   (
@@ -8,19 +8,19 @@ const ResultItem = React.forwardRef(
       active,
       currentRootActionId
     }: {
-      action: ActionImpl;
-      active: boolean;
-      currentRootActionId: ActionId;
+      action: ActionImpl
+      active: boolean
+      currentRootActionId: ActionId
     },
     ref: React.Ref<HTMLDivElement>
   ) => {
     const ancestors = React.useMemo(() => {
-      if (!currentRootActionId) return action.ancestors;
+      if (!currentRootActionId) return action.ancestors
       const index = action.ancestors.findIndex(
         (ancestor) => ancestor.id === currentRootActionId
-      );
-      return action.ancestors.slice(index + 1);
-    }, [action.ancestors, currentRootActionId]);
+      )
+      return action.ancestors.slice(index + 1)
+    }, [action.ancestors, currentRootActionId])
 
     return (
       <div
@@ -68,10 +68,10 @@ const ResultItem = React.forwardRef(
           </div>
         ) : null}
       </div>
-    );
+    )
   }
-);
+)
 
-ResultItem.displayName = 'KBarResultItem';
+ResultItem.displayName = 'KBarResultItem'
 
-export default ResultItem;
+export default ResultItem

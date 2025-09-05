@@ -1,9 +1,9 @@
-'use client';
+'use client'
 
-import type { Table } from '@tanstack/react-table';
-import { Settings2 } from 'lucide-react';
+import type { Table } from '@tanstack/react-table'
+import { Settings2 } from 'lucide-react'
 
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/ui/button'
 import {
   Command,
   CommandEmpty,
@@ -11,18 +11,18 @@ import {
   CommandInput,
   CommandItem,
   CommandList
-} from '@/components/ui/command';
+} from '@/components/ui/command'
 import {
   Popover,
   PopoverContent,
   PopoverTrigger
-} from '@/components/ui/popover';
-import { cn } from '@/lib/utils';
-import * as React from 'react';
-import { CheckIcon, CaretSortIcon } from '@radix-ui/react-icons';
+} from '@/components/ui/popover'
+import { cn } from '@/lib/utils'
+import * as React from 'react'
+import { CheckIcon, CaretSortIcon } from '@radix-ui/react-icons'
 
 interface DataTableViewOptionsProps<TData> {
-  table: Table<TData>;
+  table: Table<TData>
 }
 
 export function DataTableViewOptions<TData>({
@@ -37,7 +37,7 @@ export function DataTableViewOptions<TData>({
             typeof column.accessorFn !== 'undefined' && column.getCanHide()
         ),
     [table]
-  );
+  )
 
   return (
     <Popover>
@@ -83,5 +83,5 @@ export function DataTableViewOptions<TData>({
         </Command>
       </PopoverContent>
     </Popover>
-  );
+  )
 }

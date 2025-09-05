@@ -1,5 +1,5 @@
-'use client';
-import { Button } from '@/components/ui/button';
+'use client'
+import { Button } from '@/components/ui/button'
 import {
   Dialog,
   DialogContent,
@@ -8,24 +8,24 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger
-} from '@/components/ui/dialog';
-import { Input } from '@/components/ui/input';
+} from '@/components/ui/dialog'
+import { Input } from '@/components/ui/input'
 
-import { useTaskStore } from '../utils/store';
+import { useTaskStore } from '../utils/store'
 
 export default function NewSectionDialog() {
-  const addCol = useTaskStore((state) => state.addCol);
+  const addCol = useTaskStore((state) => state.addCol)
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+    e.preventDefault()
 
-    const form = e.currentTarget;
-    const formData = new FormData(form);
-    const { title } = Object.fromEntries(formData);
+    const form = e.currentTarget
+    const formData = new FormData(form)
+    const { title } = Object.fromEntries(formData)
 
-    if (typeof title !== 'string') return;
-    addCol(title);
-  };
+    if (typeof title !== 'string') return
+    addCol(title)
+  }
 
   return (
     <Dialog>
@@ -64,5 +64,5 @@ export default function NewSectionDialog() {
         </DialogFooter>
       </DialogContent>
     </Dialog>
-  );
+  )
 }

@@ -1,12 +1,12 @@
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import {
   Card,
   CardHeader,
   CardContent,
   CardTitle,
   CardDescription
-} from '@/components/ui/card';
-import { useTranslations } from 'next-intl';
+} from '@/components/ui/card'
+import { useTranslations } from 'next-intl'
 
 const salesData = [
   {
@@ -44,16 +44,18 @@ const salesData = [
     fallback: 'SD',
     amount: '+$39.00'
   }
-];
+]
 
 export function RecentSales() {
-  const t = useTranslations('Dashboard');
-  
+  const t = useTranslations('Dashboard')
+
   return (
     <Card className='h-full'>
       <CardHeader>
         <CardTitle>{t('recentSales')}</CardTitle>
-        <CardDescription>You made 265 {t('sales')} {t('thisMonth')}.</CardDescription>
+        <CardDescription>
+          You made 265 {t('sales')} {t('thisMonth')}.
+        </CardDescription>
       </CardHeader>
       <CardContent>
         <div className='space-y-8'>
@@ -73,5 +75,5 @@ export function RecentSales() {
         </div>
       </CardContent>
     </Card>
-  );
+  )
 }
