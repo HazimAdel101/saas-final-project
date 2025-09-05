@@ -53,7 +53,7 @@ export default clerkMiddleware(async (auth, req: NextRequest) => {
       
       if (!userId) {
         // Extract locale from pathname
-        const locale = pathname.split('/')[1] || defaultLocale
+        const locale = pathname.split('/')[1] || defaultLocale 
         const signInUrl = new URL(`/${locale}/auth/sign-in`, req.url)
         return NextResponse.redirect(signInUrl)
       }
