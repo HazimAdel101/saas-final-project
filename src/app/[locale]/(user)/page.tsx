@@ -46,30 +46,24 @@ export default async function Home({
               const details = product.productDetails[0]
               // Convert Decimal values to string for client components based on locale
               const isArabic = locale === 'ar'
-              const originalPrice = isArabic
-                ? product.price_ksa?.toString() || ''
-                : product.price_usd?.toString() || ''
-              const discountedPrice = isArabic
-                ? product.discount_ksa?.toString() || ''
-                : product.discount_usd?.toString() || ''
-              const savings = isArabic
-                ? product.discount_ksa?.toString() || ''
-                : product.discount_usd?.toString() || ''
+              const price = isArabic ? product.price_ksa : product.price_usd
+              const discount = isArabic ? product.discount_ksa : product.discount_usd
+              const originalPrice = price?.toString() || ''
+              const discountedPrice = discount?.toString() || ''
+              const savings = discount ? ((price - discount) * 100 / price).toFixed(0) + '% off' : ''
               return (
-                <Link
+                <ProductCard
                   key={product.id}
-                  href={`/${locale}/product/${product.id}`}
-                >
-                  <ProductCard
-                    name={details?.name || ''}
-                    image={product.image_url}
-                    isPremium={false} // Add your own logic
-                    originalPrice={originalPrice}
-                    discountedPrice={discountedPrice}
-                    savings={savings}
-                    description={details?.description || ''}
-                  />
-                </Link>
+                  id={product.id}
+                  name={details?.name || ''}
+                  image={product.image_url}
+                  isPremium={false} // Add your own logic
+                  originalPrice={originalPrice}
+                  discountedPrice={discountedPrice}
+                  savings={savings}
+                  description={details?.description || ''}
+                  price={price || 0}
+                />
               )
             })}
           </div>

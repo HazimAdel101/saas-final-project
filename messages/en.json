@@ -12,6 +12,23 @@
     "premium": "Premium",
     "addToCart": "Add to Cart"
   },
+  "Cart": {
+    "shoppingCart": "Shopping Cart",
+    "item": "item",
+    "items": "items",
+    "emptyCart": "Your cart is empty",
+    "emptyCartDescription": "Add some products to get started!",
+    "quantity": "Quantity",
+    "remove": "Remove",
+    "subtotal": "Subtotal",
+    "total": "Total",
+    "proceedToCheckout": "Proceed to Checkout",
+    "clearCart": "Clear Cart",
+    "inCart": "in cart",
+    "addedToCart": "Added to cart",
+    "removedFromCart": "Removed from cart",
+    "cartUpdated": "Cart updated"
+  },
   "ThemeSelector": {
     "label": "Theme",
     "selectTheme": "Select a theme:",

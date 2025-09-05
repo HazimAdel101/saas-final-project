@@ -12,6 +12,23 @@
     "premium": "مميز",
     "addToCart": "أضف إلى السلة"
   },
+  "Cart": {
+    "shoppingCart": "سلة التسوق",
+    "item": "عنصر",
+    "items": "عناصر",
+    "emptyCart": "سلة التسوق فارغة",
+    "emptyCartDescription": "أضف بعض المنتجات للبدء!",
+    "quantity": "الكمية",
+    "remove": "إزالة",
+    "subtotal": "المجموع الفرعي",
+    "total": "المجموع",
+    "proceedToCheckout": "المتابعة للدفع",
+    "clearCart": "إفراغ السلة",
+    "inCart": "في السلة",
+    "addedToCart": "تم الإضافة للسلة",
+    "removedFromCart": "تم الحذف من السلة",
+    "cartUpdated": "تم تحديث السلة"
+  },
   "Footer": {
     "privacy": "الخصوصية",
     "terms": "الشروط",

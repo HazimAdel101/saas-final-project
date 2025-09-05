@@ -1,11 +1,18 @@
+'use client'
+
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { ShoppingCart, Heart } from 'lucide-react'
+import { ShoppingCart, Heart, Eye } from 'lucide-react'
 import Image from 'next/image'
 import { useTranslations } from 'next-intl'
+import { useCartStore } from '@/stores/cart-store'
+import { useState, useEffect } from 'react'
+import Link from 'next/link'
+import { useParams } from 'next/navigation'
 
 export interface ProductCardProps {
+  id: number
   name: string
   image: string
   isPremium?: boolean
@@ -13,18 +20,40 @@ export interface ProductCardProps {
   discountedPrice: string
   savings?: string
   description: string
+  price: number
 }
 
 export default function ProductCard({
+  id,
   name,
   image,
   isPremium = false,
   originalPrice,
   discountedPrice,
   savings,
-  description
+  description,
+  price
 }: ProductCardProps) {
   const t = useTranslations('ProductCard')
+  const params = useParams()
+  const locale = params.locale as string
+  const { addItem } = useCartStore()
+  const [isClient, setIsClient] = useState(false)
+
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
+
+  const handleAddToCart = () => {
+    addItem({
+      id,
+      name,
+      price,
+      image_url: image,
+      description
+    })
+  }
+
   return (
     <Card className='size-full max-w-sm justify-between gap-2 overflow-hidden'>
       <CardHeader className='p-0'>
@@ -51,13 +80,24 @@ export default function ProductCard({
               {t('premium')}
             </Badge>
           )}
-          <Button
-            size='icon'
-            variant='ghost'
-            className='bg-secondary/80 hover:bg-secondary absolute top-2 right-2'
-          >
-            <Heart className='h-4 w-4' />
-          </Button>
+          <div className="absolute top-2 right-2 flex gap-2">
+            <Link href={`/${locale}/products/${id}`}>
+              <Button
+                size='icon'
+                variant='ghost'
+                className='bg-secondary/80 hover:bg-secondary'
+              >
+                <Eye className='h-4 w-4' />
+              </Button>
+            </Link>
+            <Button
+              size='icon'
+              variant='ghost'
+              className='bg-secondary/80 hover:bg-secondary'
+            >
+              <Heart className='h-4 w-4' />
+            </Button>
+          </div>
         </div>
       </CardHeader>
       <CardContent className='h-full px-4'>
@@ -72,7 +112,7 @@ export default function ProductCard({
         {savings && <div className='text-primary mt-1 text-xs'>{savings}</div>}
       </CardContent>
       <CardFooter className='p-4 pt-0'>
-        <Button className='w-full'>
+        <Button onClick={handleAddToCart} className='w-full'>
           <ShoppingCart className='mr-2 h-4 w-4' />
           {t('addToCart')}
         </Button>

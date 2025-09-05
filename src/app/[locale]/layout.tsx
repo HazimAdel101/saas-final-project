@@ -11,6 +11,7 @@ import { NextIntlClientProvider, hasLocale } from 'next-intl'
 import { notFound } from 'next/navigation'
 import { routing } from '@/i18n/routing'
 import LocaleRedirect from '@/components/locale-redirect'
+import { CartHydration } from '@/components/cart/cart-hydration'
 import './globals.css'
 import './theme.css'
 
@@ -77,6 +78,7 @@ export default async function RootLayout({
             enableColorScheme
           >
             <Providers activeThemeValue={activeThemeValue as string}>
+              <CartHydration />
               <Toaster />
               <NextIntlClientProvider>{children}</NextIntlClientProvider>
             </Providers>

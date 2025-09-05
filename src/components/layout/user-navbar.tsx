@@ -1,7 +1,6 @@
 'use client'
 
 import { useUser, UserButton, SignInButton, SignUpButton } from '@clerk/nextjs'
-// import UserMenu from '@/components/user-menu'
 import { Button } from '@/components/ui/button'
 import {
   Popover,
@@ -9,6 +8,7 @@ import {
   PopoverTrigger
 } from '@/components/ui/popover'
 import { ThemeTogglePopover } from '@/components/layout/ThemeTogglePopover'
+import { CartButton } from '@/components/cart/cart-button'
 import { useLanguage } from '@/context/LanguageContext'
 import { useTranslations } from 'next-intl'
 import Link from 'next/link'
@@ -143,7 +143,7 @@ export default function Navbar() {
             </PopoverContent>
           </Popover>
           <ThemeTogglePopover />
-          {/* <UserMenu /> */}
+          <CartButton />
           {isSignedIn ? (
             <div className='flex items-center gap-2'>
               <UserButton />
