@@ -6,9 +6,9 @@
     "name": "Hazim"
   },
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 80",
     "build": "prisma generate && next build",
-    "start": "next start",
+    "start": "next start -p 80",
     "lint": "next lint",
     "lint:fix": "eslint src --fix && pnpm format",
     "lint:strict": "eslint --max-warnings=0 src",
@@ -127,6 +127,6 @@
     "@types/react-dom": "19.0.2"
   },
   "engines": {
-    "node": "20.x"
+    "node": "22.x"
   }
 }
