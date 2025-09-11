@@ -17,34 +17,40 @@ export default async function DashboardLayout({
 }: {
   children: React.ReactNode
 }) {
-  // Check authentication and admin role
-  const { userId, sessionClaims } = await auth()
-  
-  if (!userId) {
-    return redirect('/auth/sign-in')
-  }
+  try {
+    // Check authentication and admin role
+    const { userId, sessionClaims } = await auth()
+    
+    if (!userId) {
+      return redirect('/auth/sign-in')
+    }
 
-  // Check if user has admin role
-  const userRole = (sessionClaims?.metadata as any)?.role || (sessionClaims?.publicMetadata as any)?.role
-  
-  if (userRole !== 'admin') {
+    // Check if user has admin role
+    const userRole = (sessionClaims?.metadata as any)?.role || (sessionClaims?.publicMetadata as any)?.role
+    
+    if (userRole !== 'admin') {
+      return redirect('/')
+    }
+
+    // Persisting the sidebar state in the cookie.
+    const cookieStore = await cookies()
+    const defaultOpen = cookieStore.get('sidebar_state')?.value === 'true'
+    return (
+      <KBar>
+        <SidebarProvider defaultOpen={defaultOpen}>
+          <AppSidebar />
+          <SidebarInset>
+            <Header />
+            {/* page main content */}
+            {children}
+            {/* page main content ends */}
+          </SidebarInset>
+        </SidebarProvider>
+      </KBar>
+    )
+  } catch (error) {
+    console.error('Dashboard layout error:', error)
+    // Fallback to redirect to home page if there's an error
     return redirect('/')
   }
-
-  // Persisting the sidebar state in the cookie.
-  const cookieStore = await cookies()
-  const defaultOpen = cookieStore.get('sidebar_state')?.value === 'true'
-  return (
-    <KBar>
-      <SidebarProvider defaultOpen={defaultOpen}>
-        <AppSidebar />
-        <SidebarInset>
-          <Header />
-          {/* page main content */}
-          {children}
-          {/* page main content ends */}
-        </SidebarInset>
-      </SidebarProvider>
-    </KBar>
-  )
 }
