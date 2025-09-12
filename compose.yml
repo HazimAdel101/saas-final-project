@@ -1,0 +1,7 @@
+services:
+  web:
+    image: digital-market1:latest
+    env_file: .env.production
+    ports:
+      - "3000:3000"   # visit http://localhost:3000
+    restart: unless-stopped
