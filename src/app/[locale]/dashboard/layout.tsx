@@ -20,14 +20,16 @@ export default async function DashboardLayout({
   try {
     // Check authentication and admin role
     const { userId, sessionClaims } = await auth()
-    
+
     if (!userId) {
       return redirect('/auth/sign-in')
     }
 
     // Check if user has admin role
-    const userRole = (sessionClaims?.metadata as any)?.role || (sessionClaims?.publicMetadata as any)?.role
-    
+    const userRole =
+      (sessionClaims?.metadata as any)?.role ||
+      (sessionClaims?.publicMetadata as any)?.role
+
     if (userRole !== 'admin') {
       return redirect('/')
     }
@@ -41,16 +43,12 @@ export default async function DashboardLayout({
           <AppSidebar />
           <SidebarInset>
             <Header />
-            {/* page main content */}
             {children}
-            {/* page main content ends */}
           </SidebarInset>
         </SidebarProvider>
       </KBar>
     )
   } catch (error) {
-    console.error('Dashboard layout error:', error)
-    // Fallback to redirect to home page if there's an error
     return redirect('/')
   }
 }
