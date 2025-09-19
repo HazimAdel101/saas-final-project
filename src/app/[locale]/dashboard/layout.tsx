@@ -4,7 +4,7 @@ import Header from '@/components/layout/header'
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar'
 import type { Metadata } from 'next'
 import { cookies } from 'next/headers'
-import { auth } from '@clerk/nextjs/server'
+import { auth, currentUser } from '@clerk/nextjs/server'
 import { redirect } from 'next/navigation'
 
 export const metadata: Metadata = {
@@ -19,16 +19,16 @@ export default async function DashboardLayout({
 }) {
   try {
     // Check authentication and admin role
-    const { userId, sessionClaims } = await auth()
+    const { userId } = await auth()
+    const user = await currentUser()
 
-    if (!userId) {
+    if (!userId || !user) {
       return redirect('/auth/sign-in')
     }
 
     // Check if user has admin role
-    const userRole =
-      (sessionClaims?.metadata as any)?.role ||
-      (sessionClaims?.publicMetadata as any)?.role
+    const userRole = (user.publicMetadata as any)?.role || (user.unsafeMetadata as any)?.role
+
 
     if (userRole !== 'admin') {
       return redirect('/')

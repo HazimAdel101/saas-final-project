@@ -1,4 +1,4 @@
-import { auth } from '@clerk/nextjs/server'
+import { auth, currentUser } from '@clerk/nextjs/server'
 import { redirect } from 'next/navigation'
 
 export default async function Dashboard({
@@ -8,14 +8,15 @@ export default async function Dashboard({
 }) {
   const { locale } = await params
 
-  const { userId, sessionClaims } = await auth()
+  const { userId } = await auth()
+  const user = await currentUser()
 
-  if (!userId) {
+  if (!userId || !user) {
     return redirect(`/${locale}/auth/sign-in`)
   }
 
   // Check if user has admin role - backup check to middleware
-  const userRole = (sessionClaims?.metadata as any)?.role || (sessionClaims?.publicMetadata as any)?.role
+  const userRole = (user.publicMetadata as any)?.role || (user.unsafeMetadata as any)?.role
   
   if (userRole !== 'admin') {
     return redirect(`/${locale}`)
