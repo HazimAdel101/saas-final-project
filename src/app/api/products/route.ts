@@ -10,8 +10,13 @@ export async function POST(request: Request) {
     // eslint-disable-next-line no-console
     console.log('API route received payload:', input)
     const product = await addProduct(input)
-    return NextResponse.json({ product })
+    return NextResponse.json({ product }, { status: 201 })
   } catch (error) {
-    return NextResponse.error()
+    // eslint-disable-next-line no-console
+    console.error('Error creating product:', error)
+    return NextResponse.json(
+      { error: 'Failed to create product', details: error instanceof Error ? error.message : 'Unknown error' },
+      { status: 500 }
+    )
   }
 }
