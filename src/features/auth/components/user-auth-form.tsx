@@ -39,7 +39,6 @@ export default function UserAuthForm() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const onSubmit = async (data: UserFormValue) => {
     startTransition(() => {
-      // console.log('continue with email clicked');
       toast.success(t('signInSuccessfully'))
     })
   }

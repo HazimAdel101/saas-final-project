@@ -64,7 +64,6 @@ export async function addProduct(input: NewProductInput) {
     revalidatePath('/dashboard/products')
     return product
   } catch (error) {
-    console.error('Error in addProduct:', error)
     throw new Error(`Failed to create product: ${error instanceof Error ? error.message : 'Unknown error'}`)
   }
 }
