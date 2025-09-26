@@ -14,12 +14,13 @@ export default defineConfig({
   ],
   shortcuts: [
     ['font-title', 'text-2xl font-bold text-primary-text'],
-    ['font-subtitle', 'text-lg font-bold text-primary-text/90'],
+    ['font-subtitle', 'text-lg font-bold text-primary-text/75'],
     ['font-body', 'text-base font-normal'],
     ['font-caption', 'text-sm font-normal'],
     ['font-overline', 'text-xs font-normal'],
     ['flex-center', 'flex items-center justify-center'],
     ['flex-col-center', 'flex flex-col items-center justify-center'],
+    ['bg-primary-bg', 'bg-primary-background dark:bg-primary-background-dark'],
   ],
   rules: [
   ],
@@ -27,7 +28,14 @@ export default defineConfig({
     colors: {
       'primary': '#212831',
       'secondary': '#563678',
-      'primary-text': '#232123'
+      'primary-text': '#232123',
+      'primary-background': '#f5f5f5',
+      'primary-background-dark': '#222111',
+      'primary-foreground': '#f5f5f5',
+      'primary-foreground-dark': '#222111',
+      'secondary-text': '#563678',
+      'secondary-text-dark': '#563678',
+      'secondary-foreground': '#ff00ff'
     },
   },
   safelist: [

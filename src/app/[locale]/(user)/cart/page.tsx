@@ -36,8 +36,8 @@ export default function CartPage() {
   if (!isClient) {
     return (
       <PageContainer>
-        <div className='flex size-full items-center justify-center'>
-          <div className='border-primary h-8 w-8 animate-spin rounded-full border-b-2'></div>
+        <div className='flex-center size-full'>
+          <div className='border-primary size-8 animate-spin rounded-full border-b-2'></div>
         </div>
       </PageContainer>
     )
@@ -69,17 +69,17 @@ export default function CartPage() {
             />
           </Link>
           <div>
-            <h1 className='text-3xl font-bold'>{t('shoppingCart')}</h1>
+            <h1 className='font-title'>{t('shoppingCart')}</h1>
           </div>
         </div>
 
         <Separator />
 
         {items.length === 0 ? (
-          <div className='flex flex-col items-center justify-center space-y-4 py-16'>
-            <ShoppingCart className='text-muted-foreground h-24 w-24' />
+          <div className='flex-col-center space-y-4 py-16'>
+            <ShoppingCart className='text-muted-foreground size-24' />
             <div className='space-y-2 text-center'>
-              <h2 className='text-2xl font-semibold'>{t('emptyCart')}</h2>
+              <h2 className='font-subtitle'>{t('emptyCart')}</h2>
               <p className='text-muted-foreground max-w-md'>
                 {t('emptyCartDescription')}
               </p>
@@ -127,7 +127,7 @@ export default function CartPage() {
                               >
                                 <Plus className='size-4' />
                               </Button>
-                              <span className='w-8 text-center text-sm font-medium'>
+                              <span className='w-8 text-center font-caption'>
                                 {item.quantity}
                               </span>
                               <Button

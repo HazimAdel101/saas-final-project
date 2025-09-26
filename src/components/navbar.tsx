@@ -22,7 +22,7 @@ export default function Navbar() {
   const totalItems = isClient ? getTotalItems() : 0
 
   return (
-    <nav className='sticky top-0 z-50 bg-background border-b border-border'>
+    <nav className='sticky top-0 z-50 bg-primary-bg border-b border-border'>
       <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
         <div className='flex h-16 items-center justify-between'>
           <div className='flex items-center'>

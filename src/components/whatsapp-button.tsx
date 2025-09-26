@@ -17,7 +17,7 @@ export default function WhatsAppButton() {
       aria-label={t('chatOnWhatsApp')}
       className='text-primary-foreground fixed end-6 bottom-6 z-50 flex size-16 items-center justify-center rounded-full bg-[#25D366] p-4 shadow-lg transition-colors duration-200 hover:bg-[#25D366]/90'
     >
-      <Icon icon='prime:whatsapp' className='size-16' />
+      <Icon icon='prime:whatsapp' className='size-16 text-white' />
     </Link>
   )
 }

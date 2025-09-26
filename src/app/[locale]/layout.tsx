@@ -13,6 +13,7 @@ import { notFound } from 'next/navigation'
 import { routing } from '@/i18n/routing'
 import LocaleRedirect from '@/components/locale-redirect'
 import { CartHydration } from '@/components/cart/cart-hydration'
+import '@unocss/reset/tailwind.css'
 import './globals.css'
 import './theme.css'
 

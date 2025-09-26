@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 export default function SignInViewPage() {
   return (
-    <div className='relative h-screen flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0'>
+    <div className='relative h-screen flex-col-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0'>
       <Link
         href='/examples/authentication'
         className={cn(
@@ -45,10 +45,10 @@ export default function SignInViewPage() {
         </div>
       </div>
       <div className='flex h-full items-center justify-center p-4 lg:p-8'>
-        <div className='flex w-full max-w-md flex-col items-center justify-center space-y-6'>
+        <div className='flex-col-center w-full max-w-md space-y-6'>
           <ClerkSignInForm
             initialValues={{
-              emailAddress: 'your_mail+clerk_test@example.com'
+              emailAddress: ''
             }}
           />
 

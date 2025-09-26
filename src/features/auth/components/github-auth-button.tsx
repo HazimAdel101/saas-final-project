@@ -15,7 +15,7 @@ export default function GithubSignInButton() {
       type='button'
       onClick={() => {}}
     >
-      <Icons.github className='mr-2 h-4 w-4' />
+      <Icons.github className='mr-2 size-4' />
       Continue with Github
     </Button>
   )

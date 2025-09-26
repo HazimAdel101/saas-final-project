@@ -35,32 +35,30 @@ export default async function Home({ params }: Props) {
         }
       })
     } catch (error) {
-      // Fallback to empty array if database query fails
       products = []
     }
   } else {
     products = []
   }
 
-  // Map products to card props
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const filteredProducts = products.filter((product) => {
     return true
   })
 
   return (
-    <div className='min-h-screen'>
+    <div className='h-screen'>
       <div className='mt-16 flex-1 overflow-y-auto'>
         <div className='mx-auto max-w-7xl px-4 py-2 sm:px-6 lg:px-8'>
           <Suspense fallback={<LoadingGrid />}>
             {filteredProducts.length === 0 ? (
-              <div className='flex flex-col items-center justify-center py-12'>
-                <h2 className='mb-4 text-2xl font-semibold text-gray-900 dark:text-gray-100'>
+              <div className='flex-col-center py-12'>
+                <h2 className='mb-4 font-title'>
                   {locale === 'ar'
                     ? 'لا توجد منتجات متاحة'
                     : 'No products available'}
                 </h2>
-                <p className='max-w-md text-center text-gray-600 dark:text-gray-400'>
+                <p className='max-w-md text-center font-subtitle'>
                   {locale === 'ar'
                     ? 'عذراً، لا توجد منتجات متاحة حالياً. يرجى المحاولة مرة أخرى لاحقاً.'
                     : 'Sorry, no products are currently available. Please try again later.'}
@@ -89,7 +87,7 @@ export default async function Home({ params }: Props) {
                       id={service.id}
                       name={details?.name || ''}
                       image={service.image_url}
-                      isPremium={false} // Add your own logic
+                      isPremium={false}
                       originalPrice={originalPrice}
                       discountedPrice={discountedPrice}
                       savings={savings}

@@ -49,7 +49,7 @@ export default function ProductCard({
   }
 
   return (
-    <Card className='size-full max-w-sm justify-between gap-2 overflow-hidden'>
+    <Card className='size-full max-w-sm justify-between gap-2 overflow-hidden p-0'>
       <CardHeader className='p-0'>
         <div className='relative'>
           {image ? (
@@ -81,7 +81,7 @@ export default function ProductCard({
                 variant='ghost'
                 className='bg-secondary/80 hover:bg-secondary'
               >
-                <Eye className='h-4 w-4' />
+                <Eye className='size-4' />
               </Button>
             </Link>
             <Button
@@ -89,25 +89,25 @@ export default function ProductCard({
               variant='ghost'
               className='bg-secondary/80 hover:bg-secondary'
             >
-              <Heart className='h-4 w-4' />
+              <Heart className='size-4' />
             </Button>
           </div>
         </div>
       </CardHeader>
       <CardContent className='h-full px-4'>
-        <h3 className='mb-2 text-lg font-semibold'>{name}</h3>
-        <p className='text-muted-foreground mb-3 text-sm'>{description}</p>
+        <h3 className='mb-2 font-title'>{name}</h3>
+        <p className='text-muted-foreground mb-3 font-subtitle'>{description}</p>
         <div className='flex items-center gap-2'>
-          <span className='text-2xl font-bold'>{discountedPrice}</span>
-          <span className='text-muted-foreground text-sm line-through'>
+          <span className='font-subtitle'>{discountedPrice}</span>
+          <span className='font-caption line-through'>
             {originalPrice}
           </span>
         </div>
-        {savings && <div className='text-primary mt-1 text-xs'>{savings}</div>}
+        {savings && <div className='mt-1 font-caption'>{savings}</div>}
       </CardContent>
       <CardFooter className='p-4 pt-0'>
         <Button onClick={handleAddToCart} className='w-full'>
-          <ShoppingCart className='mr-2 h-4 w-4' />
+          <ShoppingCart className='mr-2 size-4' />
           {t('addToCart')}
         </Button>
       </CardFooter>
