@@ -30,11 +30,11 @@ importers:
         specifier: ^3.9.1
         version: 3.10.0(react-hook-form@7.54.2(react@19.0.0))
       '@prisma/client':
-        specifier: ^6.11.1
-        version: 6.11.1(prisma@6.11.1(typescript@5.7.2))(typescript@5.7.2)
+        specifier: ^6.16.2
+        version: 6.16.2(prisma@6.11.1(typescript@5.7.2))(typescript@5.7.2)
       '@prisma/extension-accelerate':
         specifier: ^2.0.2
-        version: 2.0.2(@prisma/client@6.11.1(prisma@6.11.1(typescript@5.7.2))(typescript@5.7.2))
+        version: 2.0.2(@prisma/client@6.16.2(prisma@6.11.1(typescript@5.7.2))(typescript@5.7.2))
       '@radix-ui/react-accordion':
         specifier: ^1.2.3
         version: 1.2.3(@types/react-dom@19.0.2(@types/react@19.0.1))(@types/react@19.0.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -1185,8 +1185,8 @@ packages:
     peerDependencies:
       '@opentelemetry/api': ^1.1.0
 
-  '@prisma/client@6.11.1':
-    resolution: {integrity: sha512-5CLFh8QP6KxRm83pJ84jaVCeSVPQr8k0L2SEtOJHwdkS57/VQDcI/wQpGmdyOZi+D9gdNabdo8tj1Uk+w+upsQ==}
+  '@prisma/client@6.16.2':
+    resolution: {integrity: sha512-E00PxBcalMfYO/TWnXobBVUai6eW/g5OsifWQsQDzJYm7yaY+IRLo7ZLsaefi0QkTpxfuhFcQ/w180i6kX3iJw==}
     engines: {node: '>=18.18'}
     peerDependencies:
       prisma: '*'
@@ -6367,7 +6367,7 @@ snapshots:
       '@opentelemetry/api': 1.9.0
       '@opentelemetry/core': 1.30.1(@opentelemetry/api@1.9.0)
 
-  '@prisma/client@6.11.1(prisma@6.11.1(typescript@5.7.2))(typescript@5.7.2)':
+  '@prisma/client@6.16.2(prisma@6.11.1(typescript@5.7.2))(typescript@5.7.2)':
     optionalDependencies:
       prisma: 6.11.1(typescript@5.7.2)
       typescript: 5.7.2
@@ -6387,9 +6387,9 @@ snapshots:
       '@prisma/fetch-engine': 6.11.1
       '@prisma/get-platform': 6.11.1
 
-  '@prisma/extension-accelerate@2.0.2(@prisma/client@6.11.1(prisma@6.11.1(typescript@5.7.2))(typescript@5.7.2))':
+  '@prisma/extension-accelerate@2.0.2(@prisma/client@6.16.2(prisma@6.11.1(typescript@5.7.2))(typescript@5.7.2))':
     dependencies:
-      '@prisma/client': 6.11.1(prisma@6.11.1(typescript@5.7.2))(typescript@5.7.2)
+      '@prisma/client': 6.16.2(prisma@6.11.1(typescript@5.7.2))(typescript@5.7.2)
 
   '@prisma/fetch-engine@6.11.1':
     dependencies:

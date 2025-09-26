@@ -9,10 +9,10 @@ export default async function ProductPage({
 }) {
   const { id, locale } = await params
   const prisma = new PrismaClient()
-  const product = await prisma.product.findUnique({
+  const product = await prisma.service.findUnique({
     where: { id: Number(id) },
     include: {
-      productDetails: {
+      ServiceDetails: {
         include: {
           language: true
         }
@@ -30,7 +30,7 @@ export default async function ProductPage({
     price_ksa: Number(product.price_ksa),
     discount_usd: Number(product.discount_usd),
     discount_ksa: Number(product.discount_ksa),
-    productDetails: product.productDetails.map(detail => ({
+    ServiceDetails: product.ServiceDetails.map(detail => ({
       ...detail,
       company: detail.company || undefined
     }))

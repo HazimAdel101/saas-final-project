@@ -3,34 +3,29 @@ import { LoadingGrid } from '@/components/loading-skeleton'
 import { prisma, testDatabaseConnection } from '@/lib/db'
 import { Suspense } from 'react'
 
-export default async function Home({
-  params
-}: {
+type Props = {
   params: Promise<{ locale: string }>
-}) {
-  const { locale } = await params
-  // const t = await getTranslations({ locale, namespace: 'HomePage' })
+}
 
-  // Test database connection first with timeout
+export default async function Home({ params }: Props) {
+  const { locale } = await params
   let isDatabaseConnected = false
   try {
     isDatabaseConnected = await Promise.race([
       testDatabaseConnection(),
-      new Promise<boolean>((resolve) => 
-        setTimeout(() => resolve(false), 3000)
-      )
+      new Promise<boolean>((resolve) => setTimeout(() => resolve(false), 3000))
     ])
   } catch (error) {
     isDatabaseConnected = false
   }
-  
-  // Fetch products and details for the current language with error handling
+
+  // Fetch services and details for the current language with error handling
   let products: any[] = []
   if (isDatabaseConnected) {
     try {
-      products = await prisma.product.findMany({
+      products = await prisma.service.findMany({
         include: {
-          productDetails: {
+          ServiceDetails: {
             where: {
               language: {
                 code: locale
@@ -47,8 +42,6 @@ export default async function Home({
     products = []
   }
 
-  const viewMode = 'grid' as 'grid' | 'list' // You can make this dynamic with client-side state if needed
-
   // Map products to card props
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const filteredProducts = products.filter((product) => {
@@ -62,39 +55,40 @@ export default async function Home({
           <Suspense fallback={<LoadingGrid />}>
             {filteredProducts.length === 0 ? (
               <div className='flex flex-col items-center justify-center py-12'>
-                <h2 className='text-2xl font-semibold text-gray-900 dark:text-gray-100 mb-4'>
-                  {locale === 'ar' ? 'لا توجد منتجات متاحة' : 'No products available'}
+                <h2 className='mb-4 text-2xl font-semibold text-gray-900 dark:text-gray-100'>
+                  {locale === 'ar'
+                    ? 'لا توجد منتجات متاحة'
+                    : 'No products available'}
                 </h2>
-                <p className='text-gray-600 dark:text-gray-400 text-center max-w-md'>
-                  {locale === 'ar' 
+                <p className='max-w-md text-center text-gray-600 dark:text-gray-400'>
+                  {locale === 'ar'
                     ? 'عذراً، لا توجد منتجات متاحة حالياً. يرجى المحاولة مرة أخرى لاحقاً.'
-                    : 'Sorry, no products are currently available. Please try again later.'
-                  }
+                    : 'Sorry, no products are currently available. Please try again later.'}
                 </p>
               </div>
             ) : (
               <div
-                className={`grid items-stretch gap-6 ${
-                  viewMode === 'grid'
-                    ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
-                    : 'grid-cols-1'
-                }`}
+                className={`grid grid-cols-1 items-stretch gap-6 md:grid-cols-2 lg:grid-cols-3`}
               >
-                {filteredProducts.map((product) => {
-                  const details = product.productDetails[0]
+                {filteredProducts.map((service) => {
+                  const details = service.ServiceDetails[0]
                   // Convert Decimal values to string for client components based on locale
                   const isArabic = locale === 'ar'
-                  const price = isArabic ? product.price_ksa : product.price_usd
-                  const discount = isArabic ? product.discount_ksa : product.discount_usd
+                  const price = isArabic ? service.price_ksa : service.price_usd
+                  const discount = isArabic
+                    ? service.discount_ksa
+                    : service.discount_usd
                   const originalPrice = price?.toString() || ''
                   const discountedPrice = discount?.toString() || ''
-                  const savings = discount ? ((price - discount) * 100 / price).toFixed(0) + '% off' : ''
+                  const savings = discount
+                    ? (((price - discount) * 100) / price).toFixed(0) + '% off'
+                    : ''
                   return (
                     <ProductCard
-                      key={product.id}
-                      id={product.id}
+                      key={service.id}
+                      id={service.id}
                       name={details?.name || ''}
-                      image={product.image_url}
+                      image={service.image_url}
                       isPremium={false} // Add your own logic
                       originalPrice={originalPrice}
                       discountedPrice={discountedPrice}

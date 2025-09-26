@@ -29,7 +29,7 @@ export async function addProduct(input: NewProductInput) {
     }
 
     // First create the Product record
-    const product = await prisma.product.create({
+    const product = await prisma.service.create({
       data: {
         price_usd: input.price_usd,
         price_ksa: input.price_ksa,
@@ -40,9 +40,9 @@ export async function addProduct(input: NewProductInput) {
     })
 
     // Create ProductDetail for English
-    await prisma.productDetail.create({
+    await prisma.serviceDetail.create({
       data: {
-        product_id: product.id,
+        service_id: product.id,
         name: input.name_en,
         description: input.description_en,
         features: JSON.stringify({ category: input.category }),
@@ -51,9 +51,9 @@ export async function addProduct(input: NewProductInput) {
     })
 
     // Create ProductDetail for Arabic
-    await prisma.productDetail.create({
+    await prisma.serviceDetail.create({
       data: {
-        product_id: product.id,
+        service_id: product.id,
         name: input.name_ar,
         description: input.description_ar,
         features: JSON.stringify({ category: input.category }),

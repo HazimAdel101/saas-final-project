@@ -13,7 +13,7 @@ type Language = {
   code: string
 }
 
-type ProductDetail = {
+type ServiceDetail = {
   id: number
   name: string
   description: string
@@ -30,7 +30,7 @@ type Product = {
   discount_usd: number
   discount_ksa: number
   image_url: string
-  productDetails: ProductDetail[]
+  ServiceDetails: ServiceDetail[]
 }
 
 export default function ProductDetailsClient({
@@ -61,7 +61,7 @@ export default function ProductDetailsClient({
           />
         </div>
         <div className='flex min-h-[400px] flex-col justify-between'>
-          <h1>{product.productDetails?.[index]?.name}</h1>
+          <h1>{product.ServiceDetails?.[index]?.name}</h1>
           <span>
             {Array.from({ length: 5 }).map((_, i) => (
               <Star key={i} className='inline-block h-5 w-5 text-warning-500' />
@@ -87,15 +87,15 @@ export default function ProductDetailsClient({
             <tbody>
               <tr>
                 <td>{t('brand')}</td>
-                <td>{product.productDetails?.[index]?.company}</td>
+                <td>{product.ServiceDetails?.[index]?.company}</td>
               </tr>
               <tr>
                 <td>{t('tags')}</td>
-                <td>{product.productDetails?.[index]?.company}</td>
+                <td>{product.ServiceDetails?.[index]?.company}</td>
               </tr>
               <tr>
                 <td>{t('categories')}</td>
-                <td>{product.productDetails?.[index]?.company}</td>
+                <td>{product.ServiceDetails?.[index]?.company}</td>
               </tr>
             </tbody>
           </table>
@@ -109,7 +109,7 @@ export default function ProductDetailsClient({
           <Button className='mt-4 w-full'>{t('buyNow')}</Button>
         </div>
       </div>
-      <ProductTabs description={product.productDetails?.[1]?.description} />
+      <ProductTabs description={product.ServiceDetails?.[1]?.description} />
     </>
   )
 }

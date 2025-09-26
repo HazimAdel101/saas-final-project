@@ -13,7 +13,7 @@ import { Suspense } from 'react'
 import { PrismaClient } from '@prisma/client'
 
 export const metadata = {
-  title: 'Prouducts Management'
+  title: 'Services Management'
 }
 
 export default async function Page({
@@ -27,9 +27,9 @@ export default async function Page({
   const resolvedSearchParams = await searchParams
   const prisma = new PrismaClient()
 
-  const products = await prisma.product.findMany({
+  const services = await prisma.service.findMany({
     include: {
-      productDetails: {
+      ServiceDetails: {
         where: {
           language: {
             code: locale
@@ -41,17 +41,13 @@ export default async function Page({
 
   // Allow nested RSCs to access the search params (in a type-safe way)
   searchParamsCache.parse(resolvedSearchParams)
-
-  // This key is used for invoke suspense if any of the search params changed (used for filters).
-  // const key = serialize({ ...searchParams });
-
-  // Map products to only include image_url, name, price, and description in the current locale
-  const mappedProducts = products.map((product) => {
-    const detail = product.productDetails[0]
+  
+  const mappedProducts = services.map((service) => {
+    const detail = service.ServiceDetails[0]
     return {
-      id: product.id,
-      image_url: product.image_url,
-      price: Number(product.price_usd),
+      id: service.id,
+      image_url: service.image_url,
+      price: Number(service.price_usd),
       name: detail?.name ?? '',
       description: detail?.description ?? ''
     }
