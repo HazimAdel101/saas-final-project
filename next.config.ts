@@ -23,7 +23,7 @@ const baseConfig: NextConfig = {
   eslint: {
     // Disable ESLint during build (optional - speeds up deployment)
     ignoreDuringBuilds: false
-  }
+  },
 }
 
 let configWithPlugins = baseConfig

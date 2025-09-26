@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UnoCSS Test</title>
+    <style>
+        /* This should be processed by UnoCSS */
+        .test-class {
+            @apply bg-blue-500 text-white p-4 rounded-lg hover:bg-blue-600 transition-colors;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-class">
+        <h1>UnoCSS Test</h1>
+        <p>If you see this styled, UnoCSS is working!</p>
+    </div>
+</body>
+</html>
+
