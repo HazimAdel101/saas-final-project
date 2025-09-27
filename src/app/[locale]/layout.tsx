@@ -13,6 +13,7 @@ import { notFound } from 'next/navigation'
 import { routing } from '@/i18n/routing'
 import LocaleRedirect from '@/components/locale-redirect'
 import { CartHydration } from '@/components/cart/cart-hydration'
+import LoadingProvider from '@/components/loading-provider'
 import '@unocss/reset/tailwind.css'
 import './globals.css'
 import './theme.css'
@@ -61,6 +62,13 @@ export default async function RootLayout({
                     document.querySelector('meta[name="theme-color"]').setAttribute('content', '${META_THEME_COLORS.dark}')
                   }
                 } catch (_) {}
+                
+                // Fix React DevTools hook initialization
+                if (typeof window !== 'undefined' && window.__REACT_DEVTOOLS_GLOBAL_HOOK__) {
+                  if (typeof window.__REACT_DEVTOOLS_GLOBAL_HOOK__.on !== 'function') {
+                    window.__REACT_DEVTOOLS_GLOBAL_HOOK__.on = function() {};
+                  }
+                }
               `
             }}
           />
@@ -73,25 +81,27 @@ export default async function RootLayout({
             fontVariables
           )}
         >
-          <NextTopLoader showSpinner={false} />
-          <LocaleRedirect />
-          <NuqsAdapter>
-            <ThemeProvider
-              attribute='class'
-              defaultTheme='system'
-              enableSystem
-              disableTransitionOnChange
-              enableColorScheme
-            >
-              <Providers activeThemeValue={activeThemeValue as string}>
-                <CartHydration />
-                <Toaster />
-                <NextIntlClientProvider messages={messages} locale={locale}>
-                  {children}
-                </NextIntlClientProvider>
-              </Providers>
-            </ThemeProvider>
-          </NuqsAdapter>
+          <LoadingProvider>
+            <NextTopLoader showSpinner={false} />
+            <LocaleRedirect />
+            <NuqsAdapter>
+              <ThemeProvider
+                attribute='class'
+                defaultTheme='system'
+                enableSystem
+                disableTransitionOnChange
+                enableColorScheme
+              >
+                <Providers activeThemeValue={activeThemeValue as string}>
+                  <CartHydration />
+                  <Toaster />
+                  <NextIntlClientProvider messages={messages} locale={locale}>
+                    {children}
+                  </NextIntlClientProvider>
+                </Providers>
+              </ThemeProvider>
+            </NuqsAdapter>
+          </LoadingProvider>
         </body>
       </html>
     )

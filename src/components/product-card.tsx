@@ -74,7 +74,7 @@ export default function ProductCard({
               {t('premium')}
             </Badge>
           )}
-          <div className="absolute top-2 right-2 flex gap-2">
+          <div className='absolute top-2 right-2 flex gap-2'>
             <Link href={`/${locale}/products/${id}`}>
               <Button
                 size='icon'
@@ -95,15 +95,17 @@ export default function ProductCard({
         </div>
       </CardHeader>
       <CardContent className='h-full px-4'>
-        <h3 className='mb-2 font-title'>{name}</h3>
-        <p className='text-muted-foreground mb-3 font-subtitle'>{description}</p>
+        <Link className='group' href={`/${locale}/products/${id}`}>
+          <h3 className='font-title mb-2 group-hover:text-primary group-hover:underline'>{name}</h3>
+          <p className='text-muted-foreground font-subtitle mb-3 group-hover:text-primary group-hover:underline'>
+            {description}
+          </p>
+        </Link>
         <div className='flex items-center gap-2'>
           <span className='font-subtitle'>{discountedPrice}</span>
-          <span className='font-caption line-through'>
-            {originalPrice}
-          </span>
+          <span className='font-caption line-through'>{originalPrice}</span>
         </div>
-        {savings && <div className='mt-1 font-caption'>{savings}</div>}
+        {savings && <div className='font-caption mt-1'>{savings}</div>}
       </CardContent>
       <CardFooter className='p-4 pt-0'>
         <Button onClick={handleAddToCart} className='w-full'>

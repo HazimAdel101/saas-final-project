@@ -50,6 +50,7 @@ export default function SignUpViewPage() {
             initialValues={{
               emailAddress: ''
             }}
+            fallbackRedirectUrl="/dashboard/overview"
           />
           <p className='px-8 text-center font-caption'>
             By clicking continue, you agree to our{' '}

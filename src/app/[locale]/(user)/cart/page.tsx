@@ -12,6 +12,9 @@ import { useTranslations } from 'next-intl'
 import Link from 'next/link'
 import { useParams } from 'next/navigation'
 import { Icon } from '@iconify/react'
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
+import { Label } from '@/components/ui/label'
+import { openWhatsApp } from '@/lib/whatsapp-utils'
 
 export default function CartPage() {
   const {
@@ -24,6 +27,7 @@ export default function CartPage() {
   } = useCartStore()
 
   const [isClient, setIsClient] = useState(false)
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<'USDT' | 'PayPal' | null>(null)
   const t = useTranslations('Cart')
   const params = useParams()
   const locale = (params.locale as string) || 'en'
@@ -56,6 +60,24 @@ export default function CartPage() {
     } else {
       removeItem(id)
     }
+  }
+
+  const handleProceedToPayment = () => {
+    if (!selectedPaymentMethod) {
+      alert(t('selectPaymentMethod'))
+      return
+    }
+
+    const orderSummary = {
+      items,
+      totalItems,
+      totalPrice,
+      paymentMethod: selectedPaymentMethod
+    }
+
+    // Replace with your actual WhatsApp number
+    const whatsappNumber = '+967780065525' // Update this with your actual WhatsApp number
+    openWhatsApp(orderSummary, whatsappNumber)
   }
 
   return (
@@ -210,8 +232,42 @@ export default function CartPage() {
                 </CardContent>
               </Card>
 
-              <Button className='w-full' size='lg'>
-                {t('proceedToCheckout')}
+              {/* Payment Methods */}
+              <Card>
+                <CardHeader>
+                  <CardTitle>{t('paymentMethods')}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <RadioGroup
+                    value={selectedPaymentMethod || ''}
+                    onValueChange={(value) => setSelectedPaymentMethod(value as 'USDT' | 'PayPal')}
+                    className='space-y-3'
+                  >
+                    <div className='flex items-center space-x-2 rtl:space-x-reverse'>
+                      <RadioGroupItem value='USDT' id='usdt' />
+                      <Label htmlFor='usdt' className='flex items-center gap-2 cursor-pointer'>
+                        <Icon icon='cryptocurrency:usdt' className='size-5' />
+                        {t('usdt')}
+                      </Label>
+                    </div>
+                    <div className='flex items-center space-x-2 rtl:space-x-reverse'>
+                      <RadioGroupItem value='PayPal' id='paypal' />
+                      <Label htmlFor='paypal' className='flex items-center gap-2 cursor-pointer'>
+                        <Icon icon='logos:paypal' className='size-5' />
+                        {t('paypal')}
+                      </Label>
+                    </div>
+                  </RadioGroup>
+                </CardContent>
+              </Card>
+
+              <Button 
+                className='w-full' 
+                size='lg' 
+                onClick={handleProceedToPayment}
+                disabled={!selectedPaymentMethod}
+              >
+                {t('whatsappMessage')}
               </Button>
 
               <Button variant='outline' className='w-full' onClick={clearCart}>

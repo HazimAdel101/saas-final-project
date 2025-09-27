@@ -31,19 +31,14 @@
     "inCart": "in cart",
     "addedToCart": "Added to cart",
     "removedFromCart": "Removed from cart",
-    "cartUpdated": "Cart updated"
-  },
-  "ThemeSelector": {
-    "label": "Theme",
-    "selectTheme": "Select a theme:",
-    "placeholder": "Select a theme",
-    "default": "Default",
-    "blue": "Blue",
-    "green": "Green",
-    "amber": "Amber",
-    "scaled": "Scaled",
-    "monospaced": "Monospaced",
-    "mono": "Mono"
+    "cartUpdated": "Cart updated",
+    "paymentMethods": "Payment Methods",
+    "selectPaymentMethod": "Select Payment Method",
+    "usdt": "USDT",
+    "paypal": "PayPal",
+    "proceedToPayment": "Proceed to Payment",
+    "orderDetails": "Order Details",
+    "whatsappMessage": "Send Order via WhatsApp"
   },
   "CategoryOptions": {
     "electronics": "Electronics",

@@ -17,9 +17,6 @@
     "prepare": "husky",
     "postinstall": "prisma generate"
   },
-  "prisma": {
-    "seed": "tsx prisma/seed.ts"
-  },
   "lint-staged": {
     "**/*.{js,jsx,tsx,ts,css,less,scss,sass}": [
       "prettier --write --no-error-on-unmatched-pattern"

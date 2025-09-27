@@ -31,25 +31,20 @@
     "inCart": "في السلة",
     "addedToCart": "تم الإضافة للسلة",
     "removedFromCart": "تم الحذف من السلة",
-    "cartUpdated": "تم تحديث السلة"
+    "cartUpdated": "تم تحديث السلة",
+    "paymentMethods": "طرق الدفع",
+    "selectPaymentMethod": "اختر طريقة الدفع",
+    "usdt": "USDT",
+    "paypal": "PayPal",
+    "proceedToPayment": "المتابعة للدفع",
+    "orderDetails": "تفاصيل الطلب",
+    "whatsappMessage": "إرسال الطلب عبر الواتساب"
   },
   "Footer": {
     "privacy": "الخصوصية",
     "terms": "الشروط",
     "support": "الدعم",
     "copyright": "جميع الحقوق محفوظة."
-  },
-  "ThemeSelector": {
-    "label": "السمة",
-    "selectTheme": "اختر سمة:",
-    "placeholder": "اختر سمة",
-    "default": "افتراضي",
-    "blue": "أزرق",
-    "green": "أخضر",
-    "amber": "كهرماني",
-    "scaled": "مقياس",
-    "monospaced": "أحادية المسافة",
-    "mono": "أحادية"
   },
   "CategoryOptions": {
     "electronics": "إلكترونيات",

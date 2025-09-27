@@ -50,6 +50,7 @@ export default function SignInViewPage() {
             initialValues={{
               emailAddress: ''
             }}
+            fallbackRedirectUrl="/dashboard/overview"
           />
 
           <p className='text-muted-foreground px-8 text-center text-sm'>

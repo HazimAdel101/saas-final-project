@@ -208,7 +208,7 @@ export default function SubscriptionForm() {
                        <FormItem>
                          <FormLabel>Phone Number</FormLabel>
                          <FormControl>
-                           <Input placeholder="+1234567890" {...field} />
+                           <Input placeholder="+967780065525" {...field} />
                          </FormControl>
                          <FormMessage />
                        </FormItem>

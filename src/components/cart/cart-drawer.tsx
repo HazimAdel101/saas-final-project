@@ -10,6 +10,10 @@ import { useCartStore } from '@/stores/cart-store'
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { useTranslations } from 'next-intl'
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
+import { Label } from '@/components/ui/label'
+import { openWhatsApp } from '@/lib/whatsapp-utils'
+import { Icon } from '@iconify/react'
 
 export function CartDrawer() {
   const {
@@ -24,6 +28,7 @@ export function CartDrawer() {
   } = useCartStore()
   
   const [isClient, setIsClient] = useState(false)
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<'USDT' | 'PayPal' | null>(null)
   const t = useTranslations('Cart')
 
   useEffect(() => {
@@ -47,6 +52,24 @@ export function CartDrawer() {
     } else {
       removeItem(id)
     }
+  }
+
+  const handleProceedToPayment = () => {
+    if (!selectedPaymentMethod) {
+      alert(t('selectPaymentMethod'))
+      return
+    }
+
+    const orderSummary = {
+      items,
+      totalItems,
+      totalPrice,
+      paymentMethod: selectedPaymentMethod
+    }
+
+    // Replace with your actual WhatsApp number
+    const whatsappNumber = '+967780065525' // Update this with your actual WhatsApp number
+    openWhatsApp(orderSummary, whatsappNumber)
   }
 
   return (
@@ -153,10 +176,40 @@ export function CartDrawer() {
                   <span>${totalPrice.toFixed(2)}</span>
                 </div>
               </div>
+
+              {/* Payment Methods */}
+              <div className="space-y-3">
+                <h4 className="text-sm font-medium">{t('paymentMethods')}</h4>
+                <RadioGroup
+                  value={selectedPaymentMethod || ''}
+                  onValueChange={(value) => setSelectedPaymentMethod(value as 'USDT' | 'PayPal')}
+                  className="space-y-2"
+                >
+                  <div className="flex items-center space-x-2 rtl:space-x-reverse">
+                    <RadioGroupItem value="USDT" id="usdt-drawer" />
+                    <Label htmlFor="usdt-drawer" className="flex items-center gap-2 cursor-pointer text-sm">
+                      <Icon icon="cryptocurrency:usdt" className="size-4" />
+                      {t('usdt')}
+                    </Label>
+                  </div>
+                  <div className="flex items-center space-x-2 rtl:space-x-reverse">
+                    <RadioGroupItem value="PayPal" id="paypal-drawer" />
+                    <Label htmlFor="paypal-drawer" className="flex items-center gap-2 cursor-pointer text-sm">
+                      <Icon icon="logos:paypal" className="size-4" />
+                      {t('paypal')}
+                    </Label>
+                  </div>
+                </RadioGroup>
+              </div>
               
               <div className="space-y-2">
-                <Button className="w-full" size="lg">
-                  {t('proceedToCheckout')}
+                <Button 
+                  className="w-full" 
+                  size="lg"
+                  onClick={handleProceedToPayment}
+                  disabled={!selectedPaymentMethod}
+                >
+                  {t('whatsappMessage')}
                 </Button>
                 <Button
                   variant="outline"

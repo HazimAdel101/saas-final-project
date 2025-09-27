@@ -65,7 +65,7 @@ export default async function Page({
             href='/en/dashboard/products/new'
             className={cn(buttonVariants(), 'text-xs md:text-sm')}
           >
-            <IconPlus className='mr-2 h-4 w-4' /> Add New
+            <IconPlus className='mr-2 size-4' /> Add New
           </Link>
         </div>
         <Separator />

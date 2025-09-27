@@ -135,12 +135,12 @@ export default function Navbar() {
             </div>
           ) : (
             <div className='flex items-center gap-4'>
-              <SignInButton>
+              <SignInButton fallbackRedirectUrl="/dashboard/overview">
                 <Button className=''>
                   {t('login')}
                 </Button>
               </SignInButton>
-              <SignUpButton>
+              <SignUpButton fallbackRedirectUrl="/dashboard/overview">
                 <Button variant='secondary' className=''>
                   {t('register')}
                 </Button>

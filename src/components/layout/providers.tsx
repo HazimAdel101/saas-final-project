@@ -24,6 +24,7 @@ export default function Providers({
             appearance={{
               baseTheme: resolvedTheme === 'dark' ? dark : undefined
             }}
+            fallbackRedirectUrl="/dashboard/overview"
           >
             {children}
           </ClerkProvider>

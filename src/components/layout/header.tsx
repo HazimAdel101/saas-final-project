@@ -4,7 +4,6 @@ import { Separator } from '../ui/separator'
 import { Breadcrumbs } from '../breadcrumbs'
 import SearchInput from '../search-input'
 import { UserNav } from './user-nav'
-import { ThemeSelector } from '../theme-selector'
 import { ModeToggle } from './ThemeToggle/theme-toggle'
 import CtaGithub from './cta-github'
 import { CartButton } from '../cart/cart-button'
@@ -26,7 +25,6 @@ export default function Header() {
         <CartButton />
         <UserNav />
         <ModeToggle />
-        <ThemeSelector />
       </div>
     </header>
   )
