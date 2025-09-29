@@ -24,6 +24,13 @@ const baseConfig: NextConfig = {
     // Disable ESLint during build (optional - speeds up deployment)
     ignoreDuringBuilds: false
   },
+  // Fix hydration errors from browser extensions
+  reactStrictMode: true,
+  onDemandEntries: {
+    // This tells Next.js to skip hydration warnings due to attributes added by browser extensions
+    maxInactiveAge: 25 * 1000,
+    pagesBufferLength: 2,
+  },
 }
 
 let configWithPlugins = baseConfig

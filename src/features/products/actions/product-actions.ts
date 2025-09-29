@@ -19,15 +19,6 @@ export interface NewProductInput {
 
 export async function addProduct(input: NewProductInput) {
   try {
-    // Get language records
-    const languages = await prisma.language.findMany()
-    const englishLang = languages.find((l) => l.code === 'en')
-    const arabicLang = languages.find((l) => l.code === 'ar')
-
-    if (!englishLang || !arabicLang) {
-      throw new Error('Required languages not found in database. Please ensure English (en) and Arabic (ar) languages are seeded.')
-    }
-
     // First create the Product record
     const product = await prisma.service.create({
       data: {
@@ -39,6 +30,47 @@ export async function addProduct(input: NewProductInput) {
       }
     })
 
+    // Get language IDs - create languages if they don't exist
+    let englishLangId: number;
+    let arabicLangId: number;
+
+    try {
+      // First try to find English language
+      const englishLang = await prisma.$queryRaw`
+        SELECT id FROM "Language" WHERE code = 'en' LIMIT 1
+      `;
+
+      if (Array.isArray(englishLang) && englishLang.length > 0) {
+        englishLangId = englishLang[0].id;
+      } else {
+        // Create English language if it doesn't exist
+        const newEnglishLang = await prisma.$queryRaw`
+          INSERT INTO "Language" (name, code) VALUES ('English', 'en') RETURNING id
+        `;
+        englishLangId = Array.isArray(newEnglishLang) ? newEnglishLang[0].id : 1;
+      }
+
+      // Then try to find Arabic language
+      const arabicLang = await prisma.$queryRaw`
+        SELECT id FROM "Language" WHERE code = 'ar' LIMIT 1
+      `;
+
+      if (Array.isArray(arabicLang) && arabicLang.length > 0) {
+        arabicLangId = arabicLang[0].id;
+      } else {
+        // Create Arabic language if it doesn't exist
+        const newArabicLang = await prisma.$queryRaw`
+          INSERT INTO "Language" (name, code) VALUES ('Arabic', 'ar') RETURNING id
+        `;
+        arabicLangId = Array.isArray(newArabicLang) ? newArabicLang[0].id : 2;
+      }
+    } catch (error) {
+      console.error("Error getting/creating languages:", error);
+      // Default to IDs 1 and 2 if query fails
+      englishLangId = 1; // Assuming English has ID 1
+      arabicLangId = 2;  // Assuming Arabic has ID 2
+    }
+
     // Create ProductDetail for English
     await prisma.serviceDetail.create({
       data: {
@@ -46,7 +78,7 @@ export async function addProduct(input: NewProductInput) {
         name: input.name_en,
         description: input.description_en,
         features: JSON.stringify({ category: input.category }),
-        language_id: englishLang.id
+        language_id: englishLangId
       }
     })
 
@@ -57,7 +89,7 @@ export async function addProduct(input: NewProductInput) {
         name: input.name_ar,
         description: input.description_ar,
         features: JSON.stringify({ category: input.category }),
-        language_id: arabicLang.id
+        language_id: arabicLangId
       }
     })
 

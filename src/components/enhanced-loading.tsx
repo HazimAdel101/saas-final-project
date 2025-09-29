@@ -89,8 +89,8 @@ export default function EnhancedLoading({
       <div className={cn('flex flex-col items-center', getContainerStyles())}>
         {/* Main spinner */}
         <div className="relative initial-loader-spinner">
-          <div className={cn('animate-spin rounded-full border-4 border-muted border-t-primary', getVariantStyles())}></div>
-          <div className={cn('absolute inset-0 animate-ping rounded-full border-4 border-primary/20', getVariantStyles())}></div>
+          <div className={cn('animate-spin rounded-full border-4 border-muted border-t-primary', getVariantStyles())} data-testid="spinner"></div>
+          <div className={cn('absolute inset-0 animate-ping rounded-full border-4 border-primary/20', getVariantStyles())} data-testid="ping-animation"></div>
         </div>
         
         {/* Loading text */}

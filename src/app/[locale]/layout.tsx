@@ -14,6 +14,7 @@ import { routing } from '@/i18n/routing'
 import LocaleRedirect from '@/components/locale-redirect'
 import { CartHydration } from '@/components/cart/cart-hydration'
 import LoadingProvider from '@/components/loading-provider'
+import HydrationErrorBoundary from '@/components/hydration-error-boundary'
 import '@unocss/reset/tailwind.css'
 import './globals.css'
 import './theme.css'
@@ -81,27 +82,29 @@ export default async function RootLayout({
             fontVariables
           )}
         >
-          <LoadingProvider>
-            <NextTopLoader showSpinner={false} />
-            <LocaleRedirect />
-            <NuqsAdapter>
-              <ThemeProvider
-                attribute='class'
-                defaultTheme='system'
-                enableSystem
-                disableTransitionOnChange
-                enableColorScheme
-              >
-                <Providers activeThemeValue={activeThemeValue as string}>
-                  <CartHydration />
-                  <Toaster />
-                  <NextIntlClientProvider messages={messages} locale={locale}>
-                    {children}
-                  </NextIntlClientProvider>
-                </Providers>
-              </ThemeProvider>
-            </NuqsAdapter>
-          </LoadingProvider>
+          <HydrationErrorBoundary>
+            <LoadingProvider>
+              <NextTopLoader showSpinner={false} />
+              <LocaleRedirect />
+              <NuqsAdapter>
+                <ThemeProvider
+                  attribute='class'
+                  defaultTheme='system'
+                  enableSystem
+                  disableTransitionOnChange
+                  enableColorScheme
+                >
+                  <Providers activeThemeValue={activeThemeValue as string}>
+                    <CartHydration />
+                    <Toaster />
+                    <NextIntlClientProvider messages={messages} locale={locale}>
+                      {children}
+                    </NextIntlClientProvider>
+                  </Providers>
+                </ThemeProvider>
+              </NuqsAdapter>
+            </LoadingProvider>
+          </HydrationErrorBoundary>
         </body>
       </html>
     )
