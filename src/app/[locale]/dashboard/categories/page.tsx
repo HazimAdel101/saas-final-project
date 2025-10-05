@@ -2,32 +2,31 @@ import PageContainer from '@/components/layout/page-container'
 import { Heading } from '@/components/ui/heading'
 import { Separator } from '@/components/ui/separator'
 import { DataTableSkeleton } from '@/components/ui/table/data-table-skeleton'
-import SubscriptionListing from '@/features/subscription/components/subscription-listing'
-import { getSubscriptions } from '@/features/subscription/actions/subscription-actions'
+import CategoryListing from '@/features/categories/components/category-listing'
+import { getCategories } from '@/features/categories/actions/category-actions'
 import { Suspense } from 'react'
-import { Button } from '@/components/ui/button'
 import { IconPlus } from '@tabler/icons-react'
 import Link from 'next/link'
 import { cn } from '@/lib/utils'
 import { buttonVariants } from '@/components/ui/button'
 
 export const metadata = {
-  title: 'Subscriptions Management'
+  title: 'Categories Management'
 }
 
-export default async function SubscriptionsPage() {
-  const subscriptions = await getSubscriptions()
+export default async function CategoriesPage() {
+  const categories = await getCategories()
 
   return (
     <PageContainer scrollable={false}>
       <div className='flex flex-1 flex-col space-y-4'>
         <div className='flex items-start justify-between'>
           <Heading
-            title='Subscriptions'
-            description='Manage customer subscriptions and their details.'
+            title='Categories'
+            description='Manage your product categories and their organization.'
           />
           <Link
-            href='/en/dashboard/subscription/new'
+            href='/en/dashboard/categories/new'
             className={cn(buttonVariants(), 'text-xs md:text-sm')}
           >
             <IconPlus className='mr-2 size-4' /> Add New
@@ -36,10 +35,10 @@ export default async function SubscriptionsPage() {
         <Separator />
         <Suspense
           fallback={
-            <DataTableSkeleton columnCount={8} rowCount={5} filterCount={0} />
+            <DataTableSkeleton columnCount={5} rowCount={5} filterCount={0} />
           }
         >
-          <SubscriptionListing subscriptions={subscriptions} />
+          <CategoryListing categories={categories} />
         </Suspense>
       </div>
     </PageContainer>

@@ -13,7 +13,6 @@ import { notFound } from 'next/navigation'
 import { routing } from '@/i18n/routing'
 import LocaleRedirect from '@/components/locale-redirect'
 import { CartHydration } from '@/components/cart/cart-hydration'
-import LoadingProvider from '@/components/loading-provider'
 import HydrationErrorBoundary from '@/components/hydration-error-boundary'
 import '@unocss/reset/tailwind.css'
 import './globals.css'
@@ -70,6 +69,59 @@ export default async function RootLayout({
                     window.__REACT_DEVTOOLS_GLOBAL_HOOK__.on = function() {};
                   }
                 }
+                
+                // Clean up browser extension attributes that cause hydration mismatches
+                (function() {
+                  const cleanup = () => {
+                    const elements = document.querySelectorAll('*');
+                    elements.forEach((element) => {
+                      const attributesToRemove = [
+                        'bis_skin_checked',
+                        'bis_register',
+                        'data-new-gr-c-s-check-loaded',
+                        'data-gr-ext-installed',
+                        'data-grammarly-shadow-root',
+                        'data-1password-ignore',
+                        'data-lastpass-icon-root',
+                        'data-bitwarden-watching',
+                        'data-dashlane-rid',
+                        'data-1password-ignore'
+                      ];
+                      
+                      attributesToRemove.forEach(attr => {
+                        if (element.hasAttribute(attr)) {
+                          element.removeAttribute(attr);
+                        }
+                      });
+                      
+                      // Remove any attribute that starts with __processed_ or bis_
+                      Array.from(element.attributes).forEach(attr => {
+                        if (attr.name.startsWith('__processed_') || attr.name.startsWith('bis_')) {
+                          element.removeAttribute(attr.name);
+                        }
+                      });
+                    });
+                  };
+                  
+                  // Run cleanup immediately and after DOM is ready
+                  cleanup();
+                  if (document.readyState === 'loading') {
+                    document.addEventListener('DOMContentLoaded', cleanup);
+                  }
+                  
+                  // Also run cleanup on mutation observer to catch dynamically added attributes
+                  if (typeof MutationObserver !== 'undefined') {
+                    const observer = new MutationObserver(() => {
+                      cleanup();
+                    });
+                    observer.observe(document.body, {
+                      attributes: true,
+                      childList: true,
+                      subtree: true,
+                      attributeFilter: ['bis_skin_checked', 'bis_register', 'data-new-gr-c-s-check-loaded', 'data-gr-ext-installed']
+                    });
+                  }
+                })();
               `
             }}
           />
@@ -83,27 +135,25 @@ export default async function RootLayout({
           )}
         >
           <HydrationErrorBoundary>
-            <LoadingProvider>
-              <NextTopLoader showSpinner={false} />
-              <LocaleRedirect />
-              <NuqsAdapter>
-                <ThemeProvider
-                  attribute='class'
-                  defaultTheme='system'
-                  enableSystem
-                  disableTransitionOnChange
-                  enableColorScheme
-                >
-                  <Providers activeThemeValue={activeThemeValue as string}>
-                    <CartHydration />
-                    <Toaster />
-                    <NextIntlClientProvider messages={messages} locale={locale}>
-                      {children}
-                    </NextIntlClientProvider>
-                  </Providers>
-                </ThemeProvider>
-              </NuqsAdapter>
-            </LoadingProvider>
+            <NextTopLoader showSpinner={false} />
+            <LocaleRedirect />
+            <NuqsAdapter>
+              <ThemeProvider
+                attribute='class'
+                defaultTheme='system'
+                enableSystem
+                disableTransitionOnChange
+                enableColorScheme
+              >
+                <Providers activeThemeValue={activeThemeValue as string}>
+                  <CartHydration />
+                  <Toaster />
+                  <NextIntlClientProvider messages={messages} locale={locale}>
+                    {children}
+                  </NextIntlClientProvider>
+                </Providers>
+              </ThemeProvider>
+            </NuqsAdapter>
           </HydrationErrorBoundary>
         </body>
       </html>

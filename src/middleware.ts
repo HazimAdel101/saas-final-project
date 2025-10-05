@@ -24,13 +24,19 @@ export default clerkMiddleware(async (auth, req: NextRequest) => {
       return NextResponse.next()
     }
 
-    // Handle locale redirection for root path
+    // Handle locale redirection for root path and dashboard routes without locale
     if (pathname === '/') {
       const url = new URL('/en', req.url)
       return NextResponse.redirect(url)
     }
+    
+    // Redirect dashboard routes without locale to English locale
+    if (pathname.startsWith('/dashboard') && !pathname.startsWith('/en/dashboard') && !pathname.startsWith('/ar/dashboard')) {
+      const url = new URL(`/en${pathname}`, req.url)
+      return NextResponse.redirect(url)
+    }
 
-    // Protect dashboard routes
+    // Protect dashboard routes (only after locale handling)
     if (isProtectedRoute(req)) {
       try {
         await auth.protect()

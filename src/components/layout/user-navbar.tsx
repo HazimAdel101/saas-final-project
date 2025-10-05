@@ -27,10 +27,10 @@ export default function Navbar() {
     { code: 'ar', label: 'العربية' }
   ]
   return (
-    <header className='fixed top-0 right-0 z-[999] w-full border-b bg-primary-bg px-4 md:px-6'>
-      <div className='flex h-16 items-center justify-between gap-4'>
+    <header className='fixed top-0 right-0 z-[999] w-full border-b bg-primary-bg px-4 md:px-6' suppressHydrationWarning>
+      <div className='flex h-16 items-center justify-between gap-4' suppressHydrationWarning>
         {/* Left side: Mobile menu and logo */}
-        <div className='flex items-center gap-2'>
+        <div className='flex items-center gap-2' suppressHydrationWarning>
           {/* Mobile menu trigger */}
           <Popover>
             <PopoverTrigger asChild>
@@ -84,17 +84,18 @@ export default function Navbar() {
         </div>
 
         {/* Center: Search bar */}
-        <div className='flex flex-1 justify-center'>
-          <div className='w-full max-w-md'>
+        <div className='flex flex-1 justify-center' suppressHydrationWarning>
+          <div className='w-full max-w-md' suppressHydrationWarning>
             <input
               type='text'
               placeholder={t('placeholder')}
               className='border-input bg-background text-foreground placeholder:text-muted-foreground focus-visible:ring-ring w-full rounded-md border px-3 py-1.5 text-sm transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50'
+              suppressHydrationWarning
             />
           </div>
         </div>
 
-        <div className='flex items-center gap-4'>
+        <div className='flex items-center gap-4' suppressHydrationWarning>
           <Popover>
             <PopoverTrigger asChild>
               <Button variant='ghost' size='icon' aria-label='Change language'>

@@ -27,6 +27,38 @@ export const navItems: NavItem[] = [
     items: [] // No child items
   },
   {
+    title: 'Management',
+    url: '#',
+    icon: 'settings',
+    isActive: false,
+    items: [
+      {
+        title: 'Brands',
+        url: '/en/dashboard/brands',
+        icon: 'tag',
+        shortcut: ['b', 'b']
+      },
+      {
+        title: 'Categories',
+        url: '/en/dashboard/categories',
+        icon: 'folder',
+        shortcut: ['c', 'c']
+      },
+      {
+        title: 'Tags',
+        url: '/en/dashboard/tags',
+        icon: 'tag',
+        shortcut: ['t', 't']
+      },
+      {
+        title: 'Subscriptions',
+        url: '/en/dashboard/subscription',
+        icon: 'creditCard',
+        shortcut: ['s', 's']
+      }
+    ]
+  },
+  {
     title: 'Account',
     url: '#', // Placeholder as there is no direct link for the parent
     icon: 'billing',

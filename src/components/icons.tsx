@@ -8,6 +8,7 @@ import {
   IconCreditCard,
   IconFile,
   IconFileText,
+  IconFolder,
   IconHelpCircle,
   IconPhoto,
   IconDeviceLaptop,
@@ -22,6 +23,7 @@ import {
   IconPlus,
   IconSettings,
   IconSun,
+  IconTag,
   IconTrash,
   IconBrandTwitter,
   IconUser,
@@ -66,5 +68,7 @@ export const Icons = {
   laptop: IconDeviceLaptop,
   github: IconBrandGithub,
   twitter: IconBrandTwitter,
-  check: IconCheck
+  check: IconCheck,
+  tag: IconTag,
+  folder: IconFolder
 }
