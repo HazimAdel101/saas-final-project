@@ -160,7 +160,7 @@ export default function ProductForm({
     price_ksa: 0,
     discount_usd: 0,
     discount_ksa: 0,
-    brand_id: "none",
+    brand_id: undefined,
     category_ids: [],
     tag_ids: []
   }
@@ -241,7 +241,7 @@ export default function ProductForm({
         discount_usd: values.discount_usd,
         discount_ksa: values.discount_ksa,
         imageUrl: uploadedImageUrl,
-        brand_id: values.brand_id === "none" ? undefined : values.brand_id,
+        brand_id: values.brand_id,
         category_ids: values.category_ids,
         tag_ids: values.tag_ids || []
       }
@@ -424,8 +424,8 @@ export default function ProductForm({
                     <FormLabel>Select Categories *</FormLabel>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       {categories.map((category) => {
-                        const englishTranslation = category.translations?.find(t => t.language.code === 'en')
-                        const arabicTranslation = category.translations?.find(t => t.language.code === 'ar')
+                        const englishTranslation = category.translations?.find((t: any) => t.language.code === 'en')
+                        const arabicTranslation = category.translations?.find((t: any) => t.language.code === 'ar')
                         const categoryName = englishTranslation?.name || 'Unnamed Category'
                         
                         return (
@@ -477,8 +477,8 @@ export default function ProductForm({
                     <FormLabel>Select Tags (Optional)</FormLabel>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       {tags.map((tag) => {
-                        const englishTranslation = tag.translations?.find(t => t.language.code === 'en')
-                        const arabicTranslation = tag.translations?.find(t => t.language.code === 'ar')
+                        const englishTranslation = tag.translations?.find((t: any) => t.language.code === 'en')
+                        const arabicTranslation = tag.translations?.find((t: any) => t.language.code === 'ar')
                         const tagName = englishTranslation?.name || 'Unnamed Tag'
                         
                         return (

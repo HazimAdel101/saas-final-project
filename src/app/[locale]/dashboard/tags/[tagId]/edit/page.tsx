@@ -21,13 +21,17 @@ export default async function EditTagPage({
     notFound()
   }
 
+  // Get the English translation name for display
+  const englishTranslation = tag.translations.find(t => t.language.code === 'en')
+  const tagName = englishTranslation?.name || 'Tag'
+
   return (
     <PageContainer scrollable={false}>
       <div className='flex flex-1 flex-col space-y-4'>
         <div className='flex items-start justify-between'>
           <Heading
             title='Edit Tag'
-            description={`Edit the tag: ${tag.name}`}
+            description={`Edit the tag: ${tagName}`}
           />
         </div>
         <Separator />

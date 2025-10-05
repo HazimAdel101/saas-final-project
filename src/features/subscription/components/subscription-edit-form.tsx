@@ -119,7 +119,7 @@ export default function SubscriptionEditForm({ subscription }: SubscriptionEditF
     if (!product?.ServiceDetails) return 'Unknown Service'
     
     const serviceDetail = product.ServiceDetails.find(
-      detail => detail.language.code === 'en'
+      (detail: any) => detail.language.code === 'en'
     )
     return serviceDetail?.name || product.ServiceDetails[0]?.name || 'Unknown Service'
   }

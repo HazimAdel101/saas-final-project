@@ -36,6 +36,8 @@ model ServiceDetail {
   company     String?
   service     Service  @relation(fields: [service_id], references: [id], onDelete: Cascade)
   language    Language @relation(fields: [language_id], references: [id], onDelete: Cascade)
+
+  @@unique([service_id, language_id])
 }
 
 model Language {

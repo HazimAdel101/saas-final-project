@@ -4,7 +4,6 @@ import createNextIntlPlugin from 'next-intl/plugin'
 
 // Define the base Next.js configuration
 const baseConfig: NextConfig = {
-  output: 'standalone',
   images: {
     remotePatterns: [
       {
@@ -31,6 +30,10 @@ const baseConfig: NextConfig = {
     maxInactiveAge: 25 * 1000,
     pagesBufferLength: 2,
   },
+  // Add experimental features for better font handling
+  experimental: {
+    optimizePackageImports: ['next/font/google']
+  }
 }
 
 let configWithPlugins = baseConfig

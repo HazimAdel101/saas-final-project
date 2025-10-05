@@ -53,7 +53,7 @@ export const navItems: NavItem[] = [
       {
         title: 'Subscriptions',
         url: '/en/dashboard/subscription',
-        icon: 'creditCard',
+        icon: 'billing',
         shortcut: ['s', 's']
       }
     ]

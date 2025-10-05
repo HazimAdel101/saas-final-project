@@ -1,55 +1,35 @@
-import {
-  Geist,
-  Geist_Mono,
-  Instrument_Sans,
-  Inter,
-  Mulish,
-  Noto_Sans_Mono
-} from 'next/font/google'
-
 import { cn } from '@/lib/utils'
 
-const fontSans = Geist({
-  subsets: ['latin'],
+// Use system fonts instead of Google Fonts to avoid import issues
+const fontSans = {
   variable: '--font-sans',
-  display: 'swap',
-  fallback: ['system-ui', 'arial']
-})
+  className: 'font-sans'
+}
 
-const fontMono = Geist_Mono({
-  subsets: ['latin'],
+const fontMono = {
   variable: '--font-mono',
-  display: 'swap',
-  fallback: ['monospace']
-})
+  className: 'font-mono'
+}
 
-const fontInstrument = Instrument_Sans({
-  subsets: ['latin'],
+const fontInstrument = {
   variable: '--font-instrument',
-  display: 'swap',
-  fallback: ['system-ui', 'arial']
-})
+  className: 'font-sans'
+}
 
-const fontNotoMono = Noto_Sans_Mono({
-  subsets: ['latin'],
+const fontNotoMono = {
   variable: '--font-noto-mono',
-  display: 'swap',
-  fallback: ['monospace']
-})
+  className: 'font-mono'
+}
 
-const fontMullish = Mulish({
-  subsets: ['latin'],
+const fontMullish = {
   variable: '--font-mullish',
-  display: 'swap',
-  fallback: ['system-ui', 'arial']
-})
+  className: 'font-sans'
+}
 
-const fontInter = Inter({
-  subsets: ['latin'],
+const fontInter = {
   variable: '--font-inter',
-  display: 'swap',
-  fallback: ['system-ui', 'arial']
-})
+  className: 'font-sans'
+}
 
 export const fontVariables = cn(
   fontSans.variable,

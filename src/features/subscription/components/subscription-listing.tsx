@@ -2,6 +2,8 @@
 
 import { useState } from 'react'
 import { DataTable } from '@/components/ui/table/data-table'
+import { DataTableToolbar } from '@/components/ui/table/data-table-toolbar'
+import { useDataTable } from '@/hooks/use-data-table'
 import { ColumnDef } from '@tanstack/react-table'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -31,7 +33,7 @@ export default function SubscriptionListing({ subscriptions }: SubscriptionListi
     if (!subscription.service?.ServiceDetails) return 'No Service'
     
     const serviceDetail = subscription.service.ServiceDetails.find(
-      detail => detail.language.code === locale
+      (detail: any) => detail.language.code === locale
     )
     return serviceDetail?.name || subscription.service.ServiceDetails[0]?.name || 'No Service'
   }
@@ -159,14 +161,19 @@ export default function SubscriptionListing({ subscriptions }: SubscriptionListi
     }
   ]
 
+  const { table } = useDataTable({
+    data,
+    columns,
+    pageCount: Math.ceil(data.length / 10),
+    shallow: false,
+    debounceMs: 500
+  })
+
   return (
     <div className="space-y-4">
-      <DataTable
-        columns={columns}
-        data={data}
-        searchKey="subscription_email"
-        searchPlaceholder="Search by email..."
-      />
+      <DataTable table={table}>
+        <DataTableToolbar table={table} />
+      </DataTable>
     </div>
   )
 }
