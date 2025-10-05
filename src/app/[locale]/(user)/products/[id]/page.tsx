@@ -16,6 +16,37 @@ export default async function ProductPage({
         include: {
           language: true
         }
+      },
+      brand: true,
+      categories: {
+        include: {
+          category: {
+            include: {
+              translations: {
+                where: {
+                  language: {
+                    code: locale
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      tags: {
+        include: {
+          tag: {
+            include: {
+              translations: {
+                where: {
+                  language: {
+                    code: locale
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     }
   })

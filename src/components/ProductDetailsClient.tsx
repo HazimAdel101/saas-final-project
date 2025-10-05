@@ -6,6 +6,7 @@ import { Separator } from '@/components/ui/separator'
 import { useTranslations } from 'next-intl'
 import { ProductTabs } from '@/components/product.tabs'
 import { Button } from './ui/button'
+import { Badge } from './ui/badge'
 
 type Language = {
   id: number
@@ -23,6 +24,44 @@ type ServiceDetail = {
   language: Language
 }
 
+type Brand = {
+  id: number
+  name: string
+  color: string
+}
+
+type CategoryTranslation = {
+  id: number
+  name: string
+}
+
+type Category = {
+  id: number
+  color: string
+  translations: CategoryTranslation[]
+}
+
+type ServiceCategory = {
+  id: number
+  category: Category
+}
+
+type TagTranslation = {
+  id: number
+  name: string
+}
+
+type Tag = {
+  id: number
+  color: string
+  translations: TagTranslation[]
+}
+
+type ServiceTag = {
+  id: number
+  tag: Tag
+}
+
 type Product = {
   id: number
   price_usd: number
@@ -31,6 +70,9 @@ type Product = {
   discount_ksa: number
   image_url: string
   ServiceDetails: ServiceDetail[]
+  brand: Brand | null
+  categories: ServiceCategory[]
+  tags: ServiceTag[]
 }
 
 export default function ProductDetailsClient({
@@ -86,16 +128,56 @@ export default function ProductDetailsClient({
           <table className='border-separate border-spacing-2'>
             <tbody>
               <tr>
-                <td>{t('brand')}</td>
-                <td>{product.ServiceDetails?.[index]?.company}</td>
+                <td className='font-medium'>{t('brand')}</td>
+                <td>
+                  {product.brand ? (
+                    <Badge variant="secondary" style={{ backgroundColor: product.brand.color }}>
+                      {product.brand.name}
+                    </Badge>
+                  ) : (
+                    <span className='text-muted-foreground'>{t('noBrand')}</span>
+                  )}
+                </td>
               </tr>
               <tr>
-                <td>{t('tags')}</td>
-                <td>{product.ServiceDetails?.[index]?.company}</td>
+                <td className='font-medium'>{t('tags')}</td>
+                <td>
+                  {product.tags.length > 0 ? (
+                    <div className='flex flex-wrap gap-1'>
+                      {product.tags.map((serviceTag) => (
+                        <Badge 
+                          key={serviceTag.id} 
+                          variant="outline"
+                          style={{ borderColor: serviceTag.tag.color }}
+                        >
+                          {serviceTag.tag.translations[0]?.name || 'Untitled Tag'}
+                        </Badge>
+                      ))}
+                    </div>
+                  ) : (
+                    <span className='text-muted-foreground'>{t('noTags')}</span>
+                  )}
+                </td>
               </tr>
               <tr>
-                <td>{t('categories')}</td>
-                <td>{product.ServiceDetails?.[index]?.company}</td>
+                <td className='font-medium'>{t('categories')}</td>
+                <td>
+                  {product.categories.length > 0 ? (
+                    <div className='flex flex-wrap gap-1'>
+                      {product.categories.map((serviceCategory) => (
+                        <Badge 
+                          key={serviceCategory.id} 
+                          variant="secondary"
+                          style={{ backgroundColor: serviceCategory.category.color }}
+                        >
+                          {serviceCategory.category.translations[0]?.name || 'Untitled Category'}
+                        </Badge>
+                      ))}
+                    </div>
+                  ) : (
+                    <span className='text-muted-foreground'>{t('noCategories')}</span>
+                  )}
+                </td>
               </tr>
             </tbody>
           </table>
