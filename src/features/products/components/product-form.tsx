@@ -28,6 +28,7 @@ import { useForm } from 'react-hook-form'
 import React, { useState, useEffect } from 'react'
 import { useRouter } from '@/i18n/navigation'
 import { useTranslations } from 'next-intl'
+import { getColorWithOpacity, getFullColor } from '@/lib/utils'
 import Image from 'next/image'
 import * as z from 'zod'
 import { addProduct, getBrandsForSelect, getCategoriesForSelect, getTagsForSelect } from '@/features/products/actions/product-actions'
@@ -449,7 +450,16 @@ export default function ProductForm({
                                 className="w-3 h-3 rounded-full" 
                                 style={{ backgroundColor: category.color }}
                               />
-                              {categoryName}
+                              <Badge
+                                variant="outline"
+                                style={{ 
+                                  backgroundColor: getColorWithOpacity(category.color),
+                                  color: getFullColor(category.color),
+                                  borderColor: getFullColor(category.color)
+                                }}
+                              >
+                                {categoryName}
+                              </Badge>
                               {arabicTranslation && (
                                 <span className="text-muted-foreground text-xs">
                                   ({arabicTranslation.name})
@@ -502,7 +512,16 @@ export default function ProductForm({
                                 className="w-3 h-3 rounded-full" 
                                 style={{ backgroundColor: tag.color }}
                               />
-                              {tagName}
+                              <Badge
+                                variant="outline"
+                                style={{ 
+                                  backgroundColor: getColorWithOpacity(tag.color),
+                                  color: getFullColor(tag.color),
+                                  borderColor: getFullColor(tag.color)
+                                }}
+                              >
+                                {tagName}
+                              </Badge>
                               {arabicTranslation && (
                                 <span className="text-muted-foreground text-xs">
                                   ({arabicTranslation.name})

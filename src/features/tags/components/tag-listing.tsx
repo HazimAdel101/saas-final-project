@@ -15,6 +15,7 @@ import { IconEdit, IconTrash, IconPlus } from '@tabler/icons-react'
 import Link from 'next/link'
 import { useTranslations } from 'next-intl'
 import { Tag } from './tag-form'
+import { getColorWithOpacity, getFullColor } from '@/lib/utils'
 
 interface TagListingProps {
   tags: Tag[]
@@ -109,7 +110,15 @@ export default function TagListing({ tags }: TagListingProps) {
                           className='h-4 w-4 rounded-full border'
                           style={{ backgroundColor: tag.color }}
                         />
-                        <Badge variant='secondary'>{tag.color}</Badge>
+                        <Badge 
+                          variant='secondary'
+                          style={{ 
+                            backgroundColor: getColorWithOpacity(tag.color),
+                            color: getFullColor(tag.color)
+                          }}
+                        >
+                          {tag.color}
+                        </Badge>
                       </div>
                     </TableCell>
                     <TableCell>

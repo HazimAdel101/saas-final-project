@@ -1,4 +1,3 @@
-import { LoadingGrid } from '@/components/loading-skeleton'
 
 export default function Loading() {
   return (
@@ -12,7 +11,6 @@ export default function Loading() {
               Please wait while we fetch the latest products for you.
             </p>
           </div>
-          <LoadingGrid />
         </div>
       </div>
     </div>

@@ -15,6 +15,7 @@ import { IconEdit, IconTrash, IconPlus } from '@tabler/icons-react'
 import Link from 'next/link'
 import { useTranslations } from 'next-intl'
 import { Category } from './category-form'
+import { getColorWithOpacity, getFullColor } from '@/lib/utils'
 
 interface CategoryListingProps {
   categories: Category[]
@@ -109,7 +110,15 @@ export default function CategoryListing({ categories }: CategoryListingProps) {
                           className='h-4 w-4 rounded-full border'
                           style={{ backgroundColor: category.color }}
                         />
-                        <Badge variant='secondary'>{category.color}</Badge>
+                        <Badge 
+                          variant='secondary'
+                          style={{ 
+                            backgroundColor: getColorWithOpacity(category.color),
+                            color: getFullColor(category.color)
+                          }}
+                        >
+                          {category.color}
+                        </Badge>
                       </div>
                     </TableCell>
                     <TableCell>

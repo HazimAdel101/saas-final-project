@@ -7,6 +7,7 @@ import { useTranslations } from 'next-intl'
 import { ProductTabs } from '@/components/product.tabs'
 import { Button } from './ui/button'
 import { Badge } from './ui/badge'
+import { getColorWithOpacity, getFullColor } from '@/lib/utils'
 
 type Language = {
   id: number
@@ -131,7 +132,13 @@ export default function ProductDetailsClient({
                 <td className='font-medium'>{t('brand')}</td>
                 <td>
                   {product.brand ? (
-                    <Badge variant="secondary" style={{ backgroundColor: product.brand.color }}>
+                    <Badge 
+                      variant="secondary" 
+                      style={{ 
+                        backgroundColor: getColorWithOpacity(product.brand.color),
+                        color: getFullColor(product.brand.color)
+                      }}
+                    >
                       {product.brand.name}
                     </Badge>
                   ) : (
@@ -147,8 +154,11 @@ export default function ProductDetailsClient({
                       {product.tags.map((serviceTag) => (
                         <Badge 
                           key={serviceTag.id} 
-                          variant="outline"
-                          style={{ borderColor: serviceTag.tag.color }}
+                          variant="secondary"
+                          style={{ 
+                            backgroundColor: getColorWithOpacity(serviceTag.tag.color),
+                            color: getFullColor(serviceTag.tag.color)
+                          }}
                         >
                           {serviceTag.tag.translations[0]?.name || 'Untitled Tag'}
                         </Badge>
@@ -168,7 +178,10 @@ export default function ProductDetailsClient({
                         <Badge 
                           key={serviceCategory.id} 
                           variant="secondary"
-                          style={{ backgroundColor: serviceCategory.category.color }}
+                          style={{ 
+                            backgroundColor: getColorWithOpacity(serviceCategory.category.color),
+                            color: getFullColor(serviceCategory.category.color)
+                          }}
                         >
                           {serviceCategory.category.translations[0]?.name || 'Untitled Category'}
                         </Badge>
