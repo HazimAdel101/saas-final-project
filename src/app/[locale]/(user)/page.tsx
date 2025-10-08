@@ -1,5 +1,4 @@
 import ProductCard from '@/components/product-card'
-import { LoadingGrid } from '@/components/loading-skeleton'
 import { prisma, testDatabaseConnection } from '@/lib/db'
 import { Suspense } from 'react'
 
@@ -50,7 +49,7 @@ export default async function Home({ params }: Props) {
     <div className='h-screen'>
       <div className='mt-16 flex-1 overflow-y-auto'>
         <div className='mx-auto max-w-7xl px-4 py-2 sm:px-6 lg:px-8'>
-          <Suspense fallback={<LoadingGrid />}>
+          <Suspense fallback={<h1 className='text-2xl font-bold'>Loading...</h1>}>
             {filteredProducts.length === 0 ? (
               <div className='flex-col-center py-12'>
                 <h2 className='mb-4 font-title'>
