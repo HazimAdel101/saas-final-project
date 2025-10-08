@@ -7,7 +7,7 @@ import {
   PopoverContent,
   PopoverTrigger
 } from '@/components/ui/popover'
-import { ThemeTogglePopover } from '@/components/layout/ThemeTogglePopover'
+import { ModeToggle } from '@/components/layout/ThemeToggle/theme-toggle'
 import { CartButton } from '@/components/cart/cart-button'
 import { useLanguage } from '@/context/LanguageContext'
 import { useTranslations } from 'next-intl'
@@ -128,7 +128,7 @@ export default function Navbar() {
               ))}
             </PopoverContent>
           </Popover>
-          <ThemeTogglePopover />
+          <ModeToggle />
           <CartButton />
           {isSignedIn ? (
             <div className='flex items-center gap-2'>

@@ -50,12 +50,6 @@
     "jewelry": "Jewelry",
     "beautyProducts": "Beauty Products"
   },
-  "ThemeTogglePopover": {
-    "changeTheme": "Change theme",
-    "light": "Light",
-    "dark": "Dark",
-    "system": "System"
-  },
   "Search": {
     "placeholder": "Search..."
   },

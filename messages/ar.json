@@ -56,12 +56,6 @@
     "jewelry": "مجوهرات",
     "beautyProducts": "منتجات تجميل"
   },
-  "ThemeTogglePopover": {
-    "changeTheme": "تغيير الثيم",
-    "light": "الفاتح",
-    "dark": "الليلي",
-    "system": "النظام"
-  },
   "Search": {
     "placeholder": "البحث..."
   },
